@@ -1,0 +1,49 @@
+:root {
+    --color-primary: #66BB6A;
+    --color-secondary: #388E3C;
+    --color-light: #A5D6A7;
+    --color-pink: #FF6E9A;
+    --color-background: white;
+    --color-dark-green: #2E7D32;
+    --color-text: gray;
+    --font-family: 'Helvetica Neue', Arial, sans-serif;
+    --font-size-base: 18px;
+    /* --spacing-base: 1rem; */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    font-family: var(--font-family);
+    color: var(--color-text);
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: var(--color-background);
+    font-size: var(--font-size-base);
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.btn {
+    background-color: var(--color-primary);
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: var(--font-size-base);
+    transition: 0.125s ease;
+    cursor: pointer;
+}
+.btn:hover {
+    background-color: var(--color-light);
+    transform: scale(1.05);
+}
