@@ -1,18 +1,40 @@
 function genRecipes(count = 5) {
     const recipeTemp = document.getElementById('recipeTemplate');
     const recipesList = document.getElementById('recipesList');
+    
+    // Clear existing recipes before generating new ones
+    recipesList.innerHTML = ''; 
+
     for (let i = 0; i < count; i++) {
         var newRecipe = recipeTemp.content.cloneNode(true);
         const name = genRecipeName();
         const description = genRecipeDescription();
-        newRecipe.querySelector('#recipeImage img').src = `https://placehold.co/250x160/025b3f/2ec68a/?text=${name}\\n- ${i + 1} -`;
-        newRecipe.querySelector('#recipeTitle').textContent = name;
-        newRecipe.querySelector('#recipeDescription').textContent = description;
-        newRecipe.querySelector('#recipeLink').href = `./recipe-detail.html/recipe-${i + 1}`;
+        const recipeLinkElement = newRecipe.querySelector('#recipeLink');
+        
+        if (i === 0) {
+            // Card 1: Monte Cristo Sandwich (Explicitly set content and link)
+            newRecipe.querySelector('#recipeImage img').src = 'file:///C:/Users/gabij/OneDrive/Documents/3rd%20Semester/Semester%20Project/RecyShare/assets/food/Monte-Cristo-Sandwich-1664x834-1.jpg';
+            newRecipe.querySelector('#recipeTitle').textContent = "Monte Cristo Sandwich";
+            newRecipe.querySelector('#recipeDescription').textContent = "A delightful sweet and savory breakfast or brunch treat.";
+            
+            // Set the link DIRECTLY to the single recipe view page
+            recipeLinkElement.href = "file:///C:/Users/gabij/OneDrive/Documents/3rd%20Semester/Semester%20Project/RecyShare/pages/viewRecipe.html";
+        } else {
+            // Card 2 onwards: Dynamic Placeholders
+            newRecipe.querySelector('#recipeImage img').src = `https://placehold.co/250x160/025b3f/2ec68a/?text=${name}\\n- ${i + 1} -`;
+            newRecipe.querySelector('#recipeTitle').textContent = name;
+            newRecipe.querySelector('#recipeDescription').textContent = description;
+            
+            // Keep dynamic placeholders (if you intend to make these pages later)
+            // If you want ALL cards to go to the Monte Cristo page, set this to "./view_recipe.html" as well.
+            recipeLinkElement.href = `./recipe-detail.html/recipe-${i + 1}`; 
+        }
+
         recipesList.appendChild(newRecipe);
     }
 }
 
+// The search and other functions remain the same as they are functional.
 function search(args = "") {
     const filter = args.toLowerCase();
     const recipesContainer = document.querySelector('.recipes-container');

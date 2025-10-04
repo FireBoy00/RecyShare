@@ -1,0 +1,291 @@
+/* Main Content Wrapper */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Hero Section */
+.recipe-hero {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.hero-image-container {
+    width: 100%;
+    height: 450px;
+    overflow: hidden;
+    border-radius: 8px; 
+    position: relative;
+}
+
+.recipe-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0)); 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+    color: white;
+}
+
+.recipe-title {
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px #000000; 
+    color: white;
+}
+
+.share-icons {
+    position: absolute;
+    bottom: 8px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.share-icons .icon {
+    filter: invert(100%); 
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+/* Recipe Meta Info */
+.recipe-meta-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 30px;
+}
+
+.author-info {
+    display: flex;
+    align-items: center;
+}
+
+.author-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.author-handle {
+    font-weight: bold;
+    color: #000000;
+}
+
+.recipe-count {
+    font-size: 0.9em;
+    color: #000000;
+}
+
+.meta-details {
+    display: flex;
+    gap: 40px;
+    font-size: 0.9em;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.meta-item strong {
+    color: rgb(0, 0, 0);
+}
+.meta-item p {
+    margin: 0;
+    color: rgb(0, 0, 0);
+}
+
+.meta-item .icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* --- Main Content (Ingredients and Instructions) --- */
+.recipe-content-main {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.ingredients-section {
+    flex: 1 1 35%; /* Takes about a third of the space */
+    background: linear-gradient(to bottom, var(--color-light), var(--color-dark-green));
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ingredients-title, .instructions-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: rgb(0, 0, 0);
+}
+
+.ingredients-list {
+    list-style-type: none; 
+    padding-left: 0;
+    color: rgb(0, 0, 0);
+}
+
+.ingredients-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2); /* Light separator */
+    color: rgb(0, 0, 0);
+}
+
+.ingredients-list li:last-child {
+    border-bottom: none;
+    color: rgb(0, 0, 0);
+}
+
+.instructions-section {
+    flex: 1 1 65%; /* Takes about two-thirds of the space */
+    padding: 0 10px;
+}
+.instructions-section h2{
+    padding-top: 19px;
+}
+
+.instructions-list {
+    padding-left: 20px;
+}
+
+.instructions-list li {
+    margin-bottom: 15px;
+    line-height: 1.6;
+    color: rgb(0, 0, 0);
+}
+
+/* --- Categories --- */
+.categories-section {
+    margin-bottom: 30px;
+}
+
+.categories-title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: rgb(0, 0, 0);
+}
+
+.category-tag {
+    display: inline-block;
+    background-color: #e0e0e0;
+    color: #000000;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+
+/* --- Comments --- */
+.comments-section {
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.comments-title {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: rgb(0, 0, 0);
+}
+
+.comment-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.comment-form .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.comment-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.comment-button {
+    background: linear-gradient(to bottom, var(--color-light), var(--color-dark-green));
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Individual Comment Styling */
+.comment-thread {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.comment-box {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    padding: 10px 0;
+}
+
+.comment-box .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.comment-details {
+    flex-grow: 1;
+}
+
+.comment-author {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.comment-text {
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.comment-actions {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.likes, .reply {
+    margin-right: 15px;
+    cursor: pointer;
+}
