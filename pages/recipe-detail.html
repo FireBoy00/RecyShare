@@ -4,12 +4,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../css/global.css">
-        <link rel="stylesheet" href="../css/home.css">
-        <link rel="stylesheet" href="../css/about.css">
         <link rel="stylesheet" href="../css/categories.css">
-        <link rel="stylesheet" href="../css/view_recipe.css">
+        <link rel="stylesheet" href="../css/recipe-detail.css">
         <script src="../js/global.js"></script>
-        <script src="../js/view_recipe.js"></script>
+        <script src="../js/recipe-detail.js"></script>
         <title>RecyShare</title>
     </head>
 
@@ -46,20 +44,20 @@
                         <input type="search" id="searchBar" placeholder="Search...">
                     </div>
                     <div class="account">
-                        <img class="icon" src="../assets/icons/account_circle_48dp_000000_FILL0_wght300_GRAD200_opsz48.png"
+                        <img class="icon" src="../assets/developers/41_Gabija_07.jpg"
                             alt="Account Icon">
                     </div>
                 </div>
             </nav>
         </header>
 
-        <main>
+        <main id="recipeDetailContainer">
             <section class="recipe-hero">
                 <div class="hero-image-container">
                     <img src="../assets/food/Monte-Cristo-Sandwich-1664x834-1.jpg" alt="Monte Cristo Sandwich"
-                        class="recipe-image">
+                        class="recipe-image" id="recipeImage">
                     <div class="hero-overlay">
-                        <h1 class="recipe-title">Monte Cristo Sandwich</h1>
+                        <h1 class="recipe-title" id="recipeTitle">Monte Cristo Sandwich</h1>
                         <div class="share-icons">
                             <img src="../assets/icons/heart_plus_24dp_000000_FILL0_wght400_GRAD0_opsz24.png" alt="Save Icon"
                                 class="icon save-icon">
@@ -72,7 +70,7 @@
 
             <section class="recipe-meta-container">
                 <div class="author-info">
-                    <img src="../assets/images/author_avatar_placeholder.jpg" alt="Author Avatar" class="author-avatar">
+                    <img src="../assets/food/Monte-Cristo-Sandwich-1664x834-1.jpg" alt="Author Avatar" class="author-avatar">
                     <div class="author-text">
                         <p class="author-handle">@BestChefAlive</p>
                         <p class="recipe-count">20 recipes</p>
@@ -146,7 +144,7 @@
             <section class="comments-section">
                 <h2 class="comments-title">Comments</h2>
                 <div class="comment-form">
-                    <img src="../assets/images/author_avatar_placeholder.jpg" alt="User Avatar" class="user-avatar">
+                    <img src="../assets/developers/41_Gabija_07.jpg" alt="User Avatar" class="user-avatar">
                     <input type="text" placeholder="Add a comment" class="comment-input">
                     <button class="comment-button">Comment</button>
                 </div>

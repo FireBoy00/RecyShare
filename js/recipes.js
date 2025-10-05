@@ -16,19 +16,13 @@ function genRecipes(count = 5) {
             newRecipe.querySelector('#recipeImage img').src = '../assets/food/Monte-Cristo-Sandwich-1664x834-1.jpg';
             newRecipe.querySelector('#recipeTitle').textContent = "Monte Cristo Sandwich";
             newRecipe.querySelector('#recipeDescription').textContent = "A delightful sweet and savory breakfast or brunch treat.";
-            
-            // Set the link DIRECTLY to the single recipe view page
-            recipeLinkElement.href = "./viewRecipe.html";
         } else {
             // Card 2 onwards: Dynamic Placeholders
             newRecipe.querySelector('#recipeImage img').src = `https://placehold.co/250x160/025b3f/2ec68a/?text=${name}\\n- ${i + 1} -`;
             newRecipe.querySelector('#recipeTitle').textContent = name;
             newRecipe.querySelector('#recipeDescription').textContent = description;
-            
-            // Keep dynamic placeholders (if you intend to make these pages later)
-            // If you want ALL cards to go to the Monte Cristo page, set this to "./view_recipe.html" as well.
-            recipeLinkElement.href = `./recipe-detail.html/recipe-${i + 1}`; 
         }
+        recipeLinkElement.href = `./recipe-detail.html?recipe=${i + 1}`; 
 
         recipesList.appendChild(newRecipe);
     }
