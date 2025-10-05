@@ -18,7 +18,7 @@ function genRecipes(count = 5) {
             newRecipe.querySelector('#recipeDescription').textContent = "A delightful sweet and savory breakfast or brunch treat.";
             
             // Set the link DIRECTLY to the single recipe view page
-            recipeLinkElement.href = "../pages/viewRecipe.html";
+            recipeLinkElement.href = "./viewRecipe.html";
         } else {
             // Card 2 onwards: Dynamic Placeholders
             newRecipe.querySelector('#recipeImage img').src = `https://placehold.co/250x160/025b3f/2ec68a/?text=${name}\\n- ${i + 1} -`;
