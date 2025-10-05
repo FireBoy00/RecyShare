@@ -1,0 +1,178 @@
+/* Global defaults */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  background: #f5f7fa;
+  color: #111;
+}
+
+/* Optional wrapper if you add more steps later */
+#multiForm {
+  width: 100%;
+  height: auto;
+  padding: 24px 12px;
+}
+
+/* Form “card” */
+#NameForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  width: 320px;              /* tidy fixed width */
+  margin: 40px auto;         /* center on page */
+  padding: 20px;
+  background: #fff;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Labels */
+label,
+#l1 {
+  font-weight: 600;
+  margin-bottom: 4px;
+  text-decoration: none;
+}
+#l2 {
+  font-weight: 600;
+  margin-bottom: 4px;
+  text-decoration: none;
+}
+#l3 {
+  font-weight: 600;
+  margin-bottom: 4px;
+  text-decoration: none;
+}
+#l4 {
+  font-weight: 600;
+  margin-bottom: 4px;
+  text-decoration: none;
+}
+
+
+/* Inputs */
+input[type="text"] {
+  padding: 10px 12px;
+  border: 1px solid #cfd4dc;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #fff;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #66BB6A;
+  box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.18);
+}
+
+/* Buttons */
+button {
+  padding: 10px 12px;
+  border: none;
+  border-radius: 8px;
+  background: #66BB6A;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.02s ease;
+}
+
+button:hover {
+  background: #005fcc;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+/* Example hover for <b> tags if you use any */
+b:hover {
+  background-color: #e5e7eb;
+}
+    #multiForm.grid2x2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* 2 columns: TL, TR, BL, BR */
+      gap: 24px;
+      max-width: 900px;         /* prevent stretching across page */
+      margin: 40px auto;        /* center the grid */
+      padding: 0 12px;
+    }
+
+    /* Optional: stack to one column on small screens */
+    @media (max-width: 640px) {
+      #multiForm.grid2x2 { grid-template-columns: 1fr; }
+    }
+
+    /* Simple “card” look for each block (adjust or remove as you like) */
+    .step {
+      border: 1px solid #d0d5dd;
+      border-radius: 10px;
+      padding: 16px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .step label {
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+
+    .step input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cfd4dc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .step button {
+      margin-top: 12px;
+      width: 100%;
+      padding: 10px 12px;
+      border: none;
+      border-radius: 8px;
+      background: #66BB6A;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* Full-width action row under the grid */
+    .actions {
+      grid-column: 1 / -1;      /* span both columns */
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+      margin-top: 8px;
+    }
+
+    .actions button {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .actions .reset { background: #e5e7eb; }
+    .actions .submit { background: #66BB6A; color: #fff; }
+
+    /* Output box */
+    #out {
+      max-width: 900px;
+      margin: 16px auto 40px;
+      padding: 12px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 13px;
+    }

@@ -87,3 +87,28 @@
 .recipe-card #removeBtn:hover .icon {
     transform: rotate(360deg);
 }
+.grid2x2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(280px, 1fr));
+  gap: 20px 28px;
+  align-items: start;
+  max-width: 1000px;
+}
+
+.step label { font-weight: 600; }
+.step input, .step textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.actions {
+  grid-column: 1 / -1;       /* submit button full width */
+  margin-top: 8px;
+}
+
+/* Mobile: single column */
+@media (max-width: 640px) {
+  .grid2x2 { grid-template-columns: 1fr; }
+}
