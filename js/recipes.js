@@ -3,7 +3,7 @@ function genRecipes(count = 5) {
     const recipesList = document.getElementById('recipesList');
     
     // Clear existing recipes before generating new ones
-    recipesList.innerHTML = ''; 
+    recipesList.innerHTML = '';
 
     for (let i = 0; i < count; i++) {
         var newRecipe = recipeTemp.content.cloneNode(true);
@@ -13,12 +13,12 @@ function genRecipes(count = 5) {
         
         if (i === 0) {
             // Card 1: Monte Cristo Sandwich (Explicitly set content and link)
-            newRecipe.querySelector('#recipeImage img').src = 'file:///C:/Users/gabij/OneDrive/Documents/3rd%20Semester/Semester%20Project/RecyShare/assets/food/Monte-Cristo-Sandwich-1664x834-1.jpg';
+            newRecipe.querySelector('#recipeImage img').src = '../assets/food/Monte-Cristo-Sandwich-1664x834-1.jpg';
             newRecipe.querySelector('#recipeTitle').textContent = "Monte Cristo Sandwich";
             newRecipe.querySelector('#recipeDescription').textContent = "A delightful sweet and savory breakfast or brunch treat.";
             
             // Set the link DIRECTLY to the single recipe view page
-            recipeLinkElement.href = "file:///C:/Users/gabij/OneDrive/Documents/3rd%20Semester/Semester%20Project/RecyShare/pages/viewRecipe.html";
+            recipeLinkElement.href = "../pages/viewRecipe.html";
         } else {
             // Card 2 onwards: Dynamic Placeholders
             newRecipe.querySelector('#recipeImage img').src = `https://placehold.co/250x160/025b3f/2ec68a/?text=${name}\\n- ${i + 1} -`;
