@@ -22,6 +22,8 @@
     padding: 16px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: 0.2s;
+    display: flex;
+    flex-direction: column;
 }
 .recipe-card:hover {
     box-shadow: 
@@ -64,6 +66,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: auto;
 }
 
 .recipe-card #removeBtn {
