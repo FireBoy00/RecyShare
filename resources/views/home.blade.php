@@ -20,7 +20,7 @@
             </div>
             <div class="right">
                 <ul class="nav-links">
-                    <li class="active"><a href="./home.html">Home</a></li>
+                    <li class="active"><a href="/home">Home</a></li>
                     <li><a href="/about">About</a></li>
                     <li><a href="/recipes">Recipes</a></li>
                     <li class="dropdown">

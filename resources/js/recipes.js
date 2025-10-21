@@ -22,7 +22,7 @@ function genRecipes(count = 5) {
             newRecipe.querySelector('#recipeTitle').textContent = name;
             newRecipe.querySelector('#recipeDescription').textContent = description;
         }
-        recipeLinkElement.href = `./recipe-detail.html?recipe=${i + 1}`; 
+        recipeLinkElement.href = `/recipe-details?recipe=${i + 1}`; 
 
         recipesList.appendChild(newRecipe);
     }
