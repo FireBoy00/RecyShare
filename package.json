@@ -3,8 +3,10 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "dev": "composer run dev", 
         "build": "vite build",
-        "dev": "vite"
+        "runVite": "vite",
+        "runLaravel": "php artisan serve"
     },
     "devDependencies": {
         "axios": "^1.11.0",
