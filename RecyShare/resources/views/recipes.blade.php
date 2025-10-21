@@ -54,10 +54,6 @@
         </header>
         <template id="recipeTemplate">
             <div class="recipe-card">
-                <div id="removeBtn">
-                    <img class="icon" src="/assets/icons/delete_48dp_000000_FILL0_wght300_GRAD200_opsz48.png"
-                        alt="Remove">
-                </div>
                 <div class="recipe-image" id="recipeImage">
                     <img src="https://placehold.co/250x160/025b3f/2ec68a/?text=Sample+Recipe\n- 1 -" alt="Sample Recipe">
                 </div>

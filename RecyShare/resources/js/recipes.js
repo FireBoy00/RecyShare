@@ -64,12 +64,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('searchBar').addEventListener('input', function() {
         search(this.value);
     });
-    document.querySelectorAll('#removeBtn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            this.parentElement.remove();
-            search(document.getElementById('searchBar').value); // Update the count after removal
-        });
-    });
     search(); // Initial search to set the count
 });
 
