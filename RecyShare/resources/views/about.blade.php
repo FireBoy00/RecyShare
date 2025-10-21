@@ -4,12 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/global.css">
-    <link rel="stylesheet" href="../css/home.css">
-    <link rel="stylesheet" href="../css/about.css">
-    <link rel="stylesheet" href="../css/categories.css">
-    <script src="../js/global.js"></script>
-    <script src="../js/about.js"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/about.css', 'resources/js/about.js'])
     <title>RecyShare</title>
 </head>
 
@@ -19,15 +15,15 @@
         <nav class="navbar">
             <div class="left">
                 <div class="logo">
-                    <img src="../assets/logos/recyshare-logo-no-text.png" alt="RecyShare Logo">
+                    <img src="/assets/logos/recyshare-logo-no-text.png" alt="RecyShare Logo">
                     <h3>RecyShare</h3>
                 </div>
             </div>
             <div class="right">
                 <ul class="nav-links">
-                    <li><a href="./home.html">Home</a></li>
-                    <li class="active"><a href="./about.html">About</a></li>
-                    <li><a href="./recipes.html">Recipes</a></li>
+                    <li><a href="/home">Home</a></li>
+                    <li class="active"><a href="/about">About</a></li>
+                    <li><a href="/recipes">Recipes</a></li>
                     <li class="dropdown">
                         <span class="dropbtn">Categories</span>
                         <div class="dropdown-content">
@@ -41,12 +37,12 @@
                     </li>
                 </ul>
                 <div class="search-bar">
-                    <img class="icon" src="../assets/icons/search_48dp_000000_FILL0_wght300_GRAD200_opsz48.png"
+                    <img class="icon" src="/assets/icons/search_48dp_000000_FILL0_wght300_GRAD200_opsz48.png"
                         alt="Search Icon">
                     <input type="search" id="searchBar" placeholder="Search...">
                 </div>
                 <div class="account">
-                    <img class="icon" src="../assets/icons/account_circle_48dp_000000_FILL0_wght300_GRAD200_opsz48.png"
+                    <img class="icon" src="/assets/icons/account_circle_48dp_000000_FILL0_wght300_GRAD200_opsz48.png"
                         alt="Account Icon">
                 </div>
             </div>
@@ -74,7 +70,7 @@
             </p>
 
             <div class="logo">
-                <img src="../assets/logos/recyshare-logo-no-text.png" alt="">
+                <img src="/assets/logos/recyshare-logo-no-text.png" alt="">
             </div>
             <div class="text">Let's get cooking!</div>
         </section>
@@ -84,27 +80,27 @@
             <h2>Meet our Developers!</h2>
             <div class="developer-row">
                 <article class="developer">
-                    <img src="../assets/developers/Gabija.jpg" alt="Adrian">
+                    <img src="/assets/developers/Gabija.jpg" alt="Adrian">
                     <p>Adrian</p>
                 </article>
                 <article class="developer">
-                    <img src="../assets/developers/Gabija.jpg" alt="Gabija">
+                    <img src="/assets/developers/Gabija.jpg" alt="Gabija">
                     <p>Gabija</p>
                 </article>
                 <article class="developer">
-                    <img src="../assets/developers/Gabija.jpg" alt="Aleksandra">
+                    <img src="/assets/developers/Gabija.jpg" alt="Aleksandra">
                     <p>Aleksandra</p>
                 </article>
                 <article class="developer">
-                    <img src="../assets/developers/Gabija.jpg" alt="Dorina">
+                    <img src="/assets/developers/Gabija.jpg" alt="Dorina">
                     <p>Dorina</p>
                 </article>
                 <article class="developer">
-                    <img src="../assets/developers/Gabija.jpg" alt="Jakub">
+                    <img src="/assets/developers/Gabija.jpg" alt="Jakub">
                     <p>Jakub</p>
                 </article>
                 <article class="developer">
-                    <img src="../assets/developers/Gabija.jpg" alt="Tomass">
+                    <img src="/assets/developers/Gabija.jpg" alt="Tomass">
                     <p>Tomass</p>
                 </article>
             </div>

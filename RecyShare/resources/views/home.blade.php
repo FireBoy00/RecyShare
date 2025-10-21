@@ -4,11 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/global.css">
-    <link rel="stylesheet" href="../css/home.css">
-    <link rel="stylesheet" href="../css/categories.css">
-    <script src="../js/global.js"></script>
-    <script src="../js/home.js"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/home.css', 'resources/js/home.js'])
     <title>RecyShare</title>
 </head>
 
@@ -24,8 +21,8 @@
             <div class="right">
                 <ul class="nav-links">
                     <li class="active"><a href="./home.html">Home</a></li>
-                    <li><a href="./about.html">About</a></li>
-                    <li><a href="./recipes.html">Recipes</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/recipes">Recipes</a></li>
                     <li class="dropdown">
                         <span class="dropbtn">Categories</span>
                         <div class="dropdown-content">
@@ -39,12 +36,12 @@
                     </li>
                 </ul>
                 <div class="search-bar">
-                    <img class="icon" src="../assets/icons/search_48dp_000000_FILL0_wght300_GRAD200_opsz48.png"
+                    <img class="icon" src="/assets/icons/search_48dp_000000_FILL0_wght300_GRAD200_opsz48.png"
                         alt="Search">
                     <input type="search" id="searchBar" placeholder="Search...">
                 </div>
                 <div class="account">
-                    <img class="icon" src="../assets/icons/account_circle_48dp_000000_FILL0_wght300_GRAD200_opsz48.png"
+                    <img class="icon" src="/assets/icons/account_circle_48dp_000000_FILL0_wght300_GRAD200_opsz48.png"
                         alt="Account">
                 </div>
             </div>
@@ -52,7 +49,7 @@
         <div class="hero">
             <h1>Your Kitchen, Your Story.<br>
                 Share It With the World Today!</h1>
-            <a href="./sharearecipe.html" class="btn" id="shareBtn">Share a Recipe</a>
+            <a href="/share-a-recipe" class="btn" id="shareBtn">Share a Recipe</a>
         </div>
     </header>
 </body>

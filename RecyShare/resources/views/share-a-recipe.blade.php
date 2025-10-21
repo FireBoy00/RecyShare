@@ -3,11 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../css/global.css">
-        <link rel="stylesheet" href="../css/home.css">
-        <link rel="stylesheet" href="../css/sharearecipe.css">
-        <script src="../js/global.js"></script>
-        <script src="../js/home.js"></script>
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/sharearecipe.css', 'resources/js/sharearecipe.js'])
         <title>RecyShare</title>
     </head>
     <body>
@@ -15,23 +12,23 @@
             <nav class="navbar">
                 <div class="left">
                     <div class="logo">
-                        <img src="../assets/logos/recyshare-logo-no-text.png" alt="RecyShare Logo">
+                        <img src="/assets/logos/recyshare-logo-no-text.png" alt="RecyShare Logo">
                         <h3>RecyShare</h3>
                     </div>
                 </div>
                 <div class="right">
                     <ul class="nav-links">
-                        <li class="active"><a href="./home.html">Home</a></li>
-                        <li><a href="./about.html">About</a></li>
-                        <li><a href="./recipes.html">Recipes</a></li>
-                        <li><a href="./categories.html">Categories</a></li>
+                        <li class="active"><a href="/home">Home</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/recipes">Recipes</a></li>
+                        <li><a href="/categories">Categories</a></li>
                     </ul>
                     <div class="search-bar">
-                        <img class="icon" src="../assets/icons/search_48dp_000000_FILL0_wght300_GRAD200_opsz48.png" alt="Search">
+                        <img class="icon" src="/assets/icons/search_48dp_000000_FILL0_wght300_GRAD200_opsz48.png" alt="Search">
                         <input type="search" id="searchBar" placeholder="Search...">
                     </div>
                     <div class="account">
-                        <img class="icon" src="../assets/icons/account_circle_48dp_000000_FILL0_wght300_GRAD200_opsz48.png" alt="Account">
+                        <img class="icon" src="/assets/icons/account_circle_48dp_000000_FILL0_wght300_GRAD200_opsz48.png" alt="Account">
                     </div>
                 </div>
             </nav>

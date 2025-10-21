@@ -1,0 +1,130 @@
+:root {
+    --color-primary: #66BB6A;
+    --color-secondary: #388E3C;
+    --color-light: #A5D6A7;
+    --color-pink: #FF6E9A;
+    --color-background: white;
+    --color-dark-green: #2E7D32;
+    --color-text: gray;
+    --font-family: 'Helvetica Neue', Arial, sans-serif;
+    --font-size-base: 18px;
+    /* --spacing-base: 1rem; */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    font-family: var(--font-family);
+    color: var(--color-text);
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: var(--color-background);
+    font-size: var(--font-size-base);
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.btn {
+    width: fit-content;
+    background-color: var(--color-primary);
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: var(--font-size-base);
+    transition: 0.125s ease;
+    cursor: pointer;
+}
+.btn a {
+    color: white;
+    text-decoration: none;
+}
+.btn:hover {
+    background-color: var(--color-dark-green);
+}
+
+/* #region /** Navbar */
+.navbar {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.left, .right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    height: 36px;
+    display: flex;
+    align-items: center;
+}
+.logo img {
+    width: auto;
+    height: 100%;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+.nav-links li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.125s ease;
+    cursor: pointer;
+}
+.nav-links li:hover a,
+.nav-links li.active a {
+    color: var(--color-primary);
+}
+.nav-links li a {
+    text-decoration: none;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--color-text);
+    border-radius: 20px;
+    padding: 2.5px 5px;
+}
+.search-bar input {
+    border: none;
+    outline: none;
+    padding: 3px;
+    font-size: var(--font-size-base);
+    border-radius: 20px;
+}
+
+.account {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+}
+.account img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* #endregion Navbar */
+
