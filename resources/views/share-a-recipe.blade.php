@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @vite(['resources/css/sharearecipe.css', 'resources/js/sharearecipe.js'])
+        @vite(['resources/css/share-a-recipe.css', 'resources/js/share-a-recipe.js'])
         <title>RecyShare</title>
     </head>
     <body>
