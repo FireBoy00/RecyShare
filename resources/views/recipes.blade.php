@@ -59,9 +59,7 @@
                 </div>
                 <h3 class="recipe-title" id="recipeTitle">Sample Recipe Title</h3>
                 <p class="recipe-description" id="recipeDescription">A brief description of the sample recipe.</p>
-                <div class="btn">
-                    <a id="recipeLink" href="/recipe-details">View Recipe</a>
-                </div>
+                <a id="recipeLink" class="btn" href="/recipe-details">View Recipe</a>
             </div>
         </template>
     </body>
