@@ -12,23 +12,23 @@
             <nav class="navbar">
                 <div class="left">
                     <div class="logo">
-                        <img src="/assets/logos/recyshare-logo-no-text.png" alt="RecyShare Logo">
+                        <img src="{{ asset('assets/logos/recyshare-logo-no-text.png') }}" alt="RecyShare Logo">
                         <h3>RecyShare</h3>
                     </div>
                 </div>
                 <div class="right">
                     <ul class="nav-links">
-                        <li class="active"><a href="/home">Home</a></li>
-                        <li><a href="/about">About</a></li>
-                        <li><a href="/recipes">Recipes</a></li>
-                        <li><a href="/categories">Categories</a></li>
+                        <li class="active"><a href="{{ route('home') }}">Home</a></li>
+                        <li><a href="{{ route('about') }}">About</a></li>
+                        <li><a href="{{ route('recipes.index') }}">Recipes</a></li>
+                        <li><a href="{{ route('categories.index') }}">Categories</a></li>
                     </ul>
                     <div class="search-bar">
-                        <img class="icon" src="/assets/icons/search_48dp_000000_FILL0_wght300_GRAD200_opsz48.png" alt="Search">
+                        <img class="icon" src="{{ asset('assets/icons/search_48dp_000000_FILL0_wght300_GRAD200_opsz48.png') }}" alt="Search">
                         <input type="search" id="searchBar" placeholder="Search...">
                     </div>
                     <div class="account">
-                        <img class="icon" src="/assets/icons/account_circle_48dp_000000_FILL0_wght300_GRAD200_opsz48.png" alt="Account">
+                        <img class="icon" src="{{ asset('assets/icons/account_circle_48dp_000000_FILL0_wght300_GRAD200_opsz48.png') }}" alt="Account">
                     </div>
                 </div>
             </nav>

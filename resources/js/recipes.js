@@ -1,7 +1,8 @@
 function genRecipes(count = 5) {
     const recipeTemp = document.getElementById('recipeTemplate');
     const recipesList = document.getElementById('recipesList');
-    
+    // Get the route injected by Blade
+    const recipeDetailsRoute = window.recipeDetailsRoute || '/recipe-details';
     // Clear existing recipes before generating new ones
     recipesList.innerHTML = '';
 
@@ -10,7 +11,6 @@ function genRecipes(count = 5) {
         const name = genRecipeName();
         const description = genRecipeDescription();
         const recipeLinkElement = newRecipe.querySelector('#recipeLink');
-        
         if (i === 0) {
             // Card 1: Monte Cristo Sandwich (Explicitly set content and link)
             newRecipe.querySelector('#recipeImage img').src = '../assets/food/Monte-Cristo-Sandwich-1664x834-1.jpg';
@@ -18,12 +18,12 @@ function genRecipes(count = 5) {
             newRecipe.querySelector('#recipeDescription').textContent = "A delightful sweet and savory breakfast or brunch treat.";
         } else {
             // Card 2 onwards: Dynamic Placeholders
-            newRecipe.querySelector('#recipeImage img').src = `https://placehold.co/250x160/025b3f/2ec68a/?text=${name}\\n- ${i + 1} -`;
+            newRecipe.querySelector('#recipeImage img').src = `https://placehold.co/250x160/025b3f/2ec68a/?text=${name}\n- ${i + 1} -`;
             newRecipe.querySelector('#recipeTitle').textContent = name;
             newRecipe.querySelector('#recipeDescription').textContent = description;
         }
-        recipeLinkElement.href = `/recipe-details?recipe=${i + 1}`; 
-
+        // Use the route injected from Blade
+        recipeLinkElement.href = recipeDetailsRoute + "?recipe=" + (i + 1);
         recipesList.appendChild(newRecipe);
     }
 }
