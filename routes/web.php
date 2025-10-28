@@ -26,3 +26,21 @@ Route::get('/share-a-recipe', function () {
 Route::get('/about', function () {
     return view('about');
 });
+
+Route::get('/signup', function () {
+    return view('signup');
+});
+
+Route::get('/login', function () {
+    return view('login');
+});
+
+use Illuminate\Http\Request;
+
+Route::post('/signup', function (Request $request) {
+    return 'Signup data received: ' . $request->input('email');
+});
+
+Route::post('/login', function (Request $request) {
+    return 'Login data received: ' . $request->input('email');
+});
