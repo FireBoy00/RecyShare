@@ -8,10 +8,11 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/css/home.css',
-                'resources/css/about.css',
+                'resources/css/login.css',
                 'resources/css/recipe-detail.css',
                 'resources/css/recipes.css',
                 'resources/css/share-a-recipe.css',
+                'resources/css/signup.css',
                 'resources/js/app.js',
                 'resources/js/home.js',
                 'resources/js/about.js',

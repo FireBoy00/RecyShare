@@ -185,3 +185,6 @@ html, body {
     background-color: #ddd;
 }
 /* #endregion */
+
+@import './login.css';
+@import './signup.css';
