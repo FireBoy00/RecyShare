@@ -1,39 +1,33 @@
 <?php
 
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
+// Redirect root to /home
 Route::redirect('/', '/home');
-Route::get('/home', function () {
-    return view('home');
-});
 
-Route::get('/recipes', function () {
-    return view('recipes');
-});
+// Home
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/categories', function () {
-    return view('categories');
-});
+// Recipes
+Route::get('/recipes', [RecipeController::class, 'index'])->name('recipes.index');
+Route::get('/recipe-details/{id}', [RecipeController::class, 'show'])->name('recipes.show');
+Route::get('/share-a-recipe', [RecipeController::class, 'create'])->name('recipes.create');
 
-Route::get('/recipe-details', function () {
-    return view('recipe-details');
-});
+// About
+Route::get('/about', [AboutController::class, 'index'])->name('about');
 
-Route::get('/share-a-recipe', function () {
-    return view('share-a-recipe');
-});
-
-Route::get('/about', function () {
-    return view('about');
-});
+// Authentication (temporary Blade-based routes)
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
 
 Route::get('/signup', function () {
     return view('signup');
-});
-
-Route::get('/login', function () {
-    return view('login');
-});
+})->name('signup');
 
 use Illuminate\Http\Request;
 

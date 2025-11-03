@@ -15,15 +15,15 @@
         <nav class="navbar">
             <div class="left">
                 <div class="logo">
-                    <img src="/assets/logos/recyshare-logo-no-text.png" alt="RecyShare Logo">
+                    <img src="{{ asset('assets/logos/recyshare-logo-no-text.png') }}" alt="RecyShare Logo">
                     <h3>RecyShare</h3>
                 </div>
             </div>
             <div class="right">
                 <ul class="nav-links">
-                    <li><a href="/home">Home</a></li>
-                    <li class="active"><a href="/about">About</a></li>
-                    <li><a href="/recipes">Recipes</a></li>
+                    <li><a href="{{ route('home') }}">Home</a></li>
+                    <li class="active"><a href="{{ route('about') }}">About</a></li>
+                    <li><a href="{{ route('recipes.index') }}">Recipes</a></li>
                     <li class="dropdown">
                         <span class="dropbtn">Categories</span>
                         <div class="dropdown-content">
@@ -37,12 +37,12 @@
                     </li>
                 </ul>
                 <div class="search-bar">
-                    <img class="icon" src="/assets/icons/search_48dp_000000_FILL0_wght300_GRAD200_opsz48.png"
+                    <img class="icon" src="{{ asset('assets/icons/search_48dp_000000_FILL0_wght300_GRAD200_opsz48.png') }}"
                         alt="Search Icon">
                     <input type="search" id="searchBar" placeholder="Search...">
                 </div>
                 <div class="account">
-                    <img class="icon" src="/assets/icons/account_circle_48dp_000000_FILL0_wght300_GRAD200_opsz48.png"
+                    <img class="icon" src="{{ asset('assets/icons/account_circle_48dp_000000_FILL0_wght300_GRAD200_opsz48.png') }}"
                         alt="Account Icon">
                 </div>
             </div>
@@ -70,7 +70,7 @@
             </p>
 
             <div class="logo">
-                <img src="/assets/logos/recyshare-logo-no-text.png" alt="">
+                <img src="{{ asset('assets/logos/recyshare-logo-no-text.png') }}" alt="">
             </div>
             <div class="text">Let's get cooking!</div>
         </section>
@@ -80,27 +80,27 @@
             <h2>Meet our Developers!</h2>
             <div class="developer-row">
                 <article class="developer">
-                    <img src="/assets/developers/Gabija.jpg" alt="Adrian">
+                    <img src="{{ asset('assets/developers/Gabija.jpg') }}" alt="Adrian">
                     <p>Adrian</p>
                 </article>
                 <article class="developer">
-                    <img src="/assets/developers/Gabija.jpg" alt="Gabija">
+                    <img src="{{ asset('assets/developers/Gabija.jpg') }}" alt="Gabija">
                     <p>Gabija</p>
                 </article>
                 <article class="developer">
-                    <img src="/assets/developers/Gabija.jpg" alt="Aleksandra">
+                    <img src="{{ asset('assets/developers/Gabija.jpg') }}" alt="Aleksandra">
                     <p>Aleksandra</p>
                 </article>
                 <article class="developer">
-                    <img src="/assets/developers/Gabija.jpg" alt="Dorina">
+                    <img src="{{ asset('assets/developers/Gabija.jpg') }}" alt="Dorina">
                     <p>Dorina</p>
                 </article>
                 <article class="developer">
-                    <img src="/assets/developers/Gabija.jpg" alt="Jakub">
+                    <img src="{{ asset('assets/developers/Gabija.jpg') }}" alt="Jakub">
                     <p>Jakub</p>
                 </article>
                 <article class="developer">
-                    <img src="/assets/developers/Gabija.jpg" alt="Tomass">
+                    <img src="{{ asset('assets/developers/Gabija.jpg') }}" alt="Tomass">
                     <p>Tomass</p>
                 </article>
             </div>
