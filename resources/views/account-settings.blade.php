@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/account-settings.css', 'resources/js/account-settings.js'])
+
     <title>RecyShare</title>
 </head>
 
@@ -47,10 +49,90 @@
         </nav>
     </header>
     <main>
-     <div class="settings-form">
-        
+     <div class="settings-wrap container">
+        <aside class="left-sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item active" data-target="profile">Profile</li>
+                    <li class="nav-item" data-target="account">Account Settings</li>
+                    <li class="nav-item" data-target="shared">Your Shared Recipes</li>
+                    <li class="nav-item" data-target="favorites">Favorites</li>
+                    <li class="divider"></li>
+                    <li class="nav-item logout"><a href="#">Log out</a></li>
+                </ul>
+            </nav>
+        </aside>
 
-    </div>   
+        <section class="content-area">
+            <h2 class="section-title">Profile Information</h2>
+
+            <div id="profile" class="panel tab-panel">
+                <form class="profile-form">
+                    <div class="form-row">
+                        <label class="form-label">Name</label>
+                        <input class="form-input" type="text" name="name" value="{{ old('name', optional(auth()->user())->name ?? ' ') }}">
+                    </div>
+
+                    <div class="form-row">
+                        <label class="form-label">Username</label>
+                        <input class="form-input" type="text" name="username" value="{{ old('username', optional(auth()->user())->username ?? ' ') }}">
+                    </div>
+
+                    <div class="form-row">
+                        <label class="form-label">Bio</label>
+                        <textarea class="form-textarea" name="bio" rows="4">{{ old('bio', optional(auth()->user())->bio ?? ' ') }}</textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <button type="button" class="save-btn">Save</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="account" class="panel tab-panel hidden">
+                <form class="account-profile-form">
+                    <div class="form-row">
+                        <label class="form-label">Full Name</label>
+                        <input class="form-input" type="text" name="full_name" value="{{ old('full_name', optional(auth()->user())->name ?? ' ') }}">
+                    </div>
+                    <div class="form-row">
+                        <label class="form-label">Email Address</label>
+                        <input class="form-input" type="email" name="email" value="{{ old('email', optional(auth()->user())->email ?? ' ') }}">
+                    </div>
+                    <div class="form-row small">
+                        <button type="button" class="save-btn">Save</button>
+                    </div>
+                </form>
+
+                <h2 class="section-title">Change Password</h2>
+                <form class="password-form">
+                    <div class="form-row">
+                        <label class="form-label">Current Password</label>
+                        <input class="form-input" type="password" name="current_password">
+                    </div>
+                    <div class="form-row">
+                        <label class="form-label">New Password</label>
+                        <input class="form-input" type="password" name="new_password">
+                    </div>
+                    <div class="form-row">
+                        <label class="form-label">Repeat Your New Password</label>
+                        <input class="form-input" type="password" name="new_password_confirmation">
+                    </div>
+                    <div class="form-row">
+                        <button type="button" class="save-btn">Save</button>
+                    </div>
+                </form>
+            </div>
+        
+            <div id="shared" class="panel tab-panel hidden">
+                <p>Shared recipes need to be added here.</p>
+            </div>
+
+            <div id="favorites" class="panel tab-panel hidden">
+                <p>Favorite recipes need to be added here.</p>
+            </div>
+        </section>
+    </div>
     </main>
 
     
