@@ -50,9 +50,9 @@
 
 .content-area{
 	padding:6px 8px;
-	/* Make the content column wider and centered within the available space */
 	max-width:1200px;
 	margin:0 auto;
+    width: 50%;
 }
 .section-title{font-size:20px;font-weight:700;margin-bottom:20px;color:var(--text)}
 .subheading{font-size:16px;font-weight:700;margin-top:18px;margin-bottom:12px;color:var(--text)}
@@ -84,10 +84,59 @@
 	background:#f3f3f3;border:1px solid #ddd;padding:6px 12px;border-radius:6px;cursor:pointer;
 }
 
-/* Responsive: stack sidebar on small screens */
+/* Responsive: hide sidebar on narrow screens and make content full-width */
 @media (max-width:900px){
-	.settings-wrap.container{flex-direction:column;padding:20px}
-	.left-sidebar{width:100%;min-height:auto}
+	.settings-wrap.container{
+		/* switch to a single column grid so content takes full width */
+		grid-template-columns: 1fr;
+		padding:20px;
+	}
+
+	/* make sidebar off-canvas so it can be toggled */
+	.left-sidebar{
+		position:fixed;
+		top:72px;
+		left:16px;
+		width:var(--sidebar-width);
+		height:calc(100vh - 96px);
+		transform:translateX(-120%);
+		transition:transform .25s ease;
+		z-index:1200;
+		display:block;
+		overflow:auto;
+	}
+
+	.left-sidebar.open{
+		transform:translateX(0);
+	}
+
+	.sidebar-overlay{
+		position:fixed;
+		inset:0;
+		background:rgba(0,0,0,0.35);
+		z-index:1100;
+		display:none;
+	}
+
+	.sidebar-overlay.visible{display:block}
+
+	.content-area{
+		max-width:none;
+		margin:0;
+		width:100%;
+	}
+
 	.form-input,.form-textarea{width:100%}
+}
+
+/* burger toggle button */
+.burger-toggle{
+	display:none;
+	background:transparent;border:0;padding:8px;margin-right:8px;cursor:pointer;font-size:24px;color:var(--text)
+}
+
+@media (max-width:900px){
+	.burger-toggle{display:inline-flex;align-items:center}
+	body.no-scroll{overflow:hidden}
 }
 

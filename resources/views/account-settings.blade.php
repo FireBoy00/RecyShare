@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Google Material Icons for burger menu -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @vite(['resources/css/account-settings.css', 'resources/js/account-settings.js'])
 
@@ -13,6 +15,9 @@
 <body>
     <header>
         <nav class="navbar">
+            <button class="burger-toggle" aria-label="Open menu">
+                <span class="material-icons">menu</span>
+            </button>
             <div class="left">
                 <div class="logo">
                     <img src="{{ asset('assets/logos/recyshare-logo-no-text.png') }}" alt="RecyShare Logo">
