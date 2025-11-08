@@ -1,86 +1,153 @@
-body {
+/* ===== GENERAL PAGE LAYOUT ===== */
+.login-page {
+  background-color: #7a7a7a;
   display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: #f9f9f9;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: 'Inter', sans-serif;
 }
 
-/* centers the card */
-.login-container {
-  flex: 1;
+.login-overlay {
   display: flex;
-  justify-content: center; /* center horizontally */
-  align-items: center;     /* center vertically */
-  padding: 2rem;
-}
-
-/* main box */
-.login-card {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 2rem 3rem;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  max-width: 400px;
-  text-align: center;
 }
 
-.login-card h2 {
-  margin-bottom: 0.5rem;
-  color: #333;
+/* ===== BASE CONTAINER (GREY CARD) ===== */
+.login-card {
+  display: flex;
+  flex-direction: row;
+  background-color: #dcdcdc;
+  border-radius: 20px;
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.2);
+  overflow: visible;
+  width: 820px; /* slightly narrower */
+  height: 480px; /* refined proportions */
+  position: relative;
+  z-index: 1;
 }
 
-.login-card p {
-  color: #666;
-  margin-bottom: 1.5rem;
+/* ===== LEFT: DINO SECTION ===== */
+.login-left {
+  background-color: #dcdcdc;
+  width: 48%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px 0 0 20px;
 }
 
-/* form layout */
-form {
+.login-left-inner {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  width: 72%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-dino {
+  width: 85%;
+  height: auto;
+  transform: scaleX(-1);
+}
+
+/* ===== RIGHT: WHITE LOGIN CARD ===== */
+.login-right {
+  background-color: #ffffff;
+  border-radius: 20px;
+  width: 52%; /* narrower to show more grey base */
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  justify-content: center;
+  padding: 38px 48px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+  z-index: 2;
 }
 
-label {
+/* ===== TEXT ===== */
+.login-title {
+  font-size: 1.15rem; /* slightly smaller */
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #000;
+}
+
+/* Subtext under "Welcome Back!" */
+.login-subtext {
+  font-size: 0.6rem !important;  /* smaller (~11px) */
+  line-height: 1.2;
+  color: #969696;
+  margin-bottom: 16px;
+  font-weight: 300;
+  font-family: 'Inter', sans-serif !important;
+}
+
+.login-subtext a {
+  font-weight: 500;
+  color: #000;
+  text-decoration: none;
+}
+
+.login-subtext a:hover {
+  text-decoration: underline;
+}
+
+/* ===== INPUTS ===== */
+.login-input {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 6px;
+  background-color: #e0e0e0;
+  font-size: 0.78rem;
+}
+
+/* ===== BUTTON ===== */
+.login-btn {
+  width: 100%;
+  background-color: #000000; /* black like Figma */
+  color: #ffffff; /* white text */
+  padding: 10px 14px; /* same vertical padding as inputs */
+  font-weight: 500;
+  border: none;
+  border-radius: 6px; /* same corner radius as inputs */
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 0.75rem; /* consistent with text scale */
+  line-height: 1; /* matches input field height */
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.login-btn:hover {
+  background-color: #222222; /* subtle hover like figma tone */
+  transform: scale(1.01);
+}
+
+/* ===== FORGOT LINK ===== */
+.login-forgot {
+  margin-top: 8px;
   text-align: left;
+  font-size: 0.78rem;
   font-weight: 500;
   color: #333;
 }
 
-input {
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1rem;
-}
-
-button {
-  background-color: var(--color-primary);
-  color: white;
-  padding: 0.75rem;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: var(--color-dark-green);
-}
-
-/* small sign-up text */
-.login-links {
-  margin-top: 1.5rem;
-  font-size: 0.9rem;
-}
-
-.login-links a {
-  color: var(--color-primary);
+.login-forgot a {
+  color: #007f00;
   text-decoration: none;
+  font-weight: 500;
 }
 
-.login-links a:hover {
+.login-forgot a:hover {
   text-decoration: underline;
 }
