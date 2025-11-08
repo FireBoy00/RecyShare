@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @vite(['resources/css/recipe-detail.css', 'resources/js/recipe-detail.js'])
     <title>RecyShare</title>
@@ -48,12 +50,32 @@
         <section class="recipe-hero">
             <div class="hero-image-container">
                 <img src="{{ asset('assets/food/Monte-Cristo-Sandwich-1664x834-1.jpg') }}" alt="Monte Cristo Sandwich" class="recipe-image" id="recipeImage">
+                <div class="action-buttons">
+                    <form id="favoriteForm" class="favorite-form">
+                        @csrf
+                        <button type="button" id="favoriteBtn" class="favorite-btn {{ $isFavorited ? 'favorited' : '' }}" data-recipe-id="{{ $recipe->id }}">
+                            <i class="favorite-icon {{ $isFavorited ? 'fas' : 'far' }} fa-heart"></i>
+                        </button>
+                    </form>
+                    <form id="shareForm" class="share-form">
+                        @csrf
+                        <button type="button" id="shareBtn" class="share-btn">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                    </form>
+                </div>
+                <div id="sharePopup" class="share-popup">
+                    <p>Copy link to share:</p>
+                    <div class="share-link-container">
+                        <input type="text" id="shareLink" readonly value="{{ url()->current() }}">
+                        <button id="copyBtn" type="button">
+                            <i class="far fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="favoritePopup" class="favorite-popup">Recipe saved to favorites!</div>
                 <div class="hero-overlay">
                     <h1 class="recipe-title" id="recipeTitle">Monte Cristo Sandwich</h1>
-                    <div class="share-icons">
-                        <img src="{{ asset('assets/icons/heart_plus_24dp_000000_FILL0_wght400_GRAD0_opsz24.png') }}" alt="Save Icon" class="icon save-icon">
-                        <img src="{{ asset('assets/icons/share_24dp_000000_FILL0_wght400_GRAD0_opsz24.png') }}" alt="Share Icon" class="icon share-icon">
-                    </div>
                 </div>
             </div>
         </section>
@@ -125,23 +147,22 @@
         </section>
         <section class="comments-section">
             <h2 class="comments-title">Comments</h2>
-            <div class="comment-form">
-                <img src="{{ asset('assets/developers/Gabija.jpg') }}" alt="User Avatar" class="user-avatar">
-                <input type="text" placeholder="Add a comment" class="comment-input">
-                <button class="comment-button">Comment</button>
-            </div>
+            <form class="comment-form" action="{{ route('recipes.comment', $recipe->id) }}" method="POST">
+                @csrf
+                <img src="{{ asset('assets/developers/Gabija.jpg') }}" class="user-avatar">
+                <input type="text" name="comment" placeholder="Add a comment" class="comment-input" required>
+                <button type="submit" class="comment-button">Comment</button>
+            </form>
             <div class="comment-thread">
+            @foreach ($comments as $comment)
                 <div class="comment-box">
-                    <img src="{{ asset('assets/developers/Gabija.jpg') }}" alt="User Avatar" class="user-avatar">
+                    <img src="{{ asset('assets/developers/Gabija.jpg') }}" class="user-avatar">
                     <div class="comment-details">
-                        <p class="comment-author">@GabijaNotFromHere</p>
-                        <p class="comment-text">Nice recipe, tried it - and now I make it at least once per week!</p>
-                        <div class="comment-actions">
-                            <span class="likes"><img src="{{ asset('assets/icons/thumb_up_24dp_000000_FILL0_wght400_GRAD0_opsz24.png') }}" alt="Like Button" class="icon"></span>
-                            <span class="reply"><img src="{{ asset('assets/icons/thumb_down_24dp_000000_FILL0_wght400_GRAD0_opsz24.png') }}" alt="Dislike Button" class="icon"></span>
-                        </div>
+                        <p class="comment-author">{{ $comment->author_name }}</p>
+                        <p class="comment-text">{{ $comment->content }}</p>
                     </div>
                 </div>
+            @endforeach
             </div>
         </section>
     </main>
