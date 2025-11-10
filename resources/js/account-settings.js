@@ -70,4 +70,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Initialize default active tab (profile)
 	activate('profile');
+
+	// Remove card behaviour (client-side)
+	document.addEventListener('click', (e) => {
+		const btn = e.target.closest && e.target.closest('.remove-btn');
+		if (!btn) return;
+		const wrapper = btn.closest('.card-wrapper');
+		if (!wrapper) return;
+		// simple confirm
+		if (confirm('Remove this recipe from the list?')) {
+			wrapper.remove();
+		}
+	});
 });

@@ -130,11 +130,30 @@
             </div>
         
             <div id="shared" class="panel tab-panel hidden">
-                <p>Shared recipes need to be added here.</p>
+                <div class="cards-grid">
+                    @for ($i = 0; $i < 8; $i++)
+                        <div class="card-wrapper">
+                            <div class="card"></div>
+                            <div class="card-actions">
+                                <button class="remove-btn" type="button">Remove</button>
+                                <button class="edit-btn" type="button" title="Edit">Edit</button>
+                            </div>
+                        </div>
+                    @endfor
+                </div>
             </div>
 
             <div id="favorites" class="panel tab-panel hidden">
-                <p>Favorite recipes need to be added here.</p>
+                <div class="cards-grid">
+                    @for ($i = 0; $i < 8; $i++)
+                        <div class="card-wrapper">
+                            <div class="card"></div>
+                            <div class="card-actions">
+                                <button class="remove-btn" type="button">Remove</button>
+                            </div>
+                        </div>
+                    @endfor
+                </div>
             </div>
         </section>
     </div>
