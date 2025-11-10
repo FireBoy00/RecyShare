@@ -1,12 +1,21 @@
 import '../css/account-settings.css';
 
-// Mobile sidebar toggle (burger menu)
+// DOM ready: initialize overlay, sidebar, tab navigation and card actions
 document.addEventListener('DOMContentLoaded', () => {
+	// Ensure a single overlay element exists for the off-canvas sidebar
+	function getOrCreateOverlay() {
+		let overlay = document.querySelector('.sidebar-overlay');
+		if (!overlay) {
+			overlay = document.createElement('div');
+			overlay.className = 'sidebar-overlay';
+			document.body.appendChild(overlay);
+		}
+		return overlay;
+	}
+
 	const burger = document.querySelector('.burger-toggle');
 	const sidebar = document.querySelector('.left-sidebar');
-	const overlay = document.createElement('div');
-	overlay.className = 'sidebar-overlay';
-	document.body.appendChild(overlay);
+	const overlay = getOrCreateOverlay();
 
 	function openSidebar() {
 		if (sidebar) sidebar.classList.add('open');
@@ -29,49 +38,82 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	overlay.addEventListener('click', closeSidebar);
 
-	// Close sidebar when a nav item is clicked (mobile)
+	// Close sidebar when a sidebar nav item is clicked (mobile)
 	document.addEventListener('click', (e) => {
 		const target = e.target;
 		if (target && target.closest && target.closest('.sidebar-nav .nav-item')) {
 			if (window.innerWidth <= 900) closeSidebar();
 		}
 	});
-});
 
-// Tab behavior for the account settings page
-document.addEventListener('DOMContentLoaded', function () {
-	const items = document.querySelectorAll('.sidebar-nav .nav-item');
+	// Hash-based tab navigation
+	// Prevent automatic history scroll restoration so we can control scrolling
+	try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch (e) {}
+	// Start at top to avoid the browser jumping to a hash target before JS runs
+	window.scrollTo(0, 0);
+
+	const navLinks = Array.from(document.querySelectorAll('.sidebar-nav a[href^="#"]'));
 	const panels = document.querySelectorAll('.tab-panel');
 	const sectionTitle = document.querySelector('.section-title');
 
 	function activate(targetId) {
-		items.forEach(i => i.classList.toggle('active', i.dataset.target === targetId));
+		// mark active nav item
+		navLinks.forEach(link => {
+			const li = link.closest('.nav-item');
+			if (!li) return;
+			const hrefId = (link.getAttribute('href') || '').replace('#', '');
+			li.classList.toggle('active', hrefId === targetId);
+		});
+
+		// show/hide panels
 		panels.forEach(p => p.classList.toggle('hidden', p.id !== targetId));
 
-		// Adjust main title for profile/account tabs
+		// Adjust main heading for the panel
 		if (sectionTitle) {
-			if (targetId === 'profile' || targetId === 'account') {
-				sectionTitle.textContent = 'Profile Information';
-			} else if (targetId === 'shared') {
-				sectionTitle.textContent = 'Your Shared Recipes';
-			} else if (targetId === 'favorites') {
-				sectionTitle.textContent = 'Favorites';
-			}
+			if (targetId === 'profile' || targetId === 'account') sectionTitle.textContent = 'Profile Information';
+			else if (targetId === 'shared') sectionTitle.textContent = 'Your Shared Recipes';
+			else if (targetId === 'favorites') sectionTitle.textContent = 'Favorites';
+			else sectionTitle.textContent = '';
 		}
+
+		// Ensure the document is at top after switching panels
+		window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
 	}
 
-	items.forEach(item => {
-		item.addEventListener('click', () => {
-			const target = item.dataset.target;
-			if (!target) return;
-			activate(target);
+	function handleHash() {
+		const hash = (location.hash || '#profile');
+		const id = hash.replace('#', '') || 'profile';
+		activate(id);
+	}
+
+	// React to back/forward navigation (hash changes)
+	window.addEventListener('hashchange', handleHash);
+
+	// Intercept sidebar link clicks: update URL, activate panel, and close mobile sidebar
+	navLinks.forEach(link => {
+		link.addEventListener('click', (e) => {
+			e.preventDefault();
+			const id = (link.getAttribute('href') || '').replace('#', '') || 'profile';
+			// close mobile sidebar if open
+			if (window.innerWidth <= 900) {
+				closeSidebar();
+			}
+			// update the URL without letting the browser auto-scroll
+			try {
+				history.pushState(null, '', '#' + id);
+			} catch (err) {
+				// fall back to setting location.hash if pushState isn't allowed
+				location.hash = '#' + id;
+			}
+			// activate selected panel
+			activate(id);
 		});
 	});
 
-	// Initialize default active tab (profile)
-	activate('profile');
+	// Initialize current panel from the URL hash
+	handleHash();
 
-	// Remove card behaviour (client-side)
+	// Client-side handler for Remove buttons (temporary UI behavior)
 	document.addEventListener('click', (e) => {
 		const btn = e.target.closest && e.target.closest('.remove-btn');
 		if (!btn) return;

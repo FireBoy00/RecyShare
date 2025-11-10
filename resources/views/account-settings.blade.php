@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Google Material Icons for burger menu -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @vite(['resources/css/account-settings.css', 'resources/js/account-settings.js'])
@@ -58,12 +57,12 @@
         <aside class="left-sidebar">
             <nav class="sidebar-nav">
                 <ul>
-                    <li class="nav-item active" data-target="profile">Profile</li>
-                    <li class="nav-item" data-target="account">Account Settings</li>
-                    <li class="nav-item" data-target="shared">Your Shared Recipes</li>
-                    <li class="nav-item" data-target="favorites">Favorites</li>
+                    <li class="nav-item active"><a href="#profile">Profile</a></li>
+                    <li class="nav-item"><a href="#account">Account Settings</a></li>
+                    <li class="nav-item"><a href="#shared">Your Shared Recipes</a></li>
+                    <li class="nav-item"><a href="#favorites">Favorites</a></li>
                     <li class="divider"></li>
-                    <li class="nav-item logout"><a href="#">Log out</a></li>
+                    <li class="nav-item logout"><a href="#logout">Log out</a></li>
                 </ul>
             </nav>
         </aside>
@@ -138,7 +137,7 @@
                                 <button class="remove-btn" type="button">Remove</button>
                                 <button class="edit-btn" type="button" title="Edit">Edit</button>
                             </div>
-                        </div>
+                        </div>  
                     @endfor
                 </div>
             </div>
