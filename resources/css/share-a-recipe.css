@@ -1,178 +1,301 @@
-/* Global defaults */
-* {
+/* ==========================
+   Share a Recipe Page Styles
+   ========================== */
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #fff;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* --------------------------
+   Page Layout
+   -------------------------- */
+.container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 40px;
+  color: #54b856;
+  text-align: center;
+}
+
+/* --------------------------
+   Form Layout
+   -------------------------- */
+.recipe-form {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+/* Top section: Image + Inputs */
+.form-top {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+/* ========== IMAGE UPLOAD ========== */
+.image-upload {
+  flex: 1;
+  max-width: 360px;
+}
+
+.image-label {
+  display: block;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.3s;
+  overflow: hidden;
+  width: 100%;
+}
+
+.image-label:hover {
+  border-color: #54b856;
+}
+
+.image-preview {
+  height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  font-size: 1rem;
+  background-color: #f8f8f8;
+  border-radius: 12px;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ========== TEXT INPUTS ========== */
+.text-inputs {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+  min-width: 320px;
+  max-width: 600px;
+  height: 240px; /* Matches image box height */
+}
+
+.text-inputs input {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #e9f5ec;
+  transition: border 0.2s ease;
   box-sizing: border-box;
 }
 
-body {
-  font-family: sans-serif;
-  line-height: 1.5;
-  margin: 0;
-  padding: 0;
-  background: #f5f7fa;
-  color: #111;
-}
-
-/* Optional wrapper if you add more steps later */
-#multiForm {
-  width: 100%;
-  height: auto;
-  padding: 24px 12px;
-}
-
-/* Form “card” */
-#NameForm {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-  width: 320px;              /* tidy fixed width */
-  margin: 40px auto;         /* center on page */
-  padding: 20px;
-  background: #fff;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-}
-
-/* Labels */
-label,
-#l1 {
-  font-weight: 600;
-  margin-bottom: 4px;
-  text-decoration: none;
-}
-#l2 {
-  font-weight: 600;
-  margin-bottom: 4px;
-  text-decoration: none;
-}
-#l3 {
-  font-weight: 600;
-  margin-bottom: 4px;
-  text-decoration: none;
-}
-#l4 {
-  font-weight: 600;
-  margin-bottom: 4px;
-  text-decoration: none;
-}
-
-
-/* Inputs */
-input[type="text"] {
-  padding: 10px 12px;
-  border: 1px solid #cfd4dc;
-  border-radius: 8px;
-  font-size: 14px;
-  background: #fff;
-}
-
-input[type="text"]:focus {
+.text-inputs input:focus {
+  border-color: #54b856;
   outline: none;
-  border-color: #66BB6A;
-  box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.18);
 }
 
-/* Buttons */
-button {
+/* Time inputs row */
+.time-inputs {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+}
+
+.time-inputs input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #e9f5ec;
+  box-sizing: border-box;
+}
+
+/* --------------------------
+   Ingredients + Steps
+   -------------------------- */
+/* --------------------------
+   Ingredients + Steps
+   -------------------------- */
+.form-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 60px;
+}
+
+.ingredients-section,
+.steps-section {
+  flex: 1;
+  min-width: 300px;
+  max-width: 450px;
+  background-color: #f3f9f5;
+  border-radius: 12px;
+  padding: 20px;
+  padding-bottom: 60px; /* ⬅️ extra inner space at bottom */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.ingredients-section h3,
+.steps-section h3 {
+  font-size: 1.1rem;
+  color: #388e3c;
+  margin-bottom: 15px;
+}
+
+.input-add {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.input-add input {
+  flex: 1;
   padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.input-add button {
+  background-color: #54b856;
+  color: white;
   border: none;
   border-radius: 8px;
-  background: #66BB6A;
-  color: #fff;
-  font-size: 14px;
+  width: 36px;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.02s ease;
+  font-size: 1.2rem;
+  transition: background-color 0.2s ease;
 }
 
-button:hover {
-  background: #005fcc;
+.input-add button:hover {
+  background-color: #3f9445;
 }
 
-button:active {
-  transform: translateY(1px);
+#ingredientsList,
+#stepsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-/* Example hover for <b> tags if you use any */
-b:hover {
-  background-color: #e5e7eb;
+#ingredientsList li,
+#stepsList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  background-color: #e9f5ec;
+  border: 1px solid #d7e9db;
 }
-    #multiForm.grid2x2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr); /* 2 columns: TL, TR, BL, BR */
-      gap: 24px;
-      max-width: 900px;         /* prevent stretching across page */
-      margin: 40px auto;        /* center the grid */
-      padding: 0 12px;
-    }
 
-    /* Optional: stack to one column on small screens */
-    @media (max-width: 640px) {
-      #multiForm.grid2x2 { grid-template-columns: 1fr; }
-    }
+#ingredientsList li button,
+#stepsList li button {
+  background: none;
+  border: none;
+  color: #388e3c;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
 
-    /* Simple “card” look for each block (adjust or remove as you like) */
-    .step {
-      border: 1px solid #d0d5dd;
-      border-radius: 10px;
-      padding: 16px;
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
 
-    .step label {
-      font-weight: 600;
-      display: inline-block;
-      margin-bottom: 6px;
-    }
+/* --------------------------
+   Description Section (NEW)
+   -------------------------- */
+.description-section {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  background-color: #f3f9f5;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
 
-    .step input[type="text"] {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid #cfd4dc;
-      border-radius: 8px;
-      font-size: 14px;
-    }
+.description-section h3 {
+  font-size: 1.1rem;
+  color: #388e3c;
+  margin-bottom: 15px;
+}
 
-    .step button {
-      margin-top: 12px;
-      width: 100%;
-      padding: 10px 12px;
-      border: none;
-      border-radius: 8px;
-      background: #66BB6A;
-      color: #fff;
-      font-size: 14px;
-      cursor: pointer;
-    }
+.description-section textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-family: inherit;
+  resize: vertical;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
 
-    /* Full-width action row under the grid */
-    .actions {
-      grid-column: 1 / -1;      /* span both columns */
-      display: flex;
-      gap: 12px;
-      justify-content: flex-end;
-      margin-top: 8px;
-    }
+/* --------------------------
+   Submit Button
+   -------------------------- */
+.submit-btn {
+  background-color: #54b856;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 15px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  max-width: 300px;
+  margin: 20px auto 0;
+  display: block;
+  transition: background-color 0.3s ease;
+}
 
-    .actions button {
-      padding: 10px 16px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    .actions .reset { background: #e5e7eb; }
-    .actions .submit { background: #66BB6A; color: #fff; }
+.submit-btn:hover {
+  background-color: #3f9445;
+}
 
-    /* Output box */
-    #out {
-      max-width: 900px;
-      margin: 16px auto 40px;
-      padding: 12px;
-      background: #f8fafc;
-      border: 1px solid #e5e7eb;
-      border-radius: 8px;
-      white-space: pre-wrap;
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: 13px;
-    }
+/* --------------------------
+   Responsive
+   -------------------------- */
+@media (max-width: 992px) {
+  .form-top {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .text-inputs {
+    width: 90%;
+    height: auto;
+  }
+
+  .form-bottom {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ingredients-section,
+  .steps-section,
+  .description-section {
+    width: 90%;
+  }
+}
+
