@@ -26,10 +26,10 @@
 
 .hero-about .logo {
     position: absolute;
-    right: 20px;
+    right: 30px;
     bottom: 0px;
     width: 90px;
-    height: auto;
+    height: 90px;
 }
 
 .hero-about .text {
