@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
      * Add ingredient to the list
      * Uses textContent to prevent XSS attacks from malicious ingredient names
      */
-    addIngredientBtn.addEventListener("click", () => {
+    const handleAddIngredient = () => {
         const value = ingredientInput.value.trim();
         if (value) {
             // Create list item and add ingredient text safely
@@ -69,13 +69,24 @@ document.addEventListener("DOMContentLoaded", () => {
             ingredientInput.value = "";
             ingredientInput.focus();
         }
+    };
+
+    // Add ingredient on button click
+    addIngredientBtn.addEventListener("click", handleAddIngredient);
+
+    // Add ingredient on Enter key press
+    ingredientInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            handleAddIngredient();
+        }
     });
 
     /**
      * Add cooking step to the list
      * Uses textContent to prevent XSS attacks from malicious step descriptions
      */
-    addStepBtn.addEventListener("click", () => {
+    const handleAddStep = () => {
         const value = stepInput.value.trim();
         if (value) {
             // Create list item and add step text safely
@@ -96,6 +107,17 @@ document.addEventListener("DOMContentLoaded", () => {
             stepsList.appendChild(li);
             stepInput.value = "";
             stepInput.focus();
+        }
+    };
+
+    // Add step on button click
+    addStepBtn.addEventListener("click", handleAddStep);
+
+    // Add step on Enter key press
+    stepInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            handleAddStep();
         }
     });
 
