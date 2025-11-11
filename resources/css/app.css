@@ -1,6 +1,19 @@
+/**
+ * Global Application Styles
+ * Contains base styles, navbar, account dropdown, form messages,
+ * button utilities, and category dropdown styles.
+ * These styles are imported on every page.
+ * @author RecyShare Team
+ */
+
+/* Google Fonts Import */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 
+/* ========================================
+   CSS VARIABLES
+   Global color scheme and typography
+   ======================================== */
 :root {
     --color-primary: #66BB6A;
     --color-secondary: #388E3C;
@@ -11,10 +24,12 @@
     --color-text: gray;
     --font-family: 'Inter', sans-serif;
     --font-size-base: 18px;
-    /* --spacing-base: 1rem; */
 }
 
-/* #region /** Default styling */
+/* ========================================
+   DEFAULT/RESET STYLES
+   Base element styling and resets
+   ======================================== */
 * {
     margin: 0;
     padding: 0;
@@ -30,12 +45,14 @@ html, body {
     font-size: var(--font-size-base);
 }
 
+/* Icon base styling */
 .icon {
     width: 24px;
     height: 24px;
     cursor: pointer;
 }
 
+/* Primary button styling */
 .btn {
     width: fit-content;
     background-color: var(--color-primary);
@@ -55,9 +72,11 @@ html, body {
 .btn:hover {
     background-color: var(--color-dark-green);
 }
-/* #endregion */
 
-/* #region /** Navbar */
+/* ========================================
+   NAVIGATION BAR
+   Main site navigation and menu
+   ======================================== */
 .navbar {
     width: 100%;
     height: 60px;
@@ -68,12 +87,14 @@ html, body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Navbar left and right containers */
 .left, .right {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
+/* RecyShare logo */
 .logo {
     height: 36px;
     display: flex;
@@ -84,6 +105,7 @@ html, body {
     height: 100%;
 }
 
+/* Navigation menu links */
 .nav-links {
     list-style: none;
     display: flex;
@@ -104,6 +126,7 @@ html, body {
     text-decoration: none;
 }
 
+/* Search bar in navbar */
 .search-bar {
     display: flex;
     align-items: center;
@@ -119,6 +142,10 @@ html, body {
     border-radius: 20px;
 }
 
+/* ========================================
+   ACCOUNT DROPDOWN
+   User account menu and authentication links
+   ======================================== */
 .account {
     position: relative;
     display: inline-block;
@@ -247,13 +274,16 @@ html, body {
     color: var(--color-text);
 }
 
+/* Login/Register buttons for guest users */
 .account-guest {
     display: flex;
     gap: 10px;
 }
-/* #endregion Navbar */
 
-/* #region /** Form Messages */
+/* ========================================
+   FORM MESSAGES
+   Success and error message styling
+   ======================================== */
 .form-message-success {
     background-color: #d4edda;
     color: #155724;
@@ -276,24 +306,28 @@ html, body {
 .form-message-error p {
     margin: 3px 0;
 }
-/* #endregion */
 
-/* #region /** Button Utilities */
+/* ========================================
+   BUTTON UTILITIES
+   Button size variants
+   ======================================== */
 .btn-small {
     padding: 5px 15px;
     font-size: 14px;
 }
-/* #endregion */
 
-/* #region /** Categories */
+/* ========================================
+   CATEGORIES DROPDOWN
+   Recipe category filter menu in navbar
+   ======================================== */
 .navbar .nav-links .dropdown {
     position: relative;
     display: inline-block;
 }
 
+/* Categories dropdown button */
 .navbar .nav-links .dropdown .dropbtn {
-
-    background-color: transparent; /* Remove the gray background */
+    background-color: transparent;
     border: none;
     
     /* INHERIT styles from the navbar links */
@@ -307,20 +341,20 @@ html, body {
 
 
 .navbar .nav-links .dropdown:hover .dropbtn {
-    color: #66BB6A; 
+    color: #66BB6A;
 }
 
+/* Dropdown menu content */
 .navbar .nav-links .dropdown-content {
     display: none;
     position: absolute;
-    top: 100%; /* Places the menu just below the nav link */
-    left: 0; /* Align to the left edge of the 'Categories' link */
-    
+    top: 100%;
+    left: 0;
     min-width: 160px;
-    background-color: #f9f9f9; /* Light background for the menu items */
+    background-color: #f9f9f9;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 100; 
-    border: 1px solid #ddd; 
+    z-index: 100;
+    border: 1px solid #ddd;
     overflow-y: auto;
     border-radius: 4px;
 }
@@ -339,5 +373,4 @@ html, body {
 .navbar .nav-links .dropdown-content a:hover {
     background-color: #ddd;
 }
-/* #endregion */
 

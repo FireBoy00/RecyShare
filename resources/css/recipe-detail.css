@@ -1,11 +1,22 @@
-/* Main Content Wrapper */
+/**
+ * Recipe Detail Page Styles
+ * Detailed recipe view with hero image, ingredients, instructions, and comments.
+ * @author RecyShare Team
+ */
+
+/* ========================================
+   MAIN CONTENT WRAPPER
+   ======================================== */
 main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* Hero Section */
+/* ========================================
+   HERO SECTION
+   Large image header with title overlay
+   ======================================== */
 .recipe-hero {
     position: relative;
     margin-bottom: 20px;
@@ -25,6 +36,7 @@ main {
     object-fit: cover;
 }
 
+/* Dark gradient overlay for text readability */
 .hero-overlay {
     position: absolute;
     top: 0;
@@ -119,15 +131,19 @@ main {
     height: 20px;
 }
 
-/* --- Main Content (Ingredients and Instructions) --- */
+/* ========================================
+   MAIN CONTENT (INGREDIENTS & INSTRUCTIONS)
+   Two-column layout for recipe details
+   ======================================== */
 .recipe-content-main {
     display: flex;
     gap: 30px;
     margin-bottom: 30px;
 }
 
+/* Ingredients panel (35% width with gradient background) */
 .ingredients-section {
-    flex: 1 1 35%; /* Takes about a third of the space */
+    flex: 1 1 35%;
     background: linear-gradient(to bottom, var(--color-light), var(--color-dark-green));
     color: white;
     padding: 20px;
@@ -159,8 +175,9 @@ main {
     color: rgb(0, 0, 0);
 }
 
+/* Instructions panel (65% width) */
 .instructions-section {
-    flex: 1 1 65%; /* Takes about two-thirds of the space */
+    flex: 1 1 65%;
     padding: 0 10px;
 }
 .instructions-section h2{
@@ -177,7 +194,10 @@ main {
     color: rgb(0, 0, 0);
 }
 
-/* --- Categories --- */
+/* ========================================
+   CATEGORIES SECTION
+   Recipe category tags
+   ======================================== */
 .categories-section {
     margin-bottom: 30px;
 }
@@ -199,8 +219,10 @@ main {
     margin-right: 10px;
 }
 
-
-/* --- Comments --- */
+/* ========================================
+   COMMENTS SECTION
+   User comments and comment form
+   ======================================== */
 .comments-section {
     padding-top: 20px;
     border-top: 1px solid #eee;

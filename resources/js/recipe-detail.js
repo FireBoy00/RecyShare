@@ -1,3 +1,14 @@
+/**
+ * Recipe Detail Page JavaScript
+ * Loads and displays detailed recipe information based on URL parameter.
+ * Currently uses static data - will be connected to backend API later.
+ * @author RecyShare Team
+ */
+
+/**
+ * Initialize page when DOM is loaded
+ * Extracts recipe ID from URL and loads corresponding recipe details
+ */
 document.addEventListener('DOMContentLoaded', function() {
     const params = new URLSearchParams(window.location.search);
     const recipeId = params.get('recipe');
@@ -7,12 +18,17 @@ document.addEventListener('DOMContentLoaded', function() {
     loadRecipeDetails(recipeId);
 });
 
+/**
+ * Load recipe details and populate the page
+ * @param {string} id - Recipe identifier from URL parameter
+ * TODO: Replace static data with API call to backend
+ * Uses textContent for XSS-safe content insertion
+ */
 function loadRecipeDetails(id) {
     console.log("Loading recipe details for ID:", id);
-    // For demonstration, we'll use static content. In a real app, fetch data from a server or database.
     const recipeData = {
         title: "Monte Cristo Sandwich",
-        image: "../assets/food/Monte-Cristo-Sandwich-1664x834-1.jpg",
+        image: "/assets/food/Monte-Cristo-Sandwich-1664x834-1.jpg",
         description: "A delightful sweet and savory breakfast or brunch treat.",
         ingredients: [
             "4 slices of bread",
@@ -35,10 +51,10 @@ function loadRecipeDetails(id) {
         ]
     };
     
+    // Populate page elements with recipe data (XSS-safe using textContent)
     const container = document.getElementById('recipeDetailContainer');
     if (!container) return;
     container.querySelector('#recipeTitle').textContent = recipeData.title;
     container.querySelector('#recipeImage').src = recipeData.image;
     container.querySelector('#recipeImage').alt = recipeData.title;
-    // container.querySelector('#recipeDescription').textContent = recipeData.description;
 }

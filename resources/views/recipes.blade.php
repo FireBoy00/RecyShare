@@ -57,13 +57,9 @@
                 <h3 class="recipe-title" id="recipeTitle">Sample Recipe Title</h3>
                 <p class="recipe-description" id="recipeDescription">A brief description of the sample recipe.</p>
                 <div class="btn">
-                    <a id="recipeLink" href="">View Recipe</a> 
-                    {{-- Disabed view recipe funtionality for now --}}
+                    <a id="recipeLink" href="">View Recipe</a>
                 </div>
             </div>
         </template>
-        {{-- <script>
-            const recipeDetailsRoute = "{{ route('recipes.show') }}";
-        </script> --}}
     </body>
 </html>
