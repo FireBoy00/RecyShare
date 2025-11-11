@@ -24,6 +24,10 @@
                     <span class="material-symbols-outlined">add_circle</span>
                     Share a Recipe
                 </a>
+                <a href="{{ route('settings.index') }}">
+                    <span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit">
