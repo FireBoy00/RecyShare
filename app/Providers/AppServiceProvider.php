@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Add helper for time formatting
+        Blade::directive('formatTime', function ($minutes) {
+            return "<?php 
+                \$mins = $minutes;
+                if (\$mins >= 60) {
+                    \$hours = floor(\$mins / 60);
+                    \$remainingMins = \$mins % 60;
+                    echo \$hours . 'h' . (\$remainingMins > 0 ? ' ' . \$remainingMins . 'm' : '');
+                } else {
+                    echo \$mins . 'm';
+                }
+            ?>";
+        });
     }
 }

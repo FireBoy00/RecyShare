@@ -22,6 +22,14 @@ Route::get('/share-a-recipe', [RecipeController::class, 'create'])->middleware('
 // About
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 
+//Comment and Favorites
+Route::post('/recipes/{recipe}/comment', [RecipeController::class, 'addComment'])->name('recipes.comment');
+Route::post('/recipes/{recipe}/toggle-favorite', [RecipeController::class, 'toggleFavorite'])->name('recipes.toggleFavorite');
+
+//Comment and Favorites
+Route::post('/recipes/{recipe}/comment', [RecipeController::class, 'addComment'])->name('recipes.comment');
+Route::post('/recipes/{recipe}/toggle-favorite', [RecipeController::class, 'toggleFavorite'])->name('recipes.toggleFavorite');
+
 // Settings
 Route::get('/settings', [SettingsController::class, 'index'])->middleware('auth')->name('settings.index');
 Route::post('/settings', [SettingsController::class, 'update'])->middleware('auth')->name('settings.update');

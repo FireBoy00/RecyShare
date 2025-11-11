@@ -47,9 +47,28 @@ html, body {
 
 /* Icon base styling */
 .icon {
-    width: 24px;
-    height: 24px;
+    font-size: 24px;
     cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.material-symbols-outlined.icon {
+    font-size: 24px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.material-symbols-outlined {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 /* Primary button styling */
@@ -178,8 +197,15 @@ html, body {
 }
 
 .account-icon .material-symbols-outlined {
-    font-size: 24px;
+    font-size: 32px;
     color: white;
+}
+
+.account-icon-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .account-username {
