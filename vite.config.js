@@ -5,20 +5,36 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                // CSS files
-                'resources/css/about.css',
+                // Per-page assets
                 'resources/css/app.css',
-                'resources/css/home.css',
-                'resources/css/login.css',
-                'resources/css/recipe-detail.css',
-                'resources/css/recipes.css',
-                'resources/css/share-a-recipe.css',
-                'resources/css/signup.css',
-                // JS files
                 'resources/js/app.js',
-                'resources/js/bootstrap.js',
-                'resources/js/recipe-detail.js',
+
+                // Home page
+                'resources/css/home.css',
                 'resources/js/recipes.js',
+
+                // About page
+                'resources/css/about.css',
+
+                // Login page
+                'resources/css/login.css',
+
+                // Signup page
+                'resources/css/signup.css',
+
+                // Recipe detail page
+                'resources/css/recipe-detail.css',
+                'resources/js/recipe-detail.js',
+
+                // Share a recipe page
+                'resources/css/share-a-recipe.css',
+                'resources/js/share-a-recipe.js',
+
+                // Recipes listing page
+                'resources/css/recipes.css',
+
+                // Bootstrap (global, if needed)
+                'resources/js/bootstrap.js',
             ],
             refresh: true,
         }),
