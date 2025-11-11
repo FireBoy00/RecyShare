@@ -39,10 +39,7 @@
                             alt="Search">
                         <input type="search" id="searchBar" placeholder="Search...">
                     </div>
-                    <div class="account">
-                        <img class="icon" src="{{ asset('assets/icons/account_circle_48dp_000000_FILL0_wght300_GRAD200_opsz48.png') }}"
-                            alt="Account">
-                    </div>
+                    <x-account-nav />
                 </div>
             </nav>
             <div class="recipes-container">
