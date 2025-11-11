@@ -1,13 +1,13 @@
 /**
  * Recipe Detail Page JavaScript
  * Loads and displays detailed recipe information based on URL parameter.
- * Currently uses static data - will be connected to backend API later.
+ * Handles favorite button, share button, and comment functionality.
  * @author RecyShare Team
  */
 
 /**
  * Initialize page when DOM is loaded
- * Extracts recipe ID from URL and loads corresponding recipe details
+ * Sets up event listeners for interactive features
  */
 document.addEventListener('DOMContentLoaded', function() {
     setupCommentForm();
@@ -51,6 +51,9 @@ function setupCommentForm() {
                 
                 // Clear the input
                 commentInput.value = '';
+                
+                // Scroll the new comment into view
+                newComment.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
         } catch (error) {
             console.error('Error posting comment:', error);
@@ -116,12 +119,20 @@ function setupShareButton() {
     copyBtn.addEventListener('click', async function() {
         try {
             await navigator.clipboard.writeText(shareLink.value);
-            copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+            const originalContent = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<span class="material-symbols-outlined">check</span>';
+            setTimeout(() => {
+                copyBtn.innerHTML = originalContent;
+            }, 2000);
         } catch (err) {
             console.error('Failed to copy text:', err);
             shareLink.select();
             document.execCommand('copy');
-            copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+            const originalContent = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<span class="material-symbols-outlined">check</span>';
+            setTimeout(() => {
+                copyBtn.innerHTML = originalContent;
+            }, 2000);
         }
     });
 }
@@ -129,8 +140,21 @@ function setupShareButton() {
 function createCommentElement(comment) {
     const div = document.createElement('div');
     div.className = 'comment-box';
+    
+    // Create avatar element
+    let avatarHTML = '';
+    if (comment.profile_image) {
+        avatarHTML = `<img src="${comment.profile_image}" class="user-avatar" alt="${comment.author_name}">`;
+    } else {
+        avatarHTML = `
+            <div class="user-avatar user-avatar-placeholder">
+                <span class="material-symbols-outlined">account_circle</span>
+            </div>
+        `;
+    }
+    
     div.innerHTML = `
-        <img src="/assets/developers/Gabija.jpg" class="user-avatar">
+        ${avatarHTML}
         <div class="comment-details">
             <p class="comment-author">${comment.author_name}</p>
             <p class="comment-text">${comment.content}</p>
@@ -170,13 +194,11 @@ function setupFavoriteButton() {
             
             if (data.success) {
                 if (data.isFavorited) {
-                    favoriteIcon.classList.remove('far');
-                    favoriteIcon.classList.add('fas');
+                    favoriteIcon.textContent = 'favorite';
                     favoriteBtn.classList.add('favorited');
                     showPopup('Recipe saved to favorites!');
                 } else {
-                    favoriteIcon.classList.remove('fas');
-                    favoriteIcon.classList.add('far');
+                    favoriteIcon.textContent = 'favorite_border';
                     favoriteBtn.classList.remove('favorited');
                     showPopup('Recipe removed from favorites');
                 }

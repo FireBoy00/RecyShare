@@ -55,6 +55,7 @@ class SettingsController extends Controller
             $data = $request->validate([
                 'email' => ['nullable', 'email', 'max:255', 'unique:users,email,' . $user->id],
                 'bio' => ['nullable', 'string', 'max:500'],
+                'display_name' => ['nullable', 'string', 'max:255'],
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect()->route('settings.index', ['tab' => $activeTab])
@@ -68,6 +69,10 @@ class SettingsController extends Controller
 
         if ($request->has('bio')) {
             $user->bio = $data['bio'] ?? null;
+        }
+
+        if ($request->has('display_name') && !empty($data['display_name'])) {
+            $user->display_name = $data['display_name'];
         }
 
         $user->save();

@@ -61,6 +61,12 @@
                             </div>
 
                             <div class="form-row">
+                                <label class="form-label">Display Name</label>
+                                <input class="form-input" type="text" name="display_name" value="{{ old('display_name', Auth::user()->display_name ?? '') }}">
+                                <small style="color: #666; font-size: 12px;">This is how your name will appear to others</small>
+                            </div>
+
+                            <div class="form-row">
                                 <label class="form-label">Bio</label>
                                 <textarea class="form-textarea" name="bio" rows="4">{{ old('bio', Auth::user()->bio ?? '') }}</textarea>
                             </div>

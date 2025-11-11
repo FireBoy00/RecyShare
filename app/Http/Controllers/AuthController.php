@@ -33,13 +33,17 @@ class AuthController extends Controller
     public function signup(Request $request)
     {
         $request->validate([
-            'username' => 'required|unique:users,username|max:255',
+            'username' => ['required', 'unique:users,username', 'max:255', 'regex:/^[a-z0-9._-]+$/'],
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
+        ], [
+            'username.regex' => 'Username must be lowercase and can only contain letters, numbers, hyphens, underscores, and periods.',
         ]);
 
+        $username = $request->input('username');
         $user = User::create([
-            'username' => $request->input('username'),
+            'username' => $username,
+            'display_name' => $username,
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
         ]);

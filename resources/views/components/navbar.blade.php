@@ -40,8 +40,7 @@
             </li>
         </ul>
         <div class="search-bar">
-            <img class="icon" src="{{ asset('assets/icons/search_48dp_000000_FILL0_wght300_GRAD200_opsz48.png') }}"
-                alt="Search">
+            <span class="material-symbols-outlined icon">search</span>
             <input type="search" id="searchBar" placeholder="Search...">
         </div>
         <x-account-nav />

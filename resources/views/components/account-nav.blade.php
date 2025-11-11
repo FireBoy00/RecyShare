@@ -1,15 +1,19 @@
 <div class="account">
     @auth
         <div class="account-trigger">
-            <div class="account-icon">
-                <span class="material-symbols-outlined">person</span>
-            </div>
-            <span class="account-username">{{ Auth::user()->username }}</span>
+            @if(Auth::user()->profile_image)
+                <img src="{{ asset(Auth::user()->profile_image) }}" alt="{{ Auth::user()->display_name }}" class="account-icon-img">
+            @else
+                <div class="account-icon">
+                    <span class="material-symbols-outlined">account_circle</span>
+                </div>
+            @endif
+            <span class="account-username">{{ Auth::user()->display_name ?? Auth::user()->username }}</span>
         </div>
         <div class="account-dropdown">
             <div class="account-dropdown-content">
                 <div class="account-dropdown-header">
-                    <div class="account-dropdown-header-name">{{ Auth::user()->username }}</div>
+                    <div class="account-dropdown-header-name">{{ Auth::user()->display_name ?? Auth::user()->username }}</div>
                     <div class="account-dropdown-header-email">{{ Auth::user()->email }}</div>
                 </div>
                 <a href="#">
