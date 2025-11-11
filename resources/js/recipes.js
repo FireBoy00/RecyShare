@@ -1,34 +1,51 @@
+/**
+ * Recipes Page JavaScript
+ * Handles dynamic recipe card generation, search functionality,
+ * and recipe display logic.
+ * @author RecyShare Team
+ */
+
+/**
+ * Generate recipe cards dynamically
+ * @param {number} count - Number of recipe cards to generate
+ * Creates recipe cards with the first one being Monte Cristo Sandwich,
+ * and the rest being randomly generated placeholders
+ */
 function genRecipes(count = 5) {
     const recipeTemp = document.getElementById('recipeTemplate');
     const recipesList = document.getElementById('recipesList');
-    // Get the route injected by Blade
     const recipeDetailsRoute = window.recipeDetailsRoute || '/recipe-details';
-    // Clear existing recipes before generating new ones
     recipesList.innerHTML = '';
 
+    // Generate recipe cards
     for (let i = 0; i < count; i++) {
         var newRecipe = recipeTemp.content.cloneNode(true);
         const name = genRecipeName();
         const description = genRecipeDescription();
         const recipeLinkElement = newRecipe.querySelector('#recipeLink');
+        
+        // First card: Monte Cristo Sandwich (featured recipe)
         if (i === 0) {
-            // Card 1: Monte Cristo Sandwich (Explicitly set content and link)
-            newRecipe.querySelector('#recipeImage img').src = '../assets/food/Monte-Cristo-Sandwich-1664x834-1.jpg';
+            newRecipe.querySelector('#recipeImage img').src = '/assets/food/Monte-Cristo-Sandwich-1664x834-1.jpg';
             newRecipe.querySelector('#recipeTitle').textContent = "Monte Cristo Sandwich";
             newRecipe.querySelector('#recipeDescription').textContent = "A delightful sweet and savory breakfast or brunch treat.";
         } else {
-            // Card 2 onwards: Dynamic Placeholders
+            // Remaining cards: Generated placeholder recipes
             newRecipe.querySelector('#recipeImage img').src = `https://placehold.co/250x160/025b3f/2ec68a/?text=${name}\n- ${i + 1} -`;
             newRecipe.querySelector('#recipeTitle').textContent = name;
             newRecipe.querySelector('#recipeDescription').textContent = description;
         }
-        // Use the route injected from Blade
+        // Set link to recipe details page
         recipeLinkElement.href = recipeDetailsRoute + "?recipe=" + (i + 1);
         recipesList.appendChild(newRecipe);
     }
 }
 
-// The search and other functions remain the same as they are functional.
+/**
+ * Search and filter recipes by title and description
+ * @param {string} args - Search query string
+ * Filters recipes in real-time and updates the header with results count
+ */
 function search(args = "") {
     const filter = args.toLowerCase();
     const recipesContainer = document.querySelector('.recipes-container');
@@ -36,11 +53,13 @@ function search(args = "") {
     const recipes = recipesList.querySelectorAll('.recipe-card');
     
     var recipesFound = 0;
+    // Filter each recipe card based on search query
     recipes.forEach(recipe => {
         const title = recipe.querySelector('#recipeTitle');
         const description = recipe.querySelector('#recipeDescription');
+        // Combine title and description for comprehensive search
         const txtValue = `${title?.textContent ?? ''} ${description?.textContent ?? ''}`;
-        if (txtValue.toLowerCase().indexOf(filter) > -1) { // We used indexOf instead of includes for broader compatibility
+        if (txtValue.toLowerCase().indexOf(filter) > -1) {
             recipe.style.display = "";
             recipesFound++;
         } else {
@@ -48,6 +67,7 @@ function search(args = "") {
         }
     })
 
+    // Update header based on search results
     if (recipesFound === 0) {
         recipesContainer.querySelector('h1').textContent = `No recipes found for "${args}"`;
         return;
@@ -77,6 +97,10 @@ function genRecipeName() {
     return `${adjective} ${mainIngredient} ${dishType}`;
 }
 
+/**
+ * Generate random recipe description
+ * @returns {string} Randomly selected description from predefined list
+ */
 function genRecipeDescription() {
     const descriptions = [
         "A delightful dish that's perfect for any occasion.",

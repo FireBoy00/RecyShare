@@ -1,3 +1,13 @@
+/**
+ * Recipes Page Styles
+ * Grid layout for recipe cards with hover effects and search functionality.
+ * @author RecyShare Team
+ */
+
+/* ========================================
+   RECIPES CONTAINER
+   Main container and title for recipes page
+   ======================================== */
 .recipes-container h1 {
     text-align: center;
 }
@@ -6,6 +16,7 @@
     padding: 20px;
 }
 
+/* Recipe cards grid layout */
 .recipes-list {
     display: flex;
     flex-wrap: wrap;
@@ -14,6 +25,10 @@
     padding: 20px;
 }
 
+/* ========================================
+   RECIPE CARD
+   Individual recipe card with image and details
+   ======================================== */
 .recipe-card {
     position: relative;
     background-color: hsl(0, 0%, 95%);
@@ -25,12 +40,14 @@
     display: flex;
     flex-direction: column;
 }
+/* Diagonal shadow effect on hover */
 .recipe-card:hover {
-    box-shadow: 
-        -10px 10px 0 0 rgba(0, 0, 0, 0.2), /* Bottom-left corner extension */
-        10px -10px 0 0 rgba(0, 0, 0, 0.2); /* Top-right corner extension */
+    box-shadow:
+        -10px 10px 0 0 rgba(0, 0, 0, 0.2),
+        10px -10px 0 0 rgba(0, 0, 0, 0.2);
 }
 
+/* Recipe image container */
 .recipe-card .recipe-image {
     display: flex;
     justify-content: center;
@@ -44,16 +61,19 @@
     width: 100%;
     height: 100%;
 }
+/* Zoom effect on hover */
 .recipe-card:hover .recipe-image img {
     transform: scale(1.25);
     transition: transform 0.3s ease;
 }
 
+/* Recipe title */
 .recipe-card .recipe-title {
     font-size: 1.35em;
     margin: 10px 0;
     text-align: left;
 }
+/* Recipe description text */
 .recipe-card .recipe-description {
     font-size: 1em;
     color: #555;
@@ -61,6 +81,7 @@
     padding: 0px 2.5px;
     text-align: left;
 }
+/* View recipe button */
 .recipe-card .btn {
     width: 100%;
     display: flex;
@@ -69,6 +90,7 @@
     margin-top: auto;
 }
 
+/* Remove button (top-right corner) */
 .recipe-card #removeBtn {
     position: absolute;
     top: 0px;
@@ -84,31 +106,12 @@
     transition: background-color 0.3s ease;
     z-index: 1;
 }
+/* Icon rotation animation on hover */
 .recipe-card #removeBtn .icon {
     transition: transform 0.5s ease-in-out;
 }
 .recipe-card #removeBtn:hover .icon {
     transform: rotate(360deg);
-}
-.grid2x2 {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(280px, 1fr));
-  gap: 20px 28px;
-  align-items: start;
-  max-width: 1000px;
-}
-
-.step label { font-weight: 600; }
-.step input, .step textarea {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-.actions {
-  grid-column: 1 / -1;       /* submit button full width */
-  margin-top: 8px;
 }
 
 /* Mobile: single column */

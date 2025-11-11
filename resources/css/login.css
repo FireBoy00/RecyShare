@@ -1,0 +1,173 @@
+/**
+ * Login Page Styles
+ * Authentication page with split design - dino image and login form.
+ * @author RecyShare Team
+ */
+
+/* ========================================
+   PAGE LAYOUT
+   ======================================== */
+.login-page {
+  background-color: #7a7a7a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    width: 100%;
+}
+
+/* ========================================
+   BASE CONTAINER (GREY CARD)
+   ======================================== */
+.login-card {
+  display: flex;
+  flex-direction: row;
+  background-color: #dcdcdc;
+  border-radius: 20px;
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.2);
+  overflow: visible;
+  width: 820px; /* slightly narrower */
+  height: 480px; /* refined proportions */
+  position: relative;
+    z-index: 1;
+}
+
+/* ========================================
+   LEFT: DINO SECTION
+   ======================================== */
+.login-left {
+  background-color: #dcdcdc;
+  width: 48%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px 0 0 20px;
+}
+
+.login-left-inner {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  width: 72%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-dino {
+  width: 85%;
+  height: auto;
+    transform: scaleX(-1);
+}
+
+/* ========================================
+   RIGHT: WHITE LOGIN CARD
+   ======================================== */
+.login-right {
+  background-color: #ffffff;
+  border-radius: 20px;
+  width: 52%; /* narrower to show more grey base */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 38px 48px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+    z-index: 2;
+}
+
+/* ========================================
+   TEXT ELEMENTS
+   ======================================== */
+.login-title {
+  font-size: 1.15rem; /* slightly smaller */
+  font-weight: 700;
+  margin-bottom: 6px;
+    color: #000;
+}
+
+/* Subtext under "Welcome Back!" */
+.login-subtext {
+    font-size: 0.6rem !important;
+    line-height: 1.2;
+  color: #969696;
+  margin-bottom: 16px;
+  font-weight: 300;
+  font-family: 'Inter', sans-serif !important;
+}
+
+.login-subtext a {
+  font-weight: 500;
+  color: #000;
+  text-decoration: none;
+}
+
+.login-subtext a:hover {
+    text-decoration: underline;
+}
+
+/* ========================================
+   INPUT FIELDS
+   ======================================== */
+.login-input {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 6px;
+  background-color: #e0e0e0;
+    font-size: 0.78rem;
+}
+
+/* ========================================
+   LOGIN BUTTON
+   ======================================== */
+.login-btn {
+    width: 100%;
+    background-color: #000000;
+    color: #ffffff;
+    padding: 10px 14px;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 0.75rem;
+    line-height: 1;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.login-btn:hover {
+    background-color: #222222;
+    transform: scale(1.01);
+}
+
+/* ========================================
+   FORGOT PASSWORD LINK
+   ======================================== */
+.login-forgot {
+  margin-top: 8px;
+  text-align: left;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.login-forgot a {
+  color: #007f00;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-forgot a:hover {
+  text-decoration: underline;
+}

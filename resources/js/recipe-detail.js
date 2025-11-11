@@ -1,3 +1,14 @@
+/**
+ * Recipe Detail Page JavaScript
+ * Loads and displays detailed recipe information based on URL parameter.
+ * Currently uses static data - will be connected to backend API later.
+ * @author RecyShare Team
+ */
+
+/**
+ * Initialize page when DOM is loaded
+ * Extracts recipe ID from URL and loads corresponding recipe details
+ */
 document.addEventListener('DOMContentLoaded', function() {
     setupCommentForm();
     setupFavoriteButton();
