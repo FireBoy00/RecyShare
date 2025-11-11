@@ -1,4 +1,12 @@
-/* ===== GENERAL PAGE LAYOUT ===== */
+/**
+ * Signup/Register Page Styles
+ * User registration page with split design - dino image and signup form.
+ * @author RecyShare Team
+ */
+
+/* ========================================
+   PAGE LAYOUT
+   ======================================== */
 .signup-page {
   background-color: #7a7a7a;
   display: flex;
