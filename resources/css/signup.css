@@ -4,8 +4,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  font-family: 'Inter', sans-serif;
 }
 
 .signup-overlay {
@@ -52,7 +50,7 @@
 
 .signup-dino {
   width: 85%;
-  height: auto; /* no mirror on signup */
+  height: auto;
   transform: scaleX(-1);
 }
 

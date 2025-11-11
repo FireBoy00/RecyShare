@@ -1,0 +1,85 @@
+.hero-about {
+    width: 100%;
+    background: linear-gradient(to bottom, var(--color-light), var(--color-dark-green));
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    text-align: left;
+    position: relative;
+}
+
+.hero-about h1 {
+    color: rgb(0, 0, 0);
+    font-size: 2.5rem;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.hero-about p {
+    color: rgb(0, 0, 0);
+    font-size: 1.2rem;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.hero-about .logo {
+    position: absolute;
+    right: 20px;
+    bottom: 0px;
+    width: 90px;
+    height: auto;
+}
+
+.hero-about .text {
+    position: absolute;
+    right: 110px;
+    bottom: 25px;
+    font-size: 1rem;
+    color: rgb(0, 0, 0);
+}
+
+.developers_circles {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+.developers_circles h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: rgb(0, 0, 0);
+}
+
+.developer-row {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.developer {
+    text-align: center;
+}
+
+.developer img {
+    width: 225px;
+    height: 225px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid green;
+    display: block;       /* ensures image takes full line */
+    margin: 0 auto;       /* keeps it centered */
+}
+
+.developer p {
+    margin-top: 8px;
+    font-weight: bold;
+    display: inline-block;   /* keeps the pill sized to text */
+    padding: 3px 12px;
+    border: 2px solid green; /* same green as circle */
+    border-radius: 15px;     /* rounded pill shape */
+    background-color: white; /* optional for contrast */
+    color: rgb(0, 0, 0);
+}
