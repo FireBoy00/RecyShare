@@ -13,6 +13,10 @@ export default defineConfig({
                 'resources/css/home.css',
                 'resources/js/recipes.js',
 
+                // Settings page
+                'resources/css/settings.css',
+                'resources/js/settings.js',
+
                 // About page
                 'resources/css/about.css',
 
