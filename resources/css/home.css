@@ -1,8 +1,21 @@
+/**
+ * Home Page Styles
+ * Hero section with gradient background and call-to-action button.
+ * @author RecyShare Team
+ */
+
+/* ========================================
+   PAGE LAYOUT
+   ======================================== */
 body {
     display: flexbox;
     flex-direction: column;
 }
 
+/* ========================================
+   HERO SECTION
+   Main banner with gradient and share button
+   ======================================== */
 .hero {
     width: 100%;
     height: 450px;
@@ -14,11 +27,13 @@ body {
     align-items: center;
     padding: 20px;
 }
+/* Hero title */
 .hero h1 {
     color: black;
     font-size: 2.5rem;
     text-align: center;
 }
+/* Call-to-action button */
 .hero .btn {
     position: absolute;
     right: 10px;
@@ -27,6 +42,7 @@ body {
     padding: 10px 20px;
 }
 
+/* Share button specific styling */
 #shareBtn {
     border-radius: 20px;
 }

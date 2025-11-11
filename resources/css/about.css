@@ -1,3 +1,13 @@
+/**
+ * About Page Styles
+ * Team information page with gradient hero and developer profiles.
+ * @author RecyShare Team
+ */
+
+/* ========================================
+   HERO SECTION
+   Gradient background with team description
+   ======================================== */
 .hero-about {
     width: 100%;
     background: linear-gradient(to bottom, var(--color-light), var(--color-dark-green));
@@ -26,20 +36,24 @@
 
 .hero-about .logo {
     position: absolute;
-    right: 20px;
+    right: 30px;
     bottom: 0px;
     width: 90px;
-    height: auto;
+    height: 90px;
 }
 
 .hero-about .text {
     position: absolute;
     right: 110px;
     bottom: 25px;
-    font-size: 1rem;   /* fixed */
+    font-size: 1rem;
     color: rgb(0, 0, 0);
 }
 
+/* ========================================
+   DEVELOPERS SECTION
+   Team member profile grid
+   ======================================== */
 .developers_circles {
     text-align: center;
     margin-top: 50px;
@@ -59,10 +73,12 @@
     flex-wrap: wrap;
 }
 
+/* Individual developer profile */
 .developer {
     text-align: center;
 }
 
+/* Circular profile image */
 .developer img {
     width: 225px;
     height: 225px;
@@ -70,16 +86,17 @@
     border-radius: 50%;
     border: 5px solid green;
     display: block;       /* ensures image takes full line */
-    margin: 0 auto;       /* keeps it centered */
+    margin: 0 auto;
 }
 
+/* Name tag with pill shape */
 .developer p {
     margin-top: 8px;
     font-weight: bold;
-    display: inline-block;   /* keeps the pill sized to text */
+    display: inline-block;
     padding: 3px 12px;
-    border: 2px solid green; /* same green as circle */
-    border-radius: 15px;     /* rounded pill shape */
-    background-color: white; /* optional for contrast */
+    border: 2px solid green;
+    border-radius: 15px;
+    background-color: white;
     color: rgb(0, 0, 0);
 }
