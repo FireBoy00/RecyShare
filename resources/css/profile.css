@@ -1,0 +1,70 @@
+.hero-bio {
+    width: 100%;
+    background: linear-gradient(to bottom, var(--color-light), var(--color-dark-green));
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+}
+
+.hero-bio p {
+    color: rgb(0, 0, 0);
+    font-size: 1.2rem;
+    margin-top: 10px;
+    margin-left: 40px; 
+    text-align: left;
+}
+
+.shared-recipes .text {
+    margin-top: 40px;
+    font-size: 1.5rem;
+    margin-left: 40px; 
+    color: rgb(0, 0, 0);
+}
+
+
+.user_circle{
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+.user_circle h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: rgb(0, 0, 0);
+}
+
+.user-info {
+    display: flex;
+    justify-content: flex-start;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding: 50px;
+}
+
+.user img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;       /* ensures image takes full line */
+    margin: 0;       /* keeps it centered */
+}
+
+.user-details {
+    margin-top: 30px; 
+    text-align: left;
+}
+
+.user-details .username {
+    font-size: 1.5rem;     
+    font-weight: 600;   
+    margin: 0 0 8px 0;
+}
+
+.user-details p {
+    font-size: 1.2rem;
+    margin: 8px 0px;
+}

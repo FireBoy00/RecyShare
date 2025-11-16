@@ -87,6 +87,13 @@ main {
 .author-info {
     display: flex;
     align-items: center;
+    text-decoration: none;
+}
+
+.author-text a{
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
 }
 
 .author-avatar {

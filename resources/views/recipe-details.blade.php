@@ -59,6 +59,7 @@
         </section>
         <section class="recipe-meta-container">
             <div class="author-info">
+                <a href="{{ route('profile', $recipe->user) }}" class="author-info">
                 @if($recipe->user && $recipe->user->profile_image)
                     <img src="{{ asset($recipe->user->profile_image) }}" alt="{{ $recipe->user->display_name }}" class="author-avatar">
                 @else
@@ -66,10 +67,13 @@
                         <span class="material-symbols-outlined">account_circle</span>
                     </div>
                 @endif
+                </a>
                 <div class="author-text">
+                    <a href="{{ route('profile', $recipe->user) }}">
                     <p class="author-handle">{{ '@' . ($recipe->user->username ?? 'unknown') }}</p>
                     <p class="author-display-name">{{ $recipe->user->display_name ?? 'Unknown User' }}</p>
                     <p class="recipe-count">{{ $recipe->user->recipes->count() ?? 0 }} recipes</p>
+                    </a>
                 </div>
             </div>
             <div class="meta-details">

@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\ProfileController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -42,3 +43,6 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 
 // Logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+//Profile
+Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile');
