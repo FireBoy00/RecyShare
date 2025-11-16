@@ -16,7 +16,7 @@
                     <div class="account-dropdown-header-name">{{ Auth::user()->display_name ?? Auth::user()->username }}</div>
                     <div class="account-dropdown-header-email">{{ Auth::user()->email }}</div>
                 </div>
-                <a href="#">
+                <a href="{{ route('profile', Auth::user()) }}">
                     <span class="material-symbols-outlined">person</span>
                     Profile
                 </a>
