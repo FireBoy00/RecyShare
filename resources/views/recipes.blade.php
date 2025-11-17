@@ -48,9 +48,9 @@
                                         @endforeach
                                     </div>
                                 @endif
-                                <div class="btn">
-                                    <a href="{{ route('recipes.show', $recipe->id) }}">View Recipe</a>
-                                </div>
+                
+                                <a href="{{ route('recipes.show', $recipe->id) }}" class="btn">View Recipe</a>
+                                
                             </div>
                         </div>
                     @endforeach
