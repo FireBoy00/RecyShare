@@ -10,8 +10,8 @@
 <nav class="navbar">
     <div class="left">
         <div class="logo">
-            <img src="{{ asset('assets/logos/recyshare-logo-no-text.png') }}" alt="RecyShare Logo">
             <h3>RecyShare</h3>
+            <img src="{{ asset('assets/logos/recyshare-logo-no-text.png') }}" alt="RecyShare Logo">
         </div>
     </div>
     <div class="right">
