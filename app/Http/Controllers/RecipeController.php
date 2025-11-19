@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Recipe;
 use App\Models\Comment;
 use App\Models\Favorite;
+use Illuminate\Support\Facades\Storage;
 
 
 class RecipeController extends Controller
@@ -25,6 +26,73 @@ class RecipeController extends Controller
     public function create()
     {
         return view('share-a-recipe');
+    }
+
+    /**
+     * Store a newly created recipe in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store(Request $request)
+    {
+        // Ensure user is authenticated
+        if (!auth()->check()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'You must be logged in to share a recipe.'
+            ], 401);
+        }
+
+        // Validate request
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string|max:1000',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'prep_time' => 'nullable|integer|min:0',
+            'cook_time' => 'nullable|integer|min:0',
+            'servings' => 'nullable|integer|min:1',
+            'ingredients' => 'nullable|array',
+            'ingredients.*' => 'string|max:500',
+            'instructions' => 'nullable|array',
+            'instructions.*' => 'string|max:1000',
+            'categories' => 'nullable|array',
+            'categories.*' => 'string|max:100',
+        ]);
+
+        try {
+            // Handle image upload
+            $imagePath = null;
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('recipes', 'public');
+            }
+
+            // Create recipe
+            $recipe = Recipe::create([
+                'user_id' => auth()->id(),
+                'title' => $validated['title'],
+                'description' => $validated['description'] ?? '',
+                'image' => $imagePath,
+                'prep_time' => $validated['prep_time'] ?? 0,
+                'cook_time' => $validated['cook_time'] ?? 0,
+                'servings' => $validated['servings'] ?? 1,
+                'ingredients' => $validated['ingredients'] ?? [],
+                'instructions' => $validated['instructions'] ?? [],
+                'categories' => $validated['categories'] ?? [],
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Recipe created successfully!',
+                'recipe_id' => $recipe->id,
+                'redirect_url' => route('recipes.show', $recipe->id)
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error creating recipe: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     /**

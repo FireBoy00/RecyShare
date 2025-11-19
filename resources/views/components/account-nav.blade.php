@@ -20,7 +20,7 @@
                     <span class="material-symbols-outlined">person</span>
                     Profile
                 </a>
-                <a href="#">
+                <a href="{{ route('settings.index') }}#shared">
                     <span class="material-symbols-outlined">restaurant</span>
                     Shared Recipes
                 </a>

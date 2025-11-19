@@ -103,4 +103,20 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Setup favorite buttons
     setupFavoriteButtons();
+
+    // Listen for favorites toggled from other pages (settings) and update UI
+    window.addEventListener('favoriteToggled', (e) => {
+        const { recipeId, isFavorited } = e.detail || {};
+        if (!recipeId) return;
+        const btn = document.querySelector(`.recipe-favorite-btn[data-recipe-id="${recipeId}"]`);
+        if (!btn) return;
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (isFavorited) {
+            icon.textContent = 'favorite';
+            btn.classList.add('favorited');
+        } else {
+            icon.textContent = 'favorite_border';
+            btn.classList.remove('favorited');
+        }
+    });
 });

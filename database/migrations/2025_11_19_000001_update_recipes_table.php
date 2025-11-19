@@ -1,0 +1,54 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('recipes', function (Blueprint $table) {
+            // Add user_id if it doesn't exist
+            if (!Schema::hasColumn('recipes', 'user_id')) {
+                $table->unsignedBigInteger('user_id')->nullable()->after('id');
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            }
+            
+            // Add description if it doesn't exist
+            if (!Schema::hasColumn('recipes', 'description')) {
+                $table->text('description')->nullable()->after('image');
+            }
+            
+            // Add categories if it doesn't exist
+            if (!Schema::hasColumn('recipes', 'categories')) {
+                $table->json('categories')->nullable()->after('instructions');
+            }
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('recipes', function (Blueprint $table) {
+            // Drop foreign key and columns
+            if (Schema::hasColumn('recipes', 'user_id')) {
+                $table->dropForeign(['user_id']);
+                $table->dropColumn('user_id');
+            }
+            
+            if (Schema::hasColumn('recipes', 'description')) {
+                $table->dropColumn('description');
+            }
+            
+            if (Schema::hasColumn('recipes', 'categories')) {
+                $table->dropColumn('categories');
+            }
+        });
+    }
+};

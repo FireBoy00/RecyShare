@@ -18,7 +18,19 @@
                     @foreach($recipes as $recipe)
                         <div class="recipe-card" data-recipe-id="{{ $recipe->id }}">
                             <div class="recipe-image-wrapper">
-                                <img src="{{ $recipe->image ? asset($recipe->image) : asset('assets/food/no-image.jpg') }}" alt="{{ $recipe->title }}" class="recipe-image">
+                                @php
+                                    $imgPath = null;
+                                    if ($recipe->image) {
+                                        if (str_starts_with($recipe->image, 'assets/') || str_starts_with($recipe->image, 'http')) {
+                                            $imgPath = asset($recipe->image);
+                                        } else {
+                                            $imgPath = asset('storage/' . $recipe->image);
+                                        }
+                                    } else {
+                                        $imgPath = asset('assets/food/no-image.jpg');
+                                    }
+                                @endphp
+                                <img src="{{ $imgPath }}" alt="{{ $recipe->title }}" class="recipe-image">
                                 <div class="recipe-overlay">
                                     <span class="recipe-time">
                                         <span class="material-symbols-outlined">schedule</span>

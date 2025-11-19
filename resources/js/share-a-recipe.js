@@ -123,32 +123,89 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /**
      * Handle form submission
-     * Currently logs data to console - will be connected to backend API later
-     * Note: textContent is used to extract values, which is XSS-safe
+     * Sends recipe data to backend API with image upload
      */
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        // Collect all form data safely
-        const data = {
-            recipeName: document.getElementById("recipeName").value.trim(),
-            category: document.getElementById("category").value.trim(),
-            prepTime: document.getElementById("prepTime").value,
-            cookTime: document.getElementById("cookTime").value,
-            servings: document.getElementById("servings").value,
-            // Extract text from list items (remove button text will be included, needs backend cleanup)
-            ingredients: Array.from(ingredientsList.querySelectorAll("li")).map(li => {
-                // Get only the text from the span, not the button
-                return li.querySelector('span').textContent.trim();
-            }),
-            steps: Array.from(stepsList.querySelectorAll("li")).map(li => {
-                // Get only the text from the span, not the button
-                return li.querySelector('span').textContent.trim();
-            })
-        };
+        // Get CSRF token from meta tag
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        // TODO: Send data to backend API endpoint
-        console.log("Recipe data:", data);
-        alert("Recipe logged to console!");
+        // Create FormData object for file upload
+        const formData = new FormData();
+
+        // Add text fields - convert to integers
+        formData.append('title', document.getElementById("recipeName").value.trim());
+        formData.append('description', document.querySelector('textarea[name="description"]').value.trim());
+        formData.append('prep_time', parseInt(document.querySelector('input[name="prep_time"]').value) || 0);
+        formData.append('cook_time', parseInt(document.querySelector('input[name="cook_time"]').value) || 0);
+        formData.append('servings', parseInt(document.querySelector('input[name="servings"]').value) || 1);
+
+        // Add image if selected
+        if (imageInput.files.length > 0) {
+            formData.append('image', imageInput.files[0]);
+            console.log('Image file appended:', imageInput.files[0].name);
+        }
+
+        // Extract ingredients from list items
+        const ingredients = Array.from(ingredientsList.querySelectorAll("li")).map(li => {
+            return li.querySelector('span').textContent.trim();
+        });
+        console.log('Ingredients:', ingredients);
+        ingredients.forEach((ing, idx) => {
+            formData.append(`ingredients[${idx}]`, ing);
+        });
+
+        // Extract instructions from list items
+        const instructions = Array.from(stepsList.querySelectorAll("li")).map(li => {
+            return li.querySelector('span').textContent.trim();
+        });
+        console.log('Instructions:', instructions);
+        instructions.forEach((step, idx) => {
+            formData.append(`instructions[${idx}]`, step);
+        });
+
+        // Extract categories (from comma-separated input)
+        const categoryInput = document.getElementById("category").value.trim();
+        const categories = categoryInput ? categoryInput.split(',').map(c => c.trim()) : [];
+        console.log('Categories:', categories);
+        categories.forEach((cat, idx) => {
+            formData.append(`categories[${idx}]`, cat);
+        });
+
+        // Disable submit button during request
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Creating...';
+
+        try {
+            const response = await fetch('/recipes', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json'
+                },
+                body: formData
+            });
+
+            const data = await response.json();
+            console.log('Response:', data);
+
+            if (data.success) {
+                alert('Recipe created successfully!');
+                // Redirect to recipes page or recipe detail
+                window.location.href = data.redirect_url || '/recipes';
+            } else {
+                alert('Error: ' + (data.message || 'Unknown error occurred'));
+                console.error('Error details:', data);
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'CREATE A RECIPE';
+            }
+        } catch (error) {
+            console.error('Error creating recipe:', error);
+            alert('Error creating recipe: ' + error.message);
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'CREATE A RECIPE';
+        }
     });
 });

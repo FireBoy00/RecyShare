@@ -16,7 +16,19 @@
     <main id="recipeDetailContainer">
         <section class="recipe-hero">
             <div class="hero-image-container">
-                <img src="{{ $recipe->image ? asset($recipe->image) : asset('assets/food/no-image-no-text.jpg') }}" alt="{{ $recipe->title }}" class="recipe-image" id="recipeImage">
+                                                @php
+                                    $imgPath = null;
+                                    if ($recipe->image) {
+                                        if (str_starts_with($recipe->image, 'assets/') || str_starts_with($recipe->image, 'http')) {
+                                            $imgPath = asset($recipe->image);
+                                        } else {
+                                            $imgPath = asset('storage/' . $recipe->image);
+                                        }
+                                    } else {
+                                        $imgPath = asset('assets/food/no-image.jpg');
+                                    }
+                                @endphp
+                                <img src="{{ $imgPath }}" alt="{{ $recipe->title }}" class="recipe-image">
                 <div class="action-buttons">
                     @auth
                         <form id="favoriteForm" class="favorite-form">

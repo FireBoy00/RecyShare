@@ -19,6 +19,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/recipes', [RecipeController::class, 'index'])->name('recipes.index');
 Route::get('/recipe-details/{id}', [RecipeController::class, 'show'])->name('recipes.show');
 Route::get('/share-a-recipe', [RecipeController::class, 'create'])->middleware('auth')->name('recipes.create');
+Route::post('/recipes', [RecipeController::class, 'store'])->middleware('auth')->name('recipes.store');
 
 // About
 Route::get('/about', [AboutController::class, 'index'])->name('about');

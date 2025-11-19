@@ -32,15 +32,7 @@ class DatabaseSeeder extends Seeder
             'bio' => 'Professional chef sharing my favorite recipes.',
         ]);
 
-        // Create recipes for John Doe
-        Recipe::factory(3)->create([
-            'user_id' => $johnDoe->id,
-        ]);
 
-        // Create recipes for Jane Cook
-        Recipe::factory(3)->create([
-            'user_id' => $janeCook->id,
-        ]);
 
         // Create one special Monte Cristo Sandwich recipe for John Doe
         Recipe::create([
