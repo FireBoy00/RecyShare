@@ -16,26 +16,40 @@
 
         <main class="container">
             <section class="form-section">
-                <h1 class="page-title">Share a Recipe</h1>
+                <h1 class="page-title">{{ $editMode ? 'Edit Recipe' : 'Share a Recipe' }}</h1>
 
                 <form id="recipeForm" class="recipe-form" enctype="multipart/form-data">
                     @csrf
                     <div class="form-top">
                         <div class="image-upload">
                             <label for="imageInput" class="image-label">
-                                <div id="imagePreview" class="image-preview">Tap or click to add photo</div>
+                                @if($editMode && $recipe && $recipe->image)
+                                    @php
+                                        $imgPath = null;
+                                        if (str_starts_with($recipe->image, 'assets/') || str_starts_with($recipe->image, 'http')) {
+                                            $imgPath = asset($recipe->image);
+                                        } else {
+                                            $imgPath = asset('storage/' . $recipe->image);
+                                        }
+                                    @endphp
+                                    <div id="imagePreview" class="image-preview">
+                                        <img src="{{ $imgPath }}" alt="Current recipe image">
+                                    </div>
+                                @else
+                                    <div id="imagePreview" class="image-preview">Tap or click to add photo</div>
+                                @endif
                                 <input type="file" id="imageInput" name="image" accept="image/*" hidden />
                             </label>
                         </div>
 
                         <div class="text-inputs">
-                            <input type="text" id="recipeName" name="title" placeholder="Recipe Name" required />
-                            <input type="text" id="category" name="categories" placeholder="Category" />
+                            <input type="text" id="recipeName" name="title" placeholder="Recipe Name" value="{{ $editMode && $recipe ? $recipe->title : '' }}" required />
+                            <input type="text" id="category" name="categories" placeholder="Category" value="{{ $editMode && $recipe && $recipe->categories ? implode(', ', $recipe->categories) : '' }}" />
                             
                             <div class="time-inputs">
-                                <input type="number" name="prep_time" placeholder="Prep Time (min)">
-                                <input type="number" name="cook_time" placeholder="Cook Time (min)">
-                                <input type="number" name="servings" placeholder="Servings">
+                                <input type="number" name="prep_time" placeholder="Prep Time (min)" value="{{ $editMode && $recipe ? $recipe->prep_time : '' }}">
+                                <input type="number" name="cook_time" placeholder="Cook Time (min)" value="{{ $editMode && $recipe ? $recipe->cook_time : '' }}">
+                                <input type="number" name="servings" placeholder="Servings" value="{{ $editMode && $recipe ? $recipe->servings : '' }}">
                             </div>
                         </div>
                     </div>
@@ -43,7 +57,16 @@
                     <div class="form-bottom">
                         <div class="ingredients-section">
                             <h3>Ingredients</h3>
-                            <ul id="ingredientsList"></ul>
+                            <ul id="ingredientsList">
+                                @if($editMode && $recipe && $recipe->ingredients)
+                                    @foreach($recipe->ingredients as $ingredient)
+                                        <li>
+                                            <span>{{ $ingredient }}</span>
+                                            <button type="button" class="material-symbols-outlined" aria-label="Remove ingredient">close</button>
+                                        </li>
+                                    @endforeach
+                                @endif
+                            </ul>
                             <div class="input-add">
                                 <input type="text" id="ingredientInput" placeholder="Add ingredient..." />
                                 <button type="button" id="addIngredientBtn">+</button>
@@ -52,7 +75,16 @@
 
                         <div class="steps-section">
                             <h3>Steps</h3>
-                            <ol id="stepsList"></ol>
+                            <ol id="stepsList">
+                                @if($editMode && $recipe && $recipe->instructions)
+                                    @foreach($recipe->instructions as $instruction)
+                                        <li>
+                                            <span>{{ $instruction }}</span>
+                                            <button type="button" class="material-symbols-outlined" aria-label="Remove step">close</button>
+                                        </li>
+                                    @endforeach
+                                @endif
+                            </ol>
                             <div class="input-add">
                                 <input type="text" id="stepInput" placeholder="Add step..." />
                                 <button type="button" id="addStepBtn">+</button>
@@ -62,10 +94,10 @@
 
                     <div class="description-section">
                         <h3>Description</h3>
-                        <textarea name="description" placeholder="Describe your recipe..."></textarea>
+                        <textarea name="description" placeholder="Describe your recipe...">{{ $editMode && $recipe ? $recipe->description : '' }}</textarea>
                     </div>
 
-                    <button type="submit" class="submit-btn">CREATE A RECIPE</button>
+                    <button type="submit" class="submit-btn">{{ $editMode ? 'UPDATE RECIPE' : 'CREATE A RECIPE' }}</button>
                 </form>
             </section>
         </main>

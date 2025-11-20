@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @vite(['resources/css/settings.css', 'resources/js/settings.js'])
@@ -132,7 +133,7 @@
                                             <img src="{{ $img }}" alt="{{ $recipe->title }}" class="card-image">
                                                 <span class="recipe-time-badge">
                                                     <span class="material-symbols-outlined">schedule</span>
-                                                    {{ ($recipe->prep_time ?? 0) + ($recipe->cook_time ?? 0) }}m
+                                                        @formatTime((($recipe->prep_time ?? 0) + ($recipe->cook_time ?? 0)))
                                                 </span>
                                             <div class="card-content">
                                                 <h3 class="card-title">{{ $recipe->title }}</h3>
@@ -140,8 +141,9 @@
                                             </div>
                                         </div>
                                         <div class="card-actions">
-                                        <button class="remove-btn" type="button">Remove</button>
-                                            <button class="edit-btn" type="button" title="Edit">Edit</button>
+                                            <a href="{{ route('recipes.show', $recipe->id) }}" class="view-btn" title="View">View</a>
+                                            <a href="{{ route('recipes.create') }}?edit={{ $recipe->id }}" class="edit-btn" title="Edit">Edit</a>
+                                            <button class="delete-recipe-btn" data-recipe-id="{{ $recipe->id }}" type="button" title="Delete">Delete</button>
                                         </div>
                                     </div>
                                 @endforeach
@@ -172,7 +174,7 @@
                                                 <img src="{{ $favImg }}" alt="{{ $recipe->title }}" class="card-image">
                                                 <span class="recipe-time-badge">
                                                     <span class="material-symbols-outlined">schedule</span>
-                                                    {{ ($recipe->prep_time ?? 0) + ($recipe->cook_time ?? 0) }}m
+                                                        @formatTime((($recipe->prep_time ?? 0) + ($recipe->cook_time ?? 0)))
                                                 </span>
                                             </div>
                                             <div class="card-content">

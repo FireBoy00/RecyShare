@@ -21,11 +21,28 @@ class RecipeController extends Controller
     }
 
     /**
-     * Show the form for creating a new recipe.
+     * Show the form for creating a new recipe or editing an existing one.
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('share-a-recipe');
+        $recipe = null;
+        $editMode = false;
+        
+        // Check if editing an existing recipe
+        if ($request->has('edit')) {
+            $recipeId = $request->query('edit');
+            $recipe = Recipe::find($recipeId);
+            
+            // Verify ownership
+            if ($recipe && $recipe->user_id === auth()->id()) {
+                $editMode = true;
+            } else {
+                // Redirect if not owner or recipe not found
+                return redirect()->route('recipes.create')->with('error', 'Recipe not found or unauthorized');
+            }
+        }
+        
+        return view('share-a-recipe', compact('recipe', 'editMode'));
     }
 
     /**
@@ -178,5 +195,105 @@ class RecipeController extends Controller
             'success' => true,
             'isFavorited' => $isFavorited
         ]);
+    }
+
+    /**
+     * Remove the specified recipe from storage.
+     */
+    public function destroy(Recipe $recipe)
+    {
+        if (!auth()->check()) {
+            return response()->json(['success' => false, 'message' => 'Not authenticated'], 401);
+        }
+
+        // Only owner may delete
+        if ($recipe->user_id !== auth()->id()) {
+            return response()->json(['success' => false, 'message' => 'Forbidden'], 403);
+        }
+
+        try {
+            // Delete stored image if it's an uploaded storage path
+            if ($recipe->image && !str_starts_with($recipe->image, 'assets/') && !str_starts_with($recipe->image, 'http')) {
+                // Remove from public storage
+                Storage::disk('public')->delete($recipe->image);
+            }
+
+            // Delete recipe (favorites/comments should cascade if FK set)
+            $recipeId = $recipe->id;
+            $recipe->delete();
+
+            return response()->json(['success' => true, 'message' => 'Recipe deleted', 'recipe_id' => $recipeId]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Error deleting recipe: ' . $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Update an existing recipe.
+     */
+    public function update(Request $request, Recipe $recipe)
+    {
+        // Ensure user is authenticated
+        if (!auth()->check()) {
+            return response()->json(['success' => false, 'message' => 'Not authenticated'], 401);
+        }
+
+        // Only owner may update
+        if ($recipe->user_id !== auth()->id()) {
+            return response()->json(['success' => false, 'message' => 'Forbidden'], 403);
+        }
+
+        // Validate request
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string|max:1000',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'prep_time' => 'nullable|integer|min:0',
+            'cook_time' => 'nullable|integer|min:0',
+            'servings' => 'nullable|integer|min:1',
+            'ingredients' => 'nullable|array',
+            'ingredients.*' => 'string|max:500',
+            'instructions' => 'nullable|array',
+            'instructions.*' => 'string|max:1000',
+            'categories' => 'nullable|array',
+            'categories.*' => 'string|max:100',
+        ]);
+
+        try {
+            // Handle image upload (only if new image provided)
+            $imagePath = $recipe->image;
+            if ($request->hasFile('image')) {
+                // Delete old image if it's not an asset
+                if ($recipe->image && !str_starts_with($recipe->image, 'assets/') && !str_starts_with($recipe->image, 'http')) {
+                    Storage::disk('public')->delete($recipe->image);
+                }
+                $imagePath = $request->file('image')->store('recipes', 'public');
+            }
+
+            // Update recipe
+            $recipe->update([
+                'title' => $validated['title'],
+                'description' => $validated['description'] ?? $recipe->description,
+                'image' => $imagePath,
+                'prep_time' => $validated['prep_time'] ?? $recipe->prep_time,
+                'cook_time' => $validated['cook_time'] ?? $recipe->cook_time,
+                'servings' => $validated['servings'] ?? $recipe->servings,
+                'ingredients' => $validated['ingredients'] ?? $recipe->ingredients,
+                'instructions' => $validated['instructions'] ?? $recipe->instructions,
+                'categories' => $validated['categories'] ?? $recipe->categories,
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Recipe updated successfully!',
+                'recipe_id' => $recipe->id,
+                'redirect_url' => route('recipes.show', $recipe->id)
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error updating recipe: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }

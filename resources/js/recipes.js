@@ -82,6 +82,8 @@ function setupFavoriteButtons() {
                         icon.textContent = 'favorite_border';
                         this.classList.remove('favorited');
                     }
+                    // Dispatch event so other pages (settings, detail) can sync
+                    window.dispatchEvent(new CustomEvent('favoriteToggled', { detail: { recipeId: parseInt(recipeId), isFavorited: data.isFavorited } }));
                 }
             } catch (error) {
                 console.error('Error toggling favorite:', error);
@@ -104,19 +106,45 @@ document.addEventListener('DOMContentLoaded', function() {
     // Setup favorite buttons
     setupFavoriteButtons();
 
-    // Listen for favorites toggled from other pages (settings) and update UI
+    // Listen for favorites toggled from other pages (settings, detail) and update UI
     window.addEventListener('favoriteToggled', (e) => {
         const { recipeId, isFavorited } = e.detail || {};
+        console.log('Favorite toggled event received:', { recipeId, isFavorited });
         if (!recipeId) return;
         const btn = document.querySelector(`.recipe-favorite-btn[data-recipe-id="${recipeId}"]`);
-        if (!btn) return;
+        if (!btn) {
+            console.log('Favorite button not found for recipe:', recipeId);
+            return;
+        }
         const icon = btn.querySelector('.material-symbols-outlined');
         if (isFavorited) {
             icon.textContent = 'favorite';
             btn.classList.add('favorited');
+            console.log('Recipe favorited:', recipeId);
         } else {
             icon.textContent = 'favorite_border';
             btn.classList.remove('favorited');
+            console.log('Recipe unfavorited:', recipeId);
+        }
+    });
+
+    // Listen for recipe deletions from other pages and remove card
+    window.addEventListener('recipeDeleted', (e) => {
+        const { recipeId } = e.detail || {};
+        if (!recipeId) return;
+        const card = document.querySelector(`.recipe-card[data-recipe-id="${recipeId}"]`);
+        if (card) {
+            card.remove();
+        }
+        // update header count if present
+        const recipesContainer = document.querySelector('.recipes-container');
+        if (recipesContainer) {
+            const recipesList = document.getElementById('recipesList');
+            const countEl = recipesContainer.querySelector('h1');
+            if (countEl && recipesList) {
+                const visible = Array.from(recipesList.querySelectorAll('.recipe-card')).filter(c => c.style.display !== 'none').length;
+                countEl.textContent = `We have ${visible} recipes`;
+            }
         }
     });
 });

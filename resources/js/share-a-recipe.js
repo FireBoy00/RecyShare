@@ -18,6 +18,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("recipeForm");
 
     /**
+     * Attach remove button listeners to list items
+     */
+    const attachRemoveListeners = (list) => {
+        const removeButtons = list.querySelectorAll('button[aria-label*="Remove"]');
+        removeButtons.forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                btn.closest('li').remove();
+            });
+        });
+    };
+
+    // Attach listeners to pre-populated items (in edit mode)
+    attachRemoveListeners(ingredientsList);
+    attachRemoveListeners(stepsList);
+
+    /**
      * Handle image file selection and preview
      * Validates file type to prevent XSS attacks via malicious files
      */
@@ -124,12 +141,18 @@ document.addEventListener("DOMContentLoaded", () => {
     /**
      * Handle form submission
      * Sends recipe data to backend API with image upload
+     * Handles both create (POST) and edit (PUT) modes
      */
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         // Get CSRF token from meta tag
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        // Check if this is edit mode (recipe ID in URL params)
+        const params = new URLSearchParams(window.location.search);
+        const recipeId = params.get('edit');
+        const isEditMode = !!recipeId;
 
         // Create FormData object for file upload
         const formData = new FormData();
@@ -173,14 +196,22 @@ document.addEventListener("DOMContentLoaded", () => {
             formData.append(`categories[${idx}]`, cat);
         });
 
+        // For PUT requests, need to add _method field for Laravel method spoofing
+        if (isEditMode) {
+            formData.append('_method', 'PUT');
+        }
+
         // Disable submit button during request
         const submitBtn = form.querySelector('button[type="submit"]');
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Creating...';
+        submitBtn.textContent = isEditMode ? 'Updating...' : 'Creating...';
 
         try {
-            const response = await fetch('/recipes', {
-                method: 'POST',
+            const url = isEditMode ? `/recipes/${recipeId}` : '/recipes';
+            const method = isEditMode ? 'POST' : 'POST'; // Laravel expects POST with _method field for PUT
+
+            const response = await fetch(url, {
+                method: method,
                 headers: {
                     'X-CSRF-TOKEN': csrfToken,
                     'Accept': 'application/json'
@@ -192,20 +223,21 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log('Response:', data);
 
             if (data.success) {
-                alert('Recipe created successfully!');
-                // Redirect to recipes page or recipe detail
+                const message = isEditMode ? 'Recipe updated successfully!' : 'Recipe created successfully!';
+                alert(message);
+                // Redirect to recipe detail
                 window.location.href = data.redirect_url || '/recipes';
             } else {
                 alert('Error: ' + (data.message || 'Unknown error occurred'));
                 console.error('Error details:', data);
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'CREATE A RECIPE';
+                submitBtn.textContent = isEditMode ? 'UPDATE RECIPE' : 'CREATE A RECIPE';
             }
         } catch (error) {
-            console.error('Error creating recipe:', error);
-            alert('Error creating recipe: ' + error.message);
+            console.error('Error:', error);
+            alert('Error: ' + error.message);
             submitBtn.disabled = false;
-            submitBtn.textContent = 'CREATE A RECIPE';
+            submitBtn.textContent = isEditMode ? 'UPDATE RECIPE' : 'CREATE A RECIPE';
         }
     });
 });

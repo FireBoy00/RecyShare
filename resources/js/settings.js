@@ -165,15 +165,123 @@ document.addEventListener('DOMContentLoaded', () => {
         autoHideMessages();
     }
 
-    // Client-side handler for Remove buttons (temporary UI behavior)
-    document.addEventListener('click', (e) => {
+    // Client-side handler for Remove buttons (calls backend toggle and dispatches cross-page event)
+    document.addEventListener('click', async (e) => {
         const btn = e.target.closest && e.target.closest('.remove-btn');
         if (!btn) return;
         const wrapper = btn.closest('.card-wrapper');
         if (!wrapper) return;
-        // simple confirm
-        if (confirm('Remove this recipe from the list?')) {
-            wrapper.remove();
+
+        const recipeId = btn.dataset.recipeId;
+        if (!recipeId) {
+            // fallback: just remove UI
+            if (confirm('Remove this recipe from the list?')) wrapper.remove();
+            return;
+        }
+
+        if (!confirm('Remove this recipe from your favorites?')) return;
+
+        btn.disabled = true;
+
+        try {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+            if (!csrfToken) {
+                throw new Error('CSRF token not found');
+            }
+
+            const resp = await fetch(`/recipes/${recipeId}/toggle-favorite`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            });
+
+            if (!resp.ok) {
+                const errorText = await resp.text();
+                console.error('Response error:', resp.status, errorText);
+                throw new Error(`HTTP error! status: ${resp.status}`);
+            }
+
+            const data = await resp.json();
+            console.log('Remove favorite response:', data);
+            
+            if (data.success) {
+                // remove from DOM
+                wrapper.remove();
+
+                // Check if there are any favorites left
+                const cardsGrid = document.querySelector('#favorites .cards-grid');
+                const remainingCards = cardsGrid ? cardsGrid.querySelectorAll('.card-wrapper').length : 0;
+                
+                // If no more favorites, show empty state
+                if (remainingCards === 0) {
+                    if (cardsGrid) {
+                        cardsGrid.remove();
+                    }
+                    const favoritesPanel = document.querySelector('#favorites');
+                    if (favoritesPanel) {
+                        const emptyState = document.createElement('div');
+                        emptyState.className = 'empty-state';
+                        emptyState.innerHTML = `
+                            <p>You haven't favorited any recipes yet.</p>
+                            <a href="${document.querySelector('a[href*="recipes.index"]')?.href || '/recipes'}" class="btn-primary">Browse Recipes</a>
+                        `;
+                        favoritesPanel.appendChild(emptyState);
+                    }
+                }
+
+                // dispatch an event so other pages (recipes, detail) can react
+                window.dispatchEvent(new CustomEvent('favoriteToggled', { detail: { recipeId: parseInt(recipeId), isFavorited: data.isFavorited } }));
+                console.log('Favorite removed and event dispatched for recipe:', recipeId);
+            } else {
+                alert('Could not remove favorite: ' + (data.message || 'Unknown error'));
+                console.error('Remove favorite failed:', data);
+            }
+        } catch (err) {
+            console.error('Error removing favorite from settings:', err);
+            alert('Error while removing favorite: ' + err.message);
+        } finally {
+            btn.disabled = false;
+        }
+    });
+
+    // Handler for delete recipe buttons in shared recipes
+    document.addEventListener('click', async (e) => {
+        const btn = e.target.closest && e.target.closest('.delete-recipe-btn');
+        if (!btn) return;
+        const wrapper = btn.closest('.card-wrapper');
+        if (!wrapper) return;
+
+        const recipeId = btn.dataset.recipeId;
+        if (!recipeId) return;
+
+        if (!confirm('Are you sure you want to permanently delete this recipe?')) return;
+
+        btn.disabled = true;
+        try {
+            const resp = await fetch(`/recipes/${recipeId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                }
+            });
+
+            if (!resp.ok) throw new Error('Network response not ok');
+            const data = await resp.json();
+            if (data.success) {
+                wrapper.remove();
+                // dispatch event so recipes page can update
+                window.dispatchEvent(new CustomEvent('recipeDeleted', { detail: { recipeId: parseInt(recipeId) } }));
+            } else {
+                alert('Could not delete recipe: ' + (data.message || 'Unknown'));
+            }
+        } catch (err) {
+            console.error('Error deleting recipe:', err);
+            alert('Error deleting recipe');
+        } finally {
+            btn.disabled = false;
         }
     });
 });

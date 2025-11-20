@@ -202,6 +202,8 @@ function setupFavoriteButton() {
                     favoriteBtn.classList.remove('favorited');
                     showPopup('Recipe removed from favorites');
                 }
+                // Dispatch event so other pages (recipes, settings) can sync
+                window.dispatchEvent(new CustomEvent('favoriteToggled', { detail: { recipeId: parseInt(recipeId), isFavorited: data.isFavorited } }));
             }
         } catch (error) {
             console.error('Error toggling favorite:', error);
@@ -209,6 +211,21 @@ function setupFavoriteButton() {
         } finally {
             // Re-enable button
             favoriteBtn.disabled = false;
+        }
+    });
+
+    // Listen for favorite changes from other pages
+    window.addEventListener('favoriteToggled', (e) => {
+        const { recipeId: changedRecipeId, isFavorited } = e.detail || {};
+        if (parseInt(recipeId) !== changedRecipeId) return;
+        
+        // Update button from other page's action
+        if (isFavorited) {
+            favoriteIcon.textContent = 'favorite';
+            favoriteBtn.classList.add('favorited');
+        } else {
+            favoriteIcon.textContent = 'favorite_border';
+            favoriteBtn.classList.remove('favorited');
         }
     });
 
