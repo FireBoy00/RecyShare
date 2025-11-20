@@ -15,10 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
     setupShareButton();
 });
 
-function loadRecipeDetails(id) {
-    console.log("Loading recipe details for ID:", id);
-}
-
 function setupCommentForm() {
     const form = document.querySelector('.comment-form');
     if (!form) return;
@@ -62,18 +58,11 @@ function setupCommentForm() {
 }
 
 function setupShareButton() {
-    console.log('Setting up share button...');
     const shareForm = document.getElementById('shareForm');
     const shareBtn = document.getElementById('shareBtn');
     const sharePopup = document.getElementById('sharePopup');
     const shareLink = document.getElementById('shareLink');
     const copyBtn = document.getElementById('copyBtn');
-
-    if (!shareBtn) console.error('Share button not found');
-    if (!sharePopup) console.error('Share popup not found');
-    if (!shareLink) console.error('Share link input not found');
-    if (!copyBtn) console.error('Copy button not found');
-    if (!shareForm) console.error('Share form not found');
 
     if (!shareBtn || !sharePopup || !shareLink || !copyBtn || !shareForm) return;
 
@@ -82,7 +71,6 @@ function setupShareButton() {
     shareBtn.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log('Share button clicked');
         isPopupVisible = !isPopupVisible;
         
         if (isPopupVisible) {
@@ -176,7 +164,6 @@ function setupFavoriteButton() {
         favoriteBtn.disabled = true;
         
         try {
-            console.log('Sending favorite request for recipe:', recipeId);
             const response = await fetch(`/recipes/${recipeId}/toggle-favorite`, {
                 method: 'POST',
                 headers: {
@@ -190,7 +177,6 @@ function setupFavoriteButton() {
             }
 
             const data = await response.json();
-            console.log('Favorite response:', data);
             
             if (data.success) {
                 if (data.isFavorited) {

@@ -37,6 +37,10 @@ export default defineConfig({
                 // Recipes listing page
                 'resources/css/recipes.css',
 
+                // Profile page
+                'resources/css/profile.css',
+                'resources/js/profile.js',
+
                 // Bootstrap (global, if needed)
                 'resources/js/bootstrap.js',
             ],

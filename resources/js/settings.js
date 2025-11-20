@@ -204,7 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const data = await resp.json();
-            console.log('Remove favorite response:', data);
             
             if (data.success) {
                 // remove from DOM
@@ -233,7 +232,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // dispatch an event so other pages (recipes, detail) can react
                 window.dispatchEvent(new CustomEvent('favoriteToggled', { detail: { recipeId: parseInt(recipeId), isFavorited: data.isFavorited } }));
-                console.log('Favorite removed and event dispatched for recipe:', recipeId);
             } else {
                 alert('Could not remove favorite: ' + (data.message || 'Unknown error'));
                 console.error('Remove favorite failed:', data);

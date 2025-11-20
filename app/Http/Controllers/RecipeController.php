@@ -12,6 +12,17 @@ use Illuminate\Support\Facades\Storage;
 class RecipeController extends Controller
 {
     /**
+     * Delete image file from storage if it's an uploaded path.
+     * Skips deletion for asset and external HTTP paths.
+     */
+    private function deleteImageIfUploaded($imagePath)
+    {
+        if ($imagePath && !str_starts_with($imagePath, 'assets/') && !str_starts_with($imagePath, 'http')) {
+            Storage::disk('public')->delete($imagePath);
+        }
+    }
+
+    /**
      * Display a listing of recipes.
      */
     public function index()
@@ -27,17 +38,14 @@ class RecipeController extends Controller
     {
         $recipe = null;
         $editMode = false;
-        
-        // Check if editing an existing recipe
+
         if ($request->has('edit')) {
             $recipeId = $request->query('edit');
             $recipe = Recipe::find($recipeId);
-            
-            // Verify ownership
+
             if ($recipe && $recipe->user_id === auth()->id()) {
                 $editMode = true;
             } else {
-                // Redirect if not owner or recipe not found
                 return redirect()->route('recipes.create')->with('error', 'Recipe not found or unauthorized');
             }
         }
@@ -53,7 +61,6 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        // Ensure user is authenticated
         if (!auth()->check()) {
             return response()->json([
                 'success' => false,
@@ -61,7 +68,6 @@ class RecipeController extends Controller
             ], 401);
         }
 
-        // Validate request
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
@@ -78,13 +84,11 @@ class RecipeController extends Controller
         ]);
 
         try {
-            // Handle image upload
             $imagePath = null;
             if ($request->hasFile('image')) {
                 $imagePath = $request->file('image')->store('recipes', 'public');
             }
 
-            // Create recipe
             $recipe = Recipe::create([
                 'user_id' => auth()->id(),
                 'title' => $validated['title'],
@@ -150,8 +154,6 @@ class RecipeController extends Controller
             'content' => $request->comment
         ]);
 
-        $comment->load('user');
-
         return response()->json([
             'success' => true,
             'comment' => [
@@ -206,19 +208,12 @@ class RecipeController extends Controller
             return response()->json(['success' => false, 'message' => 'Not authenticated'], 401);
         }
 
-        // Only owner may delete
         if ($recipe->user_id !== auth()->id()) {
             return response()->json(['success' => false, 'message' => 'Forbidden'], 403);
         }
 
         try {
-            // Delete stored image if it's an uploaded storage path
-            if ($recipe->image && !str_starts_with($recipe->image, 'assets/') && !str_starts_with($recipe->image, 'http')) {
-                // Remove from public storage
-                Storage::disk('public')->delete($recipe->image);
-            }
-
-            // Delete recipe (favorites/comments should cascade if FK set)
+            $this->deleteImageIfUploaded($recipe->image);
             $recipeId = $recipe->id;
             $recipe->delete();
 
@@ -233,17 +228,14 @@ class RecipeController extends Controller
      */
     public function update(Request $request, Recipe $recipe)
     {
-        // Ensure user is authenticated
         if (!auth()->check()) {
             return response()->json(['success' => false, 'message' => 'Not authenticated'], 401);
         }
 
-        // Only owner may update
         if ($recipe->user_id !== auth()->id()) {
             return response()->json(['success' => false, 'message' => 'Forbidden'], 403);
         }
 
-        // Validate request
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
@@ -260,17 +252,12 @@ class RecipeController extends Controller
         ]);
 
         try {
-            // Handle image upload (only if new image provided)
             $imagePath = $recipe->image;
             if ($request->hasFile('image')) {
-                // Delete old image if it's not an asset
-                if ($recipe->image && !str_starts_with($recipe->image, 'assets/') && !str_starts_with($recipe->image, 'http')) {
-                    Storage::disk('public')->delete($recipe->image);
-                }
+                $this->deleteImageIfUploaded($recipe->image);
                 $imagePath = $request->file('image')->store('recipes', 'public');
             }
 
-            // Update recipe
             $recipe->update([
                 'title' => $validated['title'],
                 'description' => $validated['description'] ?? $recipe->description,

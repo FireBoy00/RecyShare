@@ -167,14 +167,12 @@ document.addEventListener("DOMContentLoaded", () => {
         // Add image if selected
         if (imageInput.files.length > 0) {
             formData.append('image', imageInput.files[0]);
-            console.log('Image file appended:', imageInput.files[0].name);
         }
 
         // Extract ingredients from list items
         const ingredients = Array.from(ingredientsList.querySelectorAll("li")).map(li => {
             return li.querySelector('span').textContent.trim();
         });
-        console.log('Ingredients:', ingredients);
         ingredients.forEach((ing, idx) => {
             formData.append(`ingredients[${idx}]`, ing);
         });
@@ -183,7 +181,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const instructions = Array.from(stepsList.querySelectorAll("li")).map(li => {
             return li.querySelector('span').textContent.trim();
         });
-        console.log('Instructions:', instructions);
         instructions.forEach((step, idx) => {
             formData.append(`instructions[${idx}]`, step);
         });
@@ -191,7 +188,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // Extract categories (from comma-separated input)
         const categoryInput = document.getElementById("category").value.trim();
         const categories = categoryInput ? categoryInput.split(',').map(c => c.trim()) : [];
-        console.log('Categories:', categories);
         categories.forEach((cat, idx) => {
             formData.append(`categories[${idx}]`, cat);
         });
@@ -220,7 +216,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             const data = await response.json();
-            console.log('Response:', data);
 
             if (data.success) {
                 const message = isEditMode ? 'Recipe updated successfully!' : 'Recipe created successfully!';

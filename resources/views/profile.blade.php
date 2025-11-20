@@ -3,9 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @vite(['resources/css/profile.css'])
         @vite(['resources/css/recipes.css'])
+        @vite(['resources/js/profile.js'])
         <title>RecyShare</title>
     </head>
 
@@ -72,12 +74,14 @@
                                                             ->exists();
                                     @endphp
 
-                                    <button class="recipe-favorite-btn {{ $isFavorited ? 'favorited' : '' }}" 
-                                            data-recipe-id="{{ $recipe->id }}">
-                                        <span class="material-symbols-outlined">
-                                            {{ $isFavorited ? 'favorite' : 'favorite_border' }}
-                                        </span>
-                                    </button>
+                                    <div style="display: flex; gap: 8px;">
+                                        <button class="recipe-favorite-btn {{ $isFavorited ? 'favorited' : '' }}" 
+                                                data-recipe-id="{{ $recipe->id }}">
+                                            <span class="material-symbols-outlined">
+                                                {{ $isFavorited ? 'favorite' : 'favorite_border' }}
+                                            </span>
+                                        </button>
+                                    </div>
                                 @endauth
                             </div>
                         </div>
