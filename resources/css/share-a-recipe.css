@@ -21,9 +21,9 @@ body {
    Main container and title styling
    ======================================== */
 .container {
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 40px auto;
-    padding: 0 20px;
+    padding: 0 40px;
 }
 
 .page-title {
@@ -37,7 +37,7 @@ body {
 /* Form and Preview Wrapper */
 .form-preview-wrapper {
     display: flex;
-    gap: 40px;
+    gap: 60px;
     align-items: flex-start;
 }
 
@@ -50,7 +50,6 @@ body {
     flex-direction: column;
     gap: 60px;
     flex: 1;
-    max-width: 800px;
 }
 
 /* Top section: Image + Inputs */
@@ -366,82 +365,6 @@ body {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.recipe-card-preview .recipe-image-wrapper {
-    position: relative;
-    width: 100%;
-    height: 250px;
-    overflow: hidden;
-}
-
-.recipe-card-preview .recipe-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.recipe-card-preview .recipe-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), transparent);
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 15px;
-}
-
-.recipe-card-preview .recipe-time {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    background-color: rgba(255, 255, 255, 0.95);
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    color: #333;
-    font-weight: 500;
-}
-
-.recipe-card-preview .recipe-time .material-symbols-outlined {
-    font-size: 18px;
-}
-
-.recipe-card-preview .recipe-content {
-    padding: 20px;
-}
-
-.recipe-card-preview .recipe-title {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #333;
-    margin: 0 0 10px 0;
-}
-
-.recipe-card-preview .recipe-description {
-    font-size: 0.95rem;
-    color: #666;
-    margin: 0 0 15px 0;
-    line-height: 1.5;
-}
-
-.recipe-card-preview .recipe-categories {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 15px;
-}
-
-.recipe-card-preview .category-tag-small {
-    background-color: #dcf3e6;
-    color: #2d5f3d;
-    padding: 4px 12px;
-    border-radius: 15px;
-    font-size: 0.8rem;
-    font-weight: 500;
 }
 
 /* ========================================

@@ -6,6 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/recipe-card.css'])
         @vite(['resources/css/settings.css', 'resources/js/settings.js'])
         <title>Settings | RecyShare</title>
     </head>
@@ -117,9 +118,9 @@
                     <div id="shared" class="panel tab-panel hidden">
                         <div class="recipes-list">
                             @foreach($userRecipes as $recipe)
-                                <div class="recipe-card-container">
+                                <div class="recipe-card-wrapper">
                                     <x-recipe-card :recipe="$recipe" />
-                                    <div class="card-actions">
+                                    <div class="card-actions-overlay">
                                         <a href="{{ route('recipes.show', $recipe->id) }}" class="action-btn view-btn" title="View">View</a>
                                         <a href="{{ route('recipes.create') }}?edit={{ $recipe->id }}" class="action-btn edit-btn" title="Edit">Edit</a>
                                         <button class="action-btn delete-recipe-btn" data-recipe-id="{{ $recipe->id }}" type="button" title="Delete">Delete</button>
@@ -136,9 +137,9 @@
                                     @php
                                         $recipe = $favorite->recipe;
                                     @endphp
-                                    <div class="recipe-card-container">
+                                    <div class="recipe-card-wrapper">
                                         <x-recipe-card :recipe="$recipe" />
-                                        <div class="card-actions">
+                                        <div class="card-actions-overlay">
                                             <a href="{{ route('recipes.show', $recipe->id) }}" class="action-btn view-btn" type="button" title="View">View</a>
                                             <button class="action-btn remove-btn" data-recipe-id="{{ $recipe->id }}" type="button" title="Remove from favorites">Remove</button>
                                         </div>

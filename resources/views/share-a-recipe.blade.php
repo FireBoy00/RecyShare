@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/recipe-card.css'])
         @vite(['resources/css/share-a-recipe.css', 'resources/js/share-a-recipe.js'])
         <title>Share a Recipe – RecyShare</title>
     </head>
@@ -19,6 +20,28 @@
                 <h1 class="page-title">{{ $editMode ? 'Edit Recipe' : 'Share a Recipe' }}</h1>
 
                 <div class="form-preview-wrapper">
+                    <div class="preview-sidebar">
+                        <div class="preview-sticky">
+                            <h3>Recipe Preview</h3>
+                            <div class="recipe-card-preview">
+                                <div class="recipe-image-wrapper">
+                                    <img id="previewImage" src="{{ asset('assets/food/no-image.jpg') }}" alt="Recipe preview" class="recipe-image">
+                                    <div class="recipe-overlay">
+                                        <span class="recipe-time">
+                                            <span class="material-symbols-outlined">schedule</span>
+                                            <span id="previewTime">0 min</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="recipe-content">
+                                    <h3 class="recipe-title" id="previewTitle">Recipe Name</h3>
+                                    <p class="recipe-description" id="previewDescription">A delicious recipe waiting for you to try!</p>
+                                    <div class="recipe-categories" id="previewCategories"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <form id="recipeForm" class="recipe-form" enctype="multipart/form-data">
                         @csrf
                         <div class="form-top">
@@ -106,28 +129,6 @@
 
                         <button type="submit" class="submit-btn">{{ $editMode ? 'UPDATE RECIPE' : 'CREATE A RECIPE' }}</button>
                     </form>
-
-                    <div class="preview-sidebar">
-                        <div class="preview-sticky">
-                            <h3>Recipe Preview</h3>
-                            <div class="recipe-card-preview">
-                                <div class="recipe-image-wrapper">
-                                    <img id="previewImage" src="{{ asset('assets/food/no-image.jpg') }}" alt="Recipe preview" class="recipe-image">
-                                    <div class="recipe-overlay">
-                                        <span class="recipe-time">
-                                            <span class="material-symbols-outlined">schedule</span>
-                                            <span id="previewTime">0 min</span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="recipe-content">
-                                    <h3 class="recipe-title" id="previewTitle">Recipe Name</h3>
-                                    <p class="recipe-description" id="previewDescription">A delicious recipe waiting for you to try!</p>
-                                    <div class="recipe-categories" id="previewCategories"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </section>
         </main>

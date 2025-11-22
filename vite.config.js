@@ -9,6 +9,9 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
 
+                // Recipe card component
+                'resources/css/recipe-card.css',
+
                 // Home page
                 'resources/css/home.css',
                 'resources/js/recipes.js',
