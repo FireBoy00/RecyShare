@@ -31,7 +31,7 @@
                 @if($recipe->servings)
                     <span class="recipe-servings">
                         <span class="material-symbols-outlined">restaurant</span>
-                        {{ $recipe->servings }} servings
+                        {{ $recipe->servings }}
                     </span>
                 @endif
             </div>
@@ -49,18 +49,19 @@
     </div>
     <div class="recipe-content">
         <h3 class="recipe-title">{{ $recipe->title }}</h3>
-        <p class="recipe-description" title="{{ $recipe->description ?? 'A delicious recipe waiting for you to try!' }}">
-            {{ $recipe->description ?? 'A delicious recipe waiting for you to try!' }}
-        </p>
-        @if($recipe->categories && is_array($recipe->categories) && count($recipe->categories) > 0)
-            <div class="recipe-categories">
-                @foreach(array_slice($recipe->categories, 0, 3) as $category)
-                    <span class="category-tag-small">{{ $category }}</span>
-                @endforeach
-            </div>
-        @endif
+        <div class="recipe-content-bottom">
+            <p class="recipe-description" title="{{ $recipe->description ?? 'A delicious recipe waiting for you to try!' }}">
+                {{ $recipe->description ?? 'A delicious recipe waiting for you to try!' }}
+            </p>
+            @if($recipe->categories && is_array($recipe->categories) && count($recipe->categories) > 0)
+                <div class="recipe-categories">
+                    @foreach($recipe->categories as $category)
+                        <span class="category-tag-small">{{ $category }}</span>
+                    @endforeach
+                </div>
+            @endif
 
-        <a href="{{ route('recipes.show', $recipe->id) }}" class="btn">View Recipe</a>
-        
+            <a href="{{ route('recipes.show', $recipe->id) }}" class="btn">View Recipe</a>
+        </div>
     </div>
 </div>

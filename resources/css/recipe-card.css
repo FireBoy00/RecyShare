@@ -126,10 +126,17 @@
 /* Recipe title */
 .recipe-card .recipe-title {
     font-size: 1.3rem;
-    margin: 0 0 10px 0;
+    margin: 0 0 auto 0;
     text-align: left;
     color: #333;
     font-weight: 600;
+}
+
+/* Bottom content wrapper */
+.recipe-content-bottom {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Recipe description text */
@@ -155,21 +162,29 @@
     margin-bottom: 12px;
     overflow-x: auto;
     white-space: nowrap;
-    scrollbar-width: thin;
-    scrollbar-color: #dcf3e6 transparent;
+    scrollbar-width: none;
+    position: relative;
 }
 
 .recipe-categories::-webkit-scrollbar {
-    height: 4px;
+    display: none;
 }
 
-.recipe-categories::-webkit-scrollbar-track {
-    background: transparent;
+.recipe-categories::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    background: linear-gradient(to left, rgba(0,0,0,0.1), transparent);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-.recipe-categories::-webkit-scrollbar-thumb {
-    background-color: #dcf3e6;
-    border-radius: 2px;
+.recipe-categories.has-scroll::after {
+    opacity: 1;
 }
 
 .category-tag-small {

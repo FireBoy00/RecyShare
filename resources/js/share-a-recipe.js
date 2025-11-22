@@ -27,11 +27,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const previewDescription = document.getElementById("previewDescription");
     const previewTime = document.getElementById("previewTime");
     const previewCategories = document.getElementById("previewCategories");
+    const previewServings = document.getElementById("previewServings");
+    const previewServingsCount = document.getElementById("previewServingsCount");
     const recipeName = document.getElementById("recipeName");
     const categoryInput = document.getElementById("category");
     const descriptionInput = document.querySelector('textarea[name="description"]');
     const prepTimeInput = document.querySelector('input[name="prep_time"]');
     const cookTimeInput = document.querySelector('input[name="cook_time"]');
+    const servingsInput = document.querySelector('input[name="servings"]');
 
     let currentImageSrc = null;
 
@@ -60,11 +63,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         previewTime.textContent = timeStr.trim();
 
+        // Update servings
+        const servings = parseInt(servingsInput.value) || 0;
+        if (servings > 0) {
+            previewServingsCount.textContent = servings;
+            previewServings.style.display = 'flex';
+        } else {
+            previewServings.style.display = 'none';
+        }
+
         // Update categories
         const categoryValue = categoryInput.value.trim();
         const categories = categoryValue ? categoryValue.split(',').map(c => c.trim()).filter(c => c) : [];
         previewCategories.innerHTML = '';
-        categories.slice(0, 3).forEach(cat => {
+        categories.forEach(cat => {
             const tag = document.createElement('span');
             tag.className = 'category-tag-small';
             tag.textContent = cat;
@@ -82,6 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
     descriptionInput.addEventListener('input', updatePreview);
     prepTimeInput.addEventListener('input', updatePreview);
     cookTimeInput.addEventListener('input', updatePreview);
+    servingsInput.addEventListener('input', updatePreview);
     categoryInput.addEventListener('input', updatePreview);
 
     // Initialize preview if in edit mode

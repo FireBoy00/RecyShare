@@ -23,20 +23,28 @@
                     <div class="preview-sidebar">
                         <div class="preview-sticky">
                             <h3>Recipe Preview</h3>
-                            <div class="recipe-card-preview">
+                            <div class="recipe-card recipe-card-preview">
                                 <div class="recipe-image-wrapper">
                                     <img id="previewImage" src="{{ asset('assets/food/no-image.jpg') }}" alt="Recipe preview" class="recipe-image">
                                     <div class="recipe-overlay">
-                                        <span class="recipe-time">
-                                            <span class="material-symbols-outlined">schedule</span>
-                                            <span id="previewTime">0 min</span>
-                                        </span>
+                                        <div class="recipe-badges">
+                                            <span class="recipe-time">
+                                                <span class="material-symbols-outlined">schedule</span>
+                                                <span id="previewTime">0 min</span>
+                                            </span>
+                                            <span class="recipe-servings" id="previewServings" style="display: none;">
+                                                <span class="material-symbols-outlined">restaurant</span>
+                                                <span id="previewServingsCount">0</span>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="recipe-content">
                                     <h3 class="recipe-title" id="previewTitle">Recipe Name</h3>
-                                    <p class="recipe-description" id="previewDescription">A delicious recipe waiting for you to try!</p>
-                                    <div class="recipe-categories" id="previewCategories"></div>
+                                    <div class="recipe-content-bottom">
+                                        <p class="recipe-description" id="previewDescription">A delicious recipe waiting for you to try!</p>
+                                        <div class="recipe-categories" id="previewCategories"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

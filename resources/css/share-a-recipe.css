@@ -361,20 +361,6 @@ body {
 .recipe-card-preview {
     max-width: 100%;
     margin: 0 auto;
-    background-color: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.recipe-card-preview .recipe-title {
-    color: #54b856 !important;
-    text-align: center !important;
-}
-
-.recipe-card-preview .recipe-image {
-    height: 250px;
-    object-fit: cover;
 }
 
 /* ========================================
