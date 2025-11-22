@@ -121,6 +121,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize current panel from the URL hash
     handleHash();
 
+    // Setup favorite button handlers
+    setupFavoriteButtons();
+
     // Auto-hide ALL messages (success and error) after 5 seconds
     function autoHideMessages() {
         document.querySelectorAll('.form-message-success, .form-message-error').forEach(msg => {
@@ -165,91 +168,100 @@ document.addEventListener('DOMContentLoaded', () => {
         autoHideMessages();
     }
 
-    // Client-side handler for Remove buttons (calls backend toggle and dispatches cross-page event)
-    document.addEventListener('click', async (e) => {
-        const btn = e.target.closest && e.target.closest('.remove-btn');
-        if (!btn) return;
-        const wrapper = btn.closest('.card-wrapper');
-        if (!wrapper) return;
+    /**
+     * Setup favorite button click handlers for recipe cards
+     */
+    function setupFavoriteButtons() {
+        document.addEventListener('click', async (e) => {
+            const btn = e.target.closest('.recipe-favorite-btn');
+            if (!btn) return;
 
-        const recipeId = btn.dataset.recipeId;
-        if (!recipeId) {
-            // fallback: just remove UI
-            if (confirm('Remove this recipe from the list?')) wrapper.remove();
-            return;
-        }
+            e.preventDefault();
+            e.stopPropagation();
 
-        if (!confirm('Remove this recipe from your favorites?')) return;
+            const recipeId = btn.dataset.recipeId;
+            if (!recipeId) return;
 
-        btn.disabled = true;
+            const icon = btn.querySelector('.material-symbols-outlined');
+            btn.disabled = true;
 
-        try {
-            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
-            if (!csrfToken) {
-                throw new Error('CSRF token not found');
-            }
-
-            const resp = await fetch(`/recipes/${recipeId}/toggle-favorite`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken
-                }
-            });
-
-            if (!resp.ok) {
-                const errorText = await resp.text();
-                console.error('Response error:', resp.status, errorText);
-                throw new Error(`HTTP error! status: ${resp.status}`);
-            }
-
-            const data = await resp.json();
-            
-            if (data.success) {
-                // remove from DOM
-                wrapper.remove();
-
-                // Check if there are any favorites left
-                const cardsGrid = document.querySelector('#favorites .cards-grid');
-                const remainingCards = cardsGrid ? cardsGrid.querySelectorAll('.card-wrapper').length : 0;
-                
-                // If no more favorites, show empty state
-                if (remainingCards === 0) {
-                    if (cardsGrid) {
-                        cardsGrid.remove();
-                    }
-                    const favoritesPanel = document.querySelector('#favorites');
-                    if (favoritesPanel) {
-                        const emptyState = document.createElement('div');
-                        emptyState.className = 'empty-state';
-                        emptyState.innerHTML = `
-                            <p>You haven't favorited any recipes yet.</p>
-                            <a href="${document.querySelector('a[href*="recipes.index"]')?.href || '/recipes'}" class="btn-primary">Browse Recipes</a>
-                        `;
-                        favoritesPanel.appendChild(emptyState);
-                    }
+            try {
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+                if (!csrfToken) {
+                    throw new Error('CSRF token not found');
                 }
 
-                // dispatch an event so other pages (recipes, detail) can react
-                window.dispatchEvent(new CustomEvent('favoriteToggled', { detail: { recipeId: parseInt(recipeId), isFavorited: data.isFavorited } }));
-            } else {
-                alert('Could not remove favorite: ' + (data.message || 'Unknown error'));
-                console.error('Remove favorite failed:', data);
+                const resp = await fetch(`/recipes/${recipeId}/toggle-favorite`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+
+                if (!resp.ok) {
+                    throw new Error(`HTTP error! status: ${resp.status}`);
+                }
+
+                const data = await resp.json();
+
+                if (data.success) {
+                    if (data.isFavorited) {
+                        icon.textContent = 'favorite';
+                        btn.classList.add('favorited');
+                    } else {
+                        icon.textContent = 'favorite_border';
+                        btn.classList.remove('favorited');
+
+                        // If we're in the favorites tab and item was unfavorited, remove it from list
+                        const currentHash = (location.hash || '#profile').replace('#', '');
+                        if (currentHash === 'favorites') {
+                            const card = btn.closest('.recipe-card');
+                            if (card) {
+                                card.remove();
+
+                                // Check if there are any favorites left
+                                const recipesList = document.querySelector('#favorites .recipes-list');
+                                const remainingCards = recipesList ? recipesList.querySelectorAll('.recipe-card').length : 0;
+
+                                // If no more favorites, show empty state
+                                if (remainingCards === 0 && recipesList) {
+                                    recipesList.remove();
+                                    const favoritesPanel = document.querySelector('#favorites');
+                                    if (favoritesPanel) {
+                                        const emptyState = document.createElement('div');
+                                        emptyState.className = 'empty-state';
+                                        emptyState.innerHTML = `
+                                            <p>You haven't favorited any recipes yet.</p>
+                                            <a href="/recipes" class="btn-primary">Browse Recipes</a>
+                                        `;
+                                        favoritesPanel.appendChild(emptyState);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // Dispatch event for other pages
+                    window.dispatchEvent(new CustomEvent('favoriteToggled', {
+                        detail: { recipeId: parseInt(recipeId), isFavorited: data.isFavorited }
+                    }));
+                }
+            } catch (err) {
+                console.error('Error toggling favorite:', err);
+                alert('Error toggling favorite: ' + err.message);
+            } finally {
+                btn.disabled = false;
             }
-        } catch (err) {
-            console.error('Error removing favorite from settings:', err);
-            alert('Error while removing favorite: ' + err.message);
-        } finally {
-            btn.disabled = false;
-        }
-    });
+        });
+    }
 
     // Handler for delete recipe buttons in shared recipes
     document.addEventListener('click', async (e) => {
         const btn = e.target.closest && e.target.closest('.delete-recipe-btn');
         if (!btn) return;
-        const wrapper = btn.closest('.card-wrapper');
-        if (!wrapper) return;
+        const card = btn.closest('.recipe-card');
+        if (!card) return;
 
         const recipeId = btn.dataset.recipeId;
         if (!recipeId) return;
@@ -269,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!resp.ok) throw new Error('Network response not ok');
             const data = await resp.json();
             if (data.success) {
-                wrapper.remove();
+                card.remove();
                 // dispatch event so recipes page can update
                 window.dispatchEvent(new CustomEvent('recipeDeleted', { detail: { recipeId: parseInt(recipeId) } }));
             } else {
