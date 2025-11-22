@@ -41,7 +41,7 @@
         </ul>
         <div class="search-bar">
             <span class="material-symbols-outlined icon">search</span>
-            <input type="search" id="searchBar" placeholder="Search...">
+            <input type="search" id="searchBar" placeholder="Search..." data-current-page="{{ $currentPage }}">
         </div>
         <x-account-nav />
     </div>

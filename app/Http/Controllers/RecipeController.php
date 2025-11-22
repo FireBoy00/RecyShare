@@ -25,9 +25,20 @@ class RecipeController extends Controller
     /**
      * Display a listing of recipes.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $recipes = Recipe::with('user')->latest()->get();
+        $query = Recipe::with('user')->latest();
+        
+        // Handle search parameter from URL
+        if ($request->has('search') && $request->search) {
+            $searchTerm = $request->search;
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('title', 'like', '%' . $searchTerm . '%')
+                  ->orWhere('description', 'like', '%' . $searchTerm . '%');
+            });
+        }
+        
+        $recipes = $query->get();
         return view('recipes', compact('recipes'));
     }
 

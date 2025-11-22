@@ -97,9 +97,28 @@ function setupFavoriteButtons() {
 
 document.addEventListener('DOMContentLoaded', function() {
     const searchBar = document.getElementById('searchBar');
+    
+    // Get initial search query from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialQuery = urlParams.get('search') || '';
+    
     if (searchBar) {
+        // Set initial value from URL
+        if (initialQuery) {
+            searchBar.value = initialQuery;
+            search(initialQuery);
+        }
+        
+        // Search as user types
         searchBar.addEventListener('input', function() {
-            search(this.value);
+            const query = this.value;
+            search(query);
+            
+            // Update URL without page reload
+            const newUrl = query 
+                ? `${window.location.pathname}?search=${encodeURIComponent(query)}`
+                : window.location.pathname;
+            window.history.replaceState({}, '', newUrl);
         });
     }
     
