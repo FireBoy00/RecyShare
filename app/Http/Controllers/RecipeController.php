@@ -7,6 +7,8 @@ use App\Models\Recipe;
 use App\Models\Comment;
 use App\Models\Favorite;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 
 class RecipeController extends Controller
@@ -64,7 +66,7 @@ class RecipeController extends Controller
             $recipeId = $request->query('edit');
             $recipe = Recipe::find($recipeId);
 
-            if ($recipe && $recipe->user_id === auth()->id()) {
+            if ($recipe && $recipe->user_id === Auth::auth()->id()) {
                 $editMode = true;
             } else {
                 return redirect()->route('recipes.create')->with('error', 'Recipe not found or unauthorized');
@@ -82,7 +84,7 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        if (!auth()->check()) {
+        if (!Auth::auth()->check()) {
             return response()->json([
                 'success' => false,
                 'message' => 'You must be logged in to share a recipe.'
@@ -115,7 +117,7 @@ class RecipeController extends Controller
             }
 
             $recipe = Recipe::create([
-                'user_id' => auth()->id(),
+                'user_id' => Auth::auth()->id(),
                 'title' => $validated['title'],
                 'description' => $validated['description'] ?? '',
                 'image' => $imagePath,
@@ -134,7 +136,7 @@ class RecipeController extends Controller
                 'redirect_url' => route('recipes.show', $recipe->id)
             ]);
         } catch (\Exception $e) {
-            \Log::error("Error creating recipe", [
+            Log::error("Error creating recipe", [
                 'exception' => $e,
             ]);
             return response()->json([
@@ -156,8 +158,8 @@ class RecipeController extends Controller
         $comments = $recipe->comments()->with('user')->latest()->get();
         $isFavorited = false;
 
-        if (auth()->check()) {
-            $isFavorited = $recipe->favorites()->where('user_id', auth()->id())->exists();
+        if (Auth::auth()->check()) {
+            $isFavorited = $recipe->favorites()->where('user_id', Auth::auth()->id())->exists();
         }
 
         return view('recipe-details', compact('recipe', 'comments', 'isFavorited'));
@@ -165,7 +167,7 @@ class RecipeController extends Controller
 
     public function addComment(Request $request, Recipe $recipe)
     {
-        if (!auth()->check()) {
+        if (!Auth::auth()->check()) {
             return response()->json([
                 'success' => false,
                 'message' => 'You must be logged in to comment.'
@@ -178,7 +180,7 @@ class RecipeController extends Controller
 
         $comment = Comment::create([
             'recipe_id' => $recipe->id,
-            'user_id' => auth()->id(),
+            'user_id' => Auth::auth()->id(),
             'content' => $request->comment
         ]);
 
@@ -197,14 +199,14 @@ class RecipeController extends Controller
 
     public function toggleFavorite(Recipe $recipe)
     {
-        if (!auth()->check()) {
+        if (!Auth::auth()->check()) {
             return response()->json([
                 'success' => false,
                 'message' => 'You must be logged in to favorite recipes.'
             ], 401);
         }
 
-        $userId = auth()->id();
+        $userId = Auth::auth()->id();
 
         $favorite = Favorite::where('recipe_id', $recipe->id)
             ->where('user_id', $userId)
@@ -232,22 +234,22 @@ class RecipeController extends Controller
      */
     public function destroy(Recipe $recipe)
     {
-        if (!auth()->check()) {
+        if (!Auth::auth()->check()) {
             return response()->json(['success' => false, 'message' => 'Not authenticated'], 401);
         }
 
-        if ($recipe->user_id !== auth()->id()) {
+        if ($recipe->user_id !== Auth::auth()->id()) {
             return response()->json(['success' => false, 'message' => 'Forbidden'], 403);
         }
 
+        $recipeId = $recipe->id;
         try {
             $this->deleteImageIfUploaded($recipe->image);
-            $recipeId = $recipe->id;
             $recipe->delete();
 
             return response()->json(['success' => true, 'message' => 'Recipe deleted', 'recipe_id' => $recipeId]);
         } catch (\Exception $e) {
-            \Log::error("Error deleting recipe (ID: {$recipeId}): " . $e->getMessage(), ['exception' => $e]);
+            Log::error("Error deleting recipe (ID: {$recipeId}): " . $e->getMessage(), ['exception' => $e]);
             return response()->json(['success' => false, 'message' => 'An error occurred while deleting the recipe. Please try again later.'], 500);
         }
     }
@@ -257,11 +259,11 @@ class RecipeController extends Controller
      */
     public function update(Request $request, Recipe $recipe)
     {
-        if (!auth()->check()) {
+        if (!Auth::auth()->check()) {
             return response()->json(['success' => false, 'message' => 'Not authenticated'], 401);
         }
 
-        if ($recipe->user_id !== auth()->id()) {
+        if ($recipe->user_id !== Auth::auth()->id()) {
             return response()->json(['success' => false, 'message' => 'Forbidden'], 403);
         }
 
@@ -320,7 +322,7 @@ class RecipeController extends Controller
                 'redirect_url' => route('recipes.show', $recipe->id)
             ]);
         } catch (\Exception $e) {
-            \Log::error("Error updating recipe (ID: {$recipe->id}): " . $e->getMessage(), ['exception' => $e]);
+            Log::error("Error updating recipe (ID: {$recipe->id}): " . $e->getMessage(), ['exception' => $e]);
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred while updating the recipe. Please try again later.'
