@@ -21,7 +21,7 @@ body {
    Main container and title styling
    ======================================== */
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 40px auto;
     padding: 0 20px;
 }
@@ -34,6 +34,13 @@ body {
     text-align: center;
 }
 
+/* Form and Preview Wrapper */
+.form-preview-wrapper {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
 /* ========================================
    FORM LAYOUT
    Overall form structure and spacing
@@ -42,6 +49,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 60px;
+    flex: 1;
+    max-width: 800px;
 }
 
 /* Top section: Image + Inputs */
@@ -329,17 +338,21 @@ body {
    PREVIEW SECTION
    Live preview of the recipe card
    ======================================== */
-.preview-section {
-    width: 100%;
-    max-width: 1020px;
-    margin: 0 auto;
+.preview-sidebar {
+    flex: 0 0 380px;
+    width: 380px;
+}
+
+.preview-sticky {
+    position: sticky;
+    top: 20px;
     background-color: #f3f9f5;
     border-radius: 12px;
     padding: 20px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-.preview-section h3 {
+.preview-sidebar h3 {
     font-size: 1.1rem;
     color: #388e3c;
     margin-bottom: 15px;
@@ -347,7 +360,7 @@ body {
 }
 
 .recipe-card-preview {
-    max-width: 380px;
+    max-width: 100%;
     margin: 0 auto;
     background-color: white;
     border-radius: 12px;
@@ -385,7 +398,7 @@ body {
     display: flex;
     align-items: center;
     gap: 5px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 6px 12px;
     border-radius: 20px;
     font-size: 0.85rem;
@@ -423,8 +436,8 @@ body {
 }
 
 .recipe-card-preview .category-tag-small {
-    background-color: #e9f5ec;
-    color: #388e3c;
+    background-color: #dcf3e6;
+    color: #2d5f3d;
     padding: 4px 12px;
     border-radius: 15px;
     font-size: 0.8rem;
@@ -458,6 +471,21 @@ body {
    Mobile and tablet adaptations
    ======================================== */
 @media (max-width: 992px) {
+    .form-preview-wrapper {
+        flex-direction: column;
+    }
+
+    .preview-sidebar {
+        flex: 1;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .preview-sticky {
+        position: static;
+    }
+
     .form-top {
         flex-direction: column;
         align-items: center;
