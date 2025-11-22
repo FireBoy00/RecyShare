@@ -5,41 +5,147 @@
  */
 
 /**
- * Search and filter recipes by title and description
- * @param {string} args - Search query string
- * Filters recipes in real-time and updates the header with results count
+ * Fetch recipes from server and render them
+ * @param {string} query - Search query string
  */
-function search(args = "") {
-    const filter = args.toLowerCase();
+async function fetchAndRenderRecipes(query = "") {
     const recipesContainer = document.querySelector('.recipes-container');
     const recipesList = document.getElementById('recipesList');
-    const recipes = recipesList.querySelectorAll('.recipe-card');
     
-    let recipesFound = 0;
-    // Filter each recipe card based on search query
-    recipes.forEach(recipe => {
-        const title = recipe.querySelector('.recipe-title');
-        const description = recipe.querySelector('.recipe-description');
-        // Combine title and description for comprehensive search
-        const txtValue = `${title?.textContent ?? ''} ${description?.textContent ?? ''}`;
-        if (txtValue.toLowerCase().indexOf(filter) > -1) {
-            recipe.style.display = "";
-            recipesFound++;
-        } else {
-            recipe.style.display = "none";
+    if (!recipesContainer || !recipesList) return;
+    
+    try {
+        // Show loading state
+        recipesContainer.querySelector('h1').textContent = 'Searching...';
+        
+        // Fetch recipes from server
+        const url = query 
+            ? `/recipes?search=${encodeURIComponent(query)}`
+            : '/recipes';
+            
+        const response = await fetch(url, {
+            headers: {
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error('Failed to fetch recipes');
         }
-    })
+        
+        const data = await response.json();
+        const recipes = data.recipes;
+        const count = data.count;
+        
+        // Clear current recipes
+        recipesList.innerHTML = '';
+        
+        // Render new recipes
+        if (recipes.length === 0) {
+            recipesContainer.querySelector('h1').textContent = query 
+                ? `No recipes found for "${query}"`
+                : 'No recipes available';
+            return;
+        }
+        
+        // Update header
+        if (query.trim() !== "") {
+            recipesContainer.querySelector('h1').textContent = `Found ${count} recipes for "${query}"`;
+        } else {
+            recipesContainer.querySelector('h1').textContent = `We have ${count} recipes`;
+        }
+        
+        // Render recipe cards
+        recipes.forEach(recipe => {
+            const card = createRecipeCard(recipe);
+            recipesList.appendChild(card);
+        });
+        
+        // Re-setup favorite buttons for new cards
+        setupFavoriteButtons();
+        
+    } catch (error) {
+        console.error('Error fetching recipes:', error);
+        recipesContainer.querySelector('h1').textContent = 'Error loading recipes';
+    }
+}
 
-    // Update header based on search results
-    if (recipesFound === 0) {
-        recipesContainer.querySelector('h1').textContent = `No recipes found for "${args}"`;
-        return;
+/**
+ * Create a recipe card element from recipe data
+ * @param {Object} recipe - Recipe data object
+ * @returns {HTMLElement} Recipe card element
+ */
+function createRecipeCard(recipe) {
+    const card = document.createElement('div');
+    card.className = 'recipe-card';
+    card.dataset.recipeId = recipe.id;
+    
+    // Determine image path
+    let imgPath = '/assets/food/no-image.jpg';
+    if (recipe.image) {
+        if (recipe.image.startsWith('assets/') || recipe.image.startsWith('http')) {
+            imgPath = recipe.image.startsWith('http') ? recipe.image : `/${recipe.image}`;
+        } else {
+            imgPath = `/storage/${recipe.image}`;
+        }
     }
-    if (args.trim() !== "") {
-        recipesContainer.querySelector('h1').textContent = `Found ${recipesFound} recipes for "${args}"`;
-        return;
+    
+    // Format time
+    const totalTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
+    let timeStr = '';
+    if (totalTime >= 60) {
+        const hours = Math.floor(totalTime / 60);
+        const mins = totalTime % 60;
+        timeStr = hours + 'h' + (mins > 0 ? ' ' + mins + 'm' : '');
+    } else {
+        timeStr = totalTime + 'm';
     }
-    recipesContainer.querySelector('h1').textContent = `We have ${recipes.length} recipes`;
+    
+    // Check if favorited (if user is logged in)
+    const userLoggedIn = document.querySelector('meta[name="csrf-token"]') !== null;
+    const isFavorited = false; // Will be determined by server response or existing state
+    
+    card.innerHTML = `
+        <div class="recipe-image-wrapper">
+            <img src="${imgPath}" alt="${recipe.title}" class="recipe-image">
+            <div class="recipe-overlay">
+                <div class="recipe-badges">
+                    <span class="recipe-time">
+                        <span class="material-symbols-outlined">schedule</span>
+                        ${timeStr}
+                    </span>
+                    ${recipe.servings ? `
+                        <span class="recipe-servings">
+                            <span class="material-symbols-outlined">restaurant</span>
+                            ${recipe.servings}
+                        </span>
+                    ` : ''}
+                </div>
+                ${userLoggedIn ? `
+                    <button class="recipe-favorite-btn" data-recipe-id="${recipe.id}">
+                        <span class="material-symbols-outlined">favorite_border</span>
+                    </button>
+                ` : ''}
+            </div>
+        </div>
+        <div class="recipe-content">
+            <h3 class="recipe-title">${recipe.title}</h3>
+            <div class="recipe-content-bottom">
+                <p class="recipe-description" title="${recipe.description || 'A delicious recipe waiting for you to try!'}">
+                    ${recipe.description || 'A delicious recipe waiting for you to try!'}
+                </p>
+                <div class="recipe-categories">
+                    ${recipe.categories && Array.isArray(recipe.categories) ? 
+                        recipe.categories.map(cat => `<span class="category-tag-small">${cat}</span>`).join('') 
+                        : ''}
+                </div>
+                <a href="/recipes/${recipe.id}" class="btn">View Recipe</a>
+            </div>
+        </div>
+    `;
+    
+    return card;
 }
 
 /**
@@ -97,28 +203,34 @@ function setupFavoriteButtons() {
 
 document.addEventListener('DOMContentLoaded', function() {
     const searchBar = document.getElementById('searchBar');
+    let searchTimeout;
     
     // Get initial search query from URL
     const urlParams = new URLSearchParams(window.location.search);
     const initialQuery = urlParams.get('search') || '';
     
+    if (searchBar && initialQuery) {
+        searchBar.value = initialQuery;
+    }
+    
     if (searchBar) {
-        // Set initial value from URL
-        if (initialQuery) {
-            searchBar.value = initialQuery;
-            search(initialQuery);
-        }
-        
-        // Search as user types
+        // Debounced search as user types
         searchBar.addEventListener('input', function() {
             const query = this.value;
-            search(query);
             
-            // Update URL without page reload
-            const newUrl = query 
-                ? `${window.location.pathname}?search=${encodeURIComponent(query)}`
-                : window.location.pathname;
-            window.history.replaceState({}, '', newUrl);
+            // Clear previous timeout
+            clearTimeout(searchTimeout);
+            
+            // Wait 500ms after user stops typing before searching
+            searchTimeout = setTimeout(async () => {
+                await fetchAndRenderRecipes(query);
+                
+                // Update URL without page reload
+                const newUrl = query 
+                    ? `${window.location.pathname}?search=${encodeURIComponent(query)}`
+                    : window.location.pathname;
+                window.history.replaceState({}, '', newUrl);
+            }, 500);
         });
     }
     

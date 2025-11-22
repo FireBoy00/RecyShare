@@ -118,19 +118,7 @@
                     <div id="shared" class="panel tab-panel hidden">
                         <div class="recipes-list">
                             @foreach($userRecipes as $recipe)
-                                <div class="recipe-card-wrapper">
-                                    <x-recipe-card :recipe="$recipe" />
-                                    <div class="card-actions-overlay">
-                                        <a href="{{ route('recipes.create') }}?edit={{ $recipe->id }}" class="action-btn edit-btn" title="Edit" data-label="Edit">
-                                            <span class="material-symbols-outlined">edit</span>
-                                            <span class="btn-label">Edit</span>
-                                        </a>
-                                        <button class="action-btn delete-recipe-btn" data-recipe-id="{{ $recipe->id }}" type="button" title="Delete" data-label="Delete">
-                                            <span class="material-symbols-outlined">delete</span>
-                                            <span class="btn-label">Delete</span>
-                                        </button>
-                                    </div>
-                                </div>
+                                <x-recipe-card :recipe="$recipe" />
                             @endforeach
                         </div>
                     </div>

@@ -190,3 +190,60 @@
     align-items: center;
     margin-top: auto;
 }
+
+/* ========================================
+   OWNER ACTION BUTTONS
+   Edit and delete buttons for recipe owners
+   ======================================== */
+.card-owner-actions .action-btn,
+.recipe-overlay .action-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    text-decoration: none;
+}
+
+.card-owner-actions .action-btn:hover,
+.recipe-overlay .action-btn:hover {
+    background: white;
+    transform: scale(1.1);
+}
+
+.card-owner-actions .action-btn .material-symbols-outlined,
+.recipe-overlay .action-btn .material-symbols-outlined {
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.card-owner-actions .action-btn .btn-label,
+.recipe-overlay .action-btn .btn-label {
+    display: none;
+}
+
+.card-owner-actions .edit-btn .material-symbols-outlined,
+.recipe-overlay .edit-btn .material-symbols-outlined {
+    color: #2196F3;
+}
+
+.card-owner-actions .edit-btn:hover .material-symbols-outlined,
+.recipe-overlay .edit-btn:hover .material-symbols-outlined {
+    color: #1976D2;
+}
+
+.card-owner-actions .delete-recipe-btn .material-symbols-outlined,
+.recipe-overlay .delete-recipe-btn .material-symbols-outlined {
+    color: #f44336;
+}
+
+.card-owner-actions .delete-recipe-btn:hover .material-symbols-outlined,
+.recipe-overlay .delete-recipe-btn:hover .material-symbols-outlined {
+    color: #d32f2f;
+}

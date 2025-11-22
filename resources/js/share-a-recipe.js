@@ -21,14 +21,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const stepInput = document.getElementById("stepInput");
     const form = document.getElementById("recipeForm");
 
-    // Preview elements
-    const previewImage = document.getElementById("previewImage");
-    const previewTitle = document.getElementById("previewTitle");
-    const previewDescription = document.getElementById("previewDescription");
-    const previewTime = document.getElementById("previewTime");
-    const previewCategories = document.getElementById("previewCategories");
-    const previewServings = document.getElementById("previewServings");
-    const previewServingsCount = document.getElementById("previewServingsCount");
+    // Preview elements - using recipe card component selectors
+    const previewCard = document.querySelector('.recipe-card');
+    const previewImage = previewCard?.querySelector('.recipe-image');
+    const previewTitle = previewCard?.querySelector('.recipe-title');
+    const previewDescription = previewCard?.querySelector('.recipe-description');
+    const previewTime = previewCard?.querySelector('.recipe-time');
+    const previewCategories = previewCard?.querySelector('.recipe-categories');
+    const previewServingsSpan = previewCard?.querySelector('.recipe-servings');
     const recipeName = document.getElementById("recipeName");
     const categoryInput = document.getElementById("category");
     const descriptionInput = document.querySelector('textarea[name="description"]');
@@ -42,49 +42,63 @@ document.addEventListener("DOMContentLoaded", () => {
      * Update preview card in real-time
      */
     const updatePreview = () => {
+        if (!previewCard) return;
+
         // Update title
-        previewTitle.textContent = recipeName.value.trim() || 'Recipe Name';
+        if (previewTitle) {
+            previewTitle.textContent = recipeName.value.trim() || 'Recipe Name';
+        }
 
         // Update description
-        previewDescription.textContent = descriptionInput.value.trim() || 'A delicious recipe waiting for you to try!';
+        if (previewDescription) {
+            const desc = descriptionInput.value.trim() || 'A delicious recipe waiting for you to try!';
+            previewDescription.textContent = desc;
+            previewDescription.setAttribute('title', desc);
+        }
 
-        // Update time
-        const prepTime = parseInt(prepTimeInput.value) || 0;
-        const cookTime = parseInt(cookTimeInput.value) || 0;
-        const totalTime = prepTime + cookTime;
-        const hours = Math.floor(totalTime / 60);
-        const minutes = totalTime % 60;
-        let timeStr = '';
-        if (hours > 0) {
-            timeStr += `${hours} hr `;
+        // Update time - clear and rebuild the entire time badge
+        if (previewTime) {
+            const prepTime = parseInt(prepTimeInput.value) || 0;
+            const cookTime = parseInt(cookTimeInput.value) || 0;
+            const totalTime = prepTime + cookTime;
+            const hours = Math.floor(totalTime / 60);
+            const minutes = totalTime % 60;
+            let timeStr = '';
+            if (hours > 0) {
+                timeStr += `${hours}h`;
+                if (minutes > 0) {
+                    timeStr += ` ${minutes}m`;
+                }
+            } else {
+                timeStr += `${minutes}m`;
+            }
+            
+            // Clear and rebuild
+            previewTime.innerHTML = '<span class="material-symbols-outlined">schedule</span>' + timeStr;
         }
-        if (minutes > 0 || totalTime === 0) {
-            timeStr += `${minutes} min`;
-        }
-        previewTime.textContent = timeStr.trim();
 
         // Update servings
-        const servings = parseInt(servingsInput.value) || 0;
-        if (servings > 0) {
-            previewServingsCount.textContent = servings;
-            previewServings.style.display = 'flex';
-        } else {
-            previewServings.style.display = 'none';
+        if (previewServingsSpan) {
+            const servings = parseInt(servingsInput.value) || 0;
+            previewServingsSpan.innerHTML = '<span class="material-symbols-outlined">restaurant</span>' + servings;
+            previewServingsSpan.style.display = 'flex';
         }
 
         // Update categories
-        const categoryValue = categoryInput.value.trim();
-        const categories = categoryValue ? categoryValue.split(',').map(c => c.trim()).filter(c => c) : [];
-        previewCategories.innerHTML = '';
-        categories.forEach(cat => {
-            const tag = document.createElement('span');
-            tag.className = 'category-tag-small';
-            tag.textContent = cat;
-            previewCategories.appendChild(tag);
-        });
+        if (previewCategories) {
+            const categoryValue = categoryInput.value.trim();
+            const categories = categoryValue ? categoryValue.split(',').map(c => c.trim()).filter(c => c) : [];
+            previewCategories.innerHTML = '';
+            categories.forEach(cat => {
+                const tag = document.createElement('span');
+                tag.className = 'category-tag-small';
+                tag.textContent = cat;
+                previewCategories.appendChild(tag);
+            });
+        }
 
         // Update image if there's a current source
-        if (currentImageSrc) {
+        if (currentImageSrc && previewImage) {
             previewImage.src = currentImageSrc;
         }
     };
@@ -139,7 +153,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 img.alt = 'Recipe Image';
                 imagePreview.appendChild(img);
                 currentImageSrc = ev.target.result;
-                previewImage.src = currentImageSrc;
+                if (previewImage) {
+                    previewImage.src = currentImageSrc;
+                }
                 removeImageBtn.style.display = 'inline-block';
                 removeImageInput.value = '0';
                 imageUrl.value = '';
@@ -169,13 +185,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert('Failed to load image from URL');
                 imagePreview.textContent = 'Tap or click to add photo';
                 currentImageSrc = null;
-                previewImage.src = '{{ asset("assets/food/no-image.jpg") }}';
+                if (previewImage) {
+                    previewImage.src = '/assets/food/no-image.jpg';
+                }
             };
             img.onload = () => {
                 imagePreview.textContent = '';
                 imagePreview.appendChild(img);
                 currentImageSrc = trimmedUrl;
-                previewImage.src = currentImageSrc;
+                if (previewImage) {
+                    previewImage.src = currentImageSrc;
+                }
                 removeImageBtn.style.display = 'inline-block';
                 imageUrl.value = trimmedUrl;
                 imageInput.value = '';
@@ -193,7 +213,9 @@ document.addEventListener("DOMContentLoaded", () => {
         imageUrl.value = '';
         removeImageInput.value = '1';
         currentImageSrc = null;
-        previewImage.src = '{{ asset("assets/food/no-image.jpg") }}';
+        if (previewImage) {
+            previewImage.src = '/assets/food/no-image.jpg';
+        }
         removeImageBtn.style.display = 'none';
     });
 
@@ -201,7 +223,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (imagePreview.querySelector('img')) {
         removeImageBtn.style.display = 'inline-block';
         currentImageSrc = imagePreview.querySelector('img').src;
-        previewImage.src = currentImageSrc;
+        if (previewImage) {
+            previewImage.src = currentImageSrc;
+        }
     }
 
     /**
