@@ -6,7 +6,6 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @vite(['resources/css/recipe-card.css'])
         @vite(['resources/css/settings.css', 'resources/js/settings.js'])
         <title>Settings | RecyShare</title>
     </head>

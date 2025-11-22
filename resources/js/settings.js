@@ -5,6 +5,7 @@
  * @author RecyShare Team
  */
 import '../css/settings.css';
+import { setupRecipeCardActions } from './recipe-card.js';
 
 // DOM ready: initialize overlay, sidebar, tab navigation and card actions
 document.addEventListener('DOMContentLoaded', () => {
@@ -121,8 +122,40 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize current panel from the URL hash
     handleHash();
 
-    // Setup favorite button handlers
-    setupFavoriteButtons();
+    // Setup recipe card actions (favorites, delete, sync)
+    setupRecipeCardActions(document, {
+        favorite: {
+            onSuccess: (recipeId, isFavorited, btn) => {
+                // If we're in the favorites tab and item was unfavorited, remove it from list
+                const currentHash = (location.hash || '#profile').replace('#', '');
+                if (currentHash === 'favorites' && !isFavorited) {
+                    const card = btn.closest('.recipe-card');
+                    if (card) {
+                        card.remove();
+
+                        // Check if there are any favorites left
+                        const recipesList = document.querySelector('#favorites .recipes-list');
+                        const remainingCards = recipesList ? recipesList.querySelectorAll('.recipe-card').length : 0;
+
+                        // If no more favorites, show empty state
+                        if (remainingCards === 0 && recipesList) {
+                            recipesList.remove();
+                            const favoritesPanel = document.querySelector('#favorites');
+                            if (favoritesPanel) {
+                                const emptyState = document.createElement('div');
+                                emptyState.className = 'empty-state';
+                                emptyState.innerHTML = `
+                                    <p>You haven't favorited any recipes yet.</p>
+                                    <a href="/recipes" class="btn-primary">Browse Recipes</a>
+                                `;
+                                favoritesPanel.appendChild(emptyState);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    });
 
     // Auto-hide ALL messages (success and error) after 5 seconds
     function autoHideMessages() {
@@ -167,131 +200,4 @@ document.addEventListener('DOMContentLoaded', () => {
         // Re-run auto-hide after tab restoration
         autoHideMessages();
     }
-
-    /**
-     * Setup favorite button click handlers for recipe cards
-     */
-    function setupFavoriteButtons() {
-        document.addEventListener('click', async (e) => {
-            const btn = e.target.closest('.recipe-favorite-btn');
-            if (!btn) return;
-
-            e.preventDefault();
-            e.stopPropagation();
-
-            const recipeId = btn.dataset.recipeId;
-            if (!recipeId) return;
-
-            const icon = btn.querySelector('.material-symbols-outlined');
-            btn.disabled = true;
-
-            try {
-                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
-                if (!csrfToken) {
-                    throw new Error('CSRF token not found');
-                }
-
-                const resp = await fetch(`/recipes/${recipeId}/toggle-favorite`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken
-                    }
-                });
-
-                if (!resp.ok) {
-                    throw new Error(`HTTP error! status: ${resp.status}`);
-                }
-
-                const data = await resp.json();
-
-                if (data.success) {
-                    if (data.isFavorited) {
-                        icon.textContent = 'favorite';
-                        btn.classList.add('favorited');
-                    } else {
-                        icon.textContent = 'favorite_border';
-                        btn.classList.remove('favorited');
-
-                        // If we're in the favorites tab and item was unfavorited, remove it from list
-                        const currentHash = (location.hash || '#profile').replace('#', '');
-                        if (currentHash === 'favorites') {
-                            const card = btn.closest('.recipe-card');
-                            if (card) {
-                                card.remove();
-
-                                // Check if there are any favorites left
-                                const recipesList = document.querySelector('#favorites .recipes-list');
-                                const remainingCards = recipesList ? recipesList.querySelectorAll('.recipe-card').length : 0;
-
-                                // If no more favorites, show empty state
-                                if (remainingCards === 0 && recipesList) {
-                                    recipesList.remove();
-                                    const favoritesPanel = document.querySelector('#favorites');
-                                    if (favoritesPanel) {
-                                        const emptyState = document.createElement('div');
-                                        emptyState.className = 'empty-state';
-                                        emptyState.innerHTML = `
-                                            <p>You haven't favorited any recipes yet.</p>
-                                            <a href="/recipes" class="btn-primary">Browse Recipes</a>
-                                        `;
-                                        favoritesPanel.appendChild(emptyState);
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    // Dispatch event for other pages
-                    window.dispatchEvent(new CustomEvent('favoriteToggled', {
-                        detail: { recipeId: parseInt(recipeId), isFavorited: data.isFavorited }
-                    }));
-                }
-            } catch (err) {
-                console.error('Error toggling favorite:', err);
-                alert('Error toggling favorite: ' + err.message);
-            } finally {
-                btn.disabled = false;
-            }
-        });
-    }
-
-    // Handler for delete recipe buttons in shared recipes
-    document.addEventListener('click', async (e) => {
-        const btn = e.target.closest && e.target.closest('.delete-recipe-btn');
-        if (!btn) return;
-        const card = btn.closest('.recipe-card');
-        if (!card) return;
-
-        const recipeId = btn.dataset.recipeId;
-        if (!recipeId) return;
-
-        if (!confirm('Are you sure you want to permanently delete this recipe?')) return;
-
-        btn.disabled = true;
-        try {
-            const resp = await fetch(`/recipes/${recipeId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                }
-            });
-
-            if (!resp.ok) throw new Error('Network response not ok');
-            const data = await resp.json();
-            if (data.success) {
-                card.remove();
-                // dispatch event so recipes page can update
-                window.dispatchEvent(new CustomEvent('recipeDeleted', { detail: { recipeId: parseInt(recipeId) } }));
-            } else {
-                alert('Could not delete recipe: ' + (data.message || 'Unknown'));
-            }
-        } catch (err) {
-            console.error('Error deleting recipe:', err);
-            alert('Error deleting recipe');
-        } finally {
-            btn.disabled = false;
-        }
-    });
 });

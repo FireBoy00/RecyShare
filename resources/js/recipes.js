@@ -1,8 +1,10 @@
 /**
  * Recipes Page JavaScript
- * Handles search functionality and favorite toggling for recipes.
+ * Handles search functionality for recipes.
  * @author RecyShare Team
  */
+
+import { setupRecipeCardActions } from './recipe-card.js';
 
 /**
  * Fetch recipes from server and render them
@@ -61,9 +63,6 @@ async function fetchAndRenderRecipes(query = "") {
             const card = createRecipeCard(recipe);
             recipesList.appendChild(card);
         });
-        
-        // Re-setup favorite buttons for new cards
-        setupFavoriteButtons();
         
     } catch (error) {
         console.error('Error fetching recipes:', error);
@@ -148,59 +147,6 @@ function createRecipeCard(recipe) {
     return card;
 }
 
-/**
- * Setup favorite button functionality on recipe cards
- */
-function setupFavoriteButtons() {
-    const favoriteButtons = document.querySelectorAll('.recipe-favorite-btn');
-    
-    favoriteButtons.forEach(button => {
-        button.addEventListener('click', async function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const recipeId = this.dataset.recipeId;
-            const icon = this.querySelector('.material-symbols-outlined');
-            
-            // Disable button during request
-            this.disabled = true;
-            
-            try {
-                const response = await fetch(`/recipes/${recipeId}/toggle-favorite`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                
-                if (data.success) {
-                    if (data.isFavorited) {
-                        icon.textContent = 'favorite';
-                        this.classList.add('favorited');
-                    } else {
-                        icon.textContent = 'favorite_border';
-                        this.classList.remove('favorited');
-                    }
-                    // Dispatch event so other pages (settings, detail) can sync
-                    window.dispatchEvent(new CustomEvent('favoriteToggled', { detail: { recipeId: parseInt(recipeId), isFavorited: data.isFavorited } }));
-                }
-            } catch (error) {
-                console.error('Error toggling favorite:', error);
-            } finally {
-                // Re-enable button
-                this.disabled = false;
-            }
-        });
-    });
-}
-
 document.addEventListener('DOMContentLoaded', function() {
     const searchBar = document.getElementById('searchBar');
     let searchTimeout;
@@ -234,41 +180,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Setup favorite buttons
-    setupFavoriteButtons();
-
-    // Listen for favorites toggled from other pages (settings, detail) and update UI
-    window.addEventListener('favoriteToggled', (e) => {
-        const { recipeId, isFavorited } = e.detail || {};
-        if (!recipeId) return;
-        const btn = document.querySelector(`.recipe-favorite-btn[data-recipe-id="${recipeId}"]`);
-        if (!btn) return;
-        const icon = btn.querySelector('.material-symbols-outlined');
-        if (isFavorited) {
-            icon.textContent = 'favorite';
-            btn.classList.add('favorited');
-        } else {
-            icon.textContent = 'favorite_border';
-            btn.classList.remove('favorited');
-        }
-    });
-
-    // Listen for recipe deletions from other pages and remove card
-    window.addEventListener('recipeDeleted', (e) => {
-        const { recipeId } = e.detail || {};
-        if (!recipeId) return;
-        const card = document.querySelector(`.recipe-card[data-recipe-id="${recipeId}"]`);
-        if (card) {
-            card.remove();
-        }
-        // update header count if present
-        const recipesContainer = document.querySelector('.recipes-container');
-        if (recipesContainer) {
-            const recipesList = document.getElementById('recipesList');
-            const countEl = recipesContainer.querySelector('h1');
-            if (countEl && recipesList) {
-                const visible = Array.from(recipesList.querySelectorAll('.recipe-card')).filter(c => c.style.display !== 'none').length;
-                countEl.textContent = `We have ${visible} recipes`;
+    // Setup recipe card actions (favorites, delete, sync)
+    setupRecipeCardActions(document, {
+        onDeleted: (recipeId) => {
+            // Update header count after deletion
+            const recipesContainer = document.querySelector('.recipes-container');
+            if (recipesContainer) {
+                const recipesList = document.getElementById('recipesList');
+                const countEl = recipesContainer.querySelector('h1');
+                if (countEl && recipesList) {
+                    const visible = Array.from(recipesList.querySelectorAll('.recipe-card')).filter(c => c.style.display !== 'none').length;
+                    countEl.textContent = `We have ${visible} recipes`;
+                }
             }
         }
     });

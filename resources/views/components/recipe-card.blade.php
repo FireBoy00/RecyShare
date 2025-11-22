@@ -5,6 +5,10 @@
     @author RecyShare Team
 --}}
 
+@once
+    @vite(['resources/css/recipe-card.css', 'resources/js/recipe-card.js'])
+@endonce
+
 @props(['recipe', 'isPreview' => false])
 
 <div class="recipe-card" data-recipe-id="{{ $recipe->id }}">
