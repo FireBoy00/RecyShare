@@ -5,47 +5,45 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                // Per-page assets
+                // Global assets
                 'resources/css/app.css',
                 'resources/js/app.js',
-
-                // Recipe card component
+                'resources/js/bootstrap.js',
+                'resources/js/constants.js',
+                
+                // Components
                 'resources/css/recipe-card.css',
+                'resources/js/recipe-card.js',
 
-                // Home page
-                'resources/css/home.css',
-                'resources/js/recipes.js',
-
-                // Settings page
-                'resources/css/settings.css',
-                'resources/js/settings.js',
-
-                // About page
-                'resources/css/about.css',
-
-                // Login page
+                // Authentication
                 'resources/css/login.css',
-
-                // Signup page
                 'resources/css/signup.css',
 
-                // Recipe detail page
+                // Home
+                'resources/css/home.css',
+
+                // About
+                'resources/css/about.css',
+
+                // Recipes listing
+                'resources/css/recipes.css',
+                'resources/js/recipes.js',
+
+                // Recipe detail
                 'resources/css/recipe-detail.css',
                 'resources/js/recipe-detail.js',
 
-                // Share a recipe page
+                // Share a recipe
                 'resources/css/share-a-recipe.css',
                 'resources/js/share-a-recipe.js',
 
-                // Recipes listing page
-                'resources/css/recipes.css',
-
-                // Profile page
+                // User profile
                 'resources/css/profile.css',
                 'resources/js/profile.js',
 
-                // Bootstrap (global, if needed)
-                'resources/js/bootstrap.js',
+                // Settings
+                'resources/css/settings.css',
+                'resources/js/settings.js',
             ],
             refresh: true,
         }),
