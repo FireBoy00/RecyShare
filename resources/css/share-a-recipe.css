@@ -94,6 +94,40 @@ body {
     object-fit: cover;
 }
 
+/* Image controls */
+.image-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.image-control-btn {
+    padding: 8px 16px;
+    border: 1px solid #54b856;
+    background-color: white;
+    color: #54b856;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.image-control-btn:hover {
+    background-color: #54b856;
+    color: white;
+}
+
+.image-control-btn.remove {
+    border-color: #d32f2f;
+    color: #d32f2f;
+}
+
+.image-control-btn.remove:hover {
+    background-color: #d32f2f;
+    color: white;
+}
+
 /* ========================================
    TEXT INPUT FIELDS
    Recipe name, category, and time inputs
@@ -289,6 +323,112 @@ body {
     resize: vertical;
     font-size: 1rem;
     box-sizing: border-box;
+}
+
+/* ========================================
+   PREVIEW SECTION
+   Live preview of the recipe card
+   ======================================== */
+.preview-section {
+    width: 100%;
+    max-width: 1020px;
+    margin: 0 auto;
+    background-color: #f3f9f5;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.preview-section h3 {
+    font-size: 1.1rem;
+    color: #388e3c;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.recipe-card-preview {
+    max-width: 380px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-card-preview .recipe-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+
+.recipe-card-preview .recipe-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.recipe-card-preview .recipe-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), transparent);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 15px;
+}
+
+.recipe-card-preview .recipe-time {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.recipe-card-preview .recipe-time .material-symbols-outlined {
+    font-size: 18px;
+}
+
+.recipe-card-preview .recipe-content {
+    padding: 20px;
+}
+
+.recipe-card-preview .recipe-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 10px 0;
+}
+
+.recipe-card-preview .recipe-description {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 0 0 15px 0;
+    line-height: 1.5;
+}
+
+.recipe-card-preview .recipe-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.recipe-card-preview .category-tag-small {
+    background-color: #e9f5ec;
+    color: #388e3c;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
 }
 
 /* ========================================

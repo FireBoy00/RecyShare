@@ -9,6 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Get references to all form elements
     const imageInput = document.getElementById("imageInput");
     const imagePreview = document.getElementById("imagePreview");
+    const imageUrl = document.getElementById("imageUrl");
+    const removeImageInput = document.getElementById("removeImage");
+    const addUrlBtn = document.getElementById("addUrlBtn");
+    const removeImageBtn = document.getElementById("removeImageBtn");
     const addIngredientBtn = document.getElementById("addIngredientBtn");
     const addStepBtn = document.getElementById("addStepBtn");
     const ingredientsList = document.getElementById("ingredientsList");
@@ -16,6 +20,72 @@ document.addEventListener("DOMContentLoaded", () => {
     const ingredientInput = document.getElementById("ingredientInput");
     const stepInput = document.getElementById("stepInput");
     const form = document.getElementById("recipeForm");
+
+    // Preview elements
+    const previewImage = document.getElementById("previewImage");
+    const previewTitle = document.getElementById("previewTitle");
+    const previewDescription = document.getElementById("previewDescription");
+    const previewTime = document.getElementById("previewTime");
+    const previewCategories = document.getElementById("previewCategories");
+    const recipeName = document.getElementById("recipeName");
+    const categoryInput = document.getElementById("category");
+    const descriptionInput = document.querySelector('textarea[name="description"]');
+    const prepTimeInput = document.querySelector('input[name="prep_time"]');
+    const cookTimeInput = document.querySelector('input[name="cook_time"]');
+
+    let currentImageSrc = null;
+
+    /**
+     * Update preview card in real-time
+     */
+    const updatePreview = () => {
+        // Update title
+        previewTitle.textContent = recipeName.value.trim() || 'Recipe Name';
+
+        // Update description
+        previewDescription.textContent = descriptionInput.value.trim() || 'A delicious recipe waiting for you to try!';
+
+        // Update time
+        const prepTime = parseInt(prepTimeInput.value) || 0;
+        const cookTime = parseInt(cookTimeInput.value) || 0;
+        const totalTime = prepTime + cookTime;
+        const hours = Math.floor(totalTime / 60);
+        const minutes = totalTime % 60;
+        let timeStr = '';
+        if (hours > 0) {
+            timeStr += `${hours} hr `;
+        }
+        if (minutes > 0 || totalTime === 0) {
+            timeStr += `${minutes} min`;
+        }
+        previewTime.textContent = timeStr.trim();
+
+        // Update categories
+        const categoryValue = categoryInput.value.trim();
+        const categories = categoryValue ? categoryValue.split(',').map(c => c.trim()).filter(c => c) : [];
+        previewCategories.innerHTML = '';
+        categories.slice(0, 3).forEach(cat => {
+            const tag = document.createElement('span');
+            tag.className = 'category-tag-small';
+            tag.textContent = cat;
+            previewCategories.appendChild(tag);
+        });
+
+        // Update image if there's a current source
+        if (currentImageSrc) {
+            previewImage.src = currentImageSrc;
+        }
+    };
+
+    // Attach event listeners for real-time preview updates
+    recipeName.addEventListener('input', updatePreview);
+    descriptionInput.addEventListener('input', updatePreview);
+    prepTimeInput.addEventListener('input', updatePreview);
+    cookTimeInput.addEventListener('input', updatePreview);
+    categoryInput.addEventListener('input', updatePreview);
+
+    // Initialize preview if in edit mode
+    updatePreview();
 
     /**
      * Attach remove button listeners to list items
@@ -55,10 +125,71 @@ document.addEventListener("DOMContentLoaded", () => {
                 img.src = ev.target.result;
                 img.alt = 'Recipe Image';
                 imagePreview.appendChild(img);
+                currentImageSrc = ev.target.result;
+                previewImage.src = currentImageSrc;
+                removeImageBtn.style.display = 'inline-block';
+                removeImageInput.value = '0';
+                imageUrl.value = '';
             };
             reader.readAsDataURL(file);
         }
     });
+
+    /**
+     * Add image from URL
+     */
+    addUrlBtn.addEventListener('click', () => {
+        const url = prompt('Enter image URL:');
+        if (url && url.trim()) {
+            const trimmedUrl = url.trim();
+            // Basic URL validation
+            if (!trimmedUrl.startsWith('http://') && !trimmedUrl.startsWith('https://')) {
+                alert('Please enter a valid URL starting with http:// or https://');
+                return;
+            }
+            // Update preview
+            imagePreview.textContent = '';
+            const img = document.createElement('img');
+            img.src = trimmedUrl;
+            img.alt = 'Recipe Image';
+            img.onerror = () => {
+                alert('Failed to load image from URL');
+                imagePreview.textContent = 'Tap or click to add photo';
+                currentImageSrc = null;
+                previewImage.src = '{{ asset("assets/food/no-image.jpg") }}';
+            };
+            img.onload = () => {
+                imagePreview.textContent = '';
+                imagePreview.appendChild(img);
+                currentImageSrc = trimmedUrl;
+                previewImage.src = currentImageSrc;
+                removeImageBtn.style.display = 'inline-block';
+                imageUrl.value = trimmedUrl;
+                imageInput.value = '';
+                removeImageInput.value = '0';
+            };
+        }
+    });
+
+    /**
+     * Remove current image
+     */
+    removeImageBtn.addEventListener('click', () => {
+        imagePreview.textContent = 'Tap or click to add photo';
+        imageInput.value = '';
+        imageUrl.value = '';
+        removeImageInput.value = '1';
+        currentImageSrc = null;
+        previewImage.src = '{{ asset("assets/food/no-image.jpg") }}';
+        removeImageBtn.style.display = 'none';
+    });
+
+    // Show remove button if image exists in edit mode
+    if (imagePreview.querySelector('img')) {
+        removeImageBtn.style.display = 'inline-block';
+        currentImageSrc = imagePreview.querySelector('img').src;
+        previewImage.src = currentImageSrc;
+    }
 
     /**
      * Add ingredient to the list
@@ -167,7 +298,12 @@ document.addEventListener("DOMContentLoaded", () => {
         // Add image if selected
         if (imageInput.files.length > 0) {
             formData.append('image', imageInput.files[0]);
+        } else if (imageUrl.value.trim()) {
+            formData.append('image_url', imageUrl.value.trim());
         }
+
+        // Add remove image flag
+        formData.append('remove_image', removeImageInput.value);
 
         // Extract ingredients from list items
         const ingredients = Array.from(ingredientsList.querySelectorAll("li")).map(li => {

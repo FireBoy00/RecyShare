@@ -39,7 +39,13 @@
                                     <div id="imagePreview" class="image-preview">Tap or click to add photo</div>
                                 @endif
                                 <input type="file" id="imageInput" name="image" accept="image/*" hidden />
+                                <input type="hidden" id="imageUrl" name="image_url" value="" />
+                                <input type="hidden" id="removeImage" name="remove_image" value="0" />
                             </label>
+                            <div class="image-controls">
+                                <button type="button" id="addUrlBtn" class="image-control-btn">Add URL</button>
+                                <button type="button" id="removeImageBtn" class="image-control-btn remove" style="display: none;">Remove Image</button>
+                            </div>
                         </div>
 
                         <div class="text-inputs">
@@ -95,6 +101,26 @@
                     <div class="description-section">
                         <h3>Description</h3>
                         <textarea name="description" placeholder="Describe your recipe...">{{ $editMode && $recipe ? $recipe->description : '' }}</textarea>
+                    </div>
+
+                    <div class="preview-section">
+                        <h3>Recipe Preview</h3>
+                        <div class="recipe-card-preview">
+                            <div class="recipe-image-wrapper">
+                                <img id="previewImage" src="{{ asset('assets/food/no-image.jpg') }}" alt="Recipe preview" class="recipe-image">
+                                <div class="recipe-overlay">
+                                    <span class="recipe-time">
+                                        <span class="material-symbols-outlined">schedule</span>
+                                        <span id="previewTime">0 min</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="recipe-content">
+                                <h3 class="recipe-title" id="previewTitle">Recipe Name</h3>
+                                <p class="recipe-description" id="previewDescription">A delicious recipe waiting for you to try!</p>
+                                <div class="recipe-categories" id="previewCategories"></div>
+                            </div>
+                        </div>
                     </div>
 
                     <button type="submit" class="submit-btn">{{ $editMode ? 'UPDATE RECIPE' : 'CREATE A RECIPE' }}</button>

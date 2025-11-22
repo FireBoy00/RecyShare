@@ -72,6 +72,8 @@ class RecipeController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_url' => 'nullable|url|max:500',
+            'remove_image' => 'nullable|boolean',
             'prep_time' => 'nullable|integer|min:0',
             'cook_time' => 'nullable|integer|min:0',
             'servings' => 'nullable|integer|min:1',
@@ -87,6 +89,8 @@ class RecipeController extends Controller
             $imagePath = null;
             if ($request->hasFile('image')) {
                 $imagePath = $request->file('image')->store('recipes', 'public');
+            } elseif ($request->filled('image_url')) {
+                $imagePath = $request->input('image_url');
             }
 
             $recipe = Recipe::create([
@@ -240,6 +244,8 @@ class RecipeController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_url' => 'nullable|url|max:500',
+            'remove_image' => 'nullable|boolean',
             'prep_time' => 'nullable|integer|min:0',
             'cook_time' => 'nullable|integer|min:0',
             'servings' => 'nullable|integer|min:1',
@@ -253,9 +259,21 @@ class RecipeController extends Controller
 
         try {
             $imagePath = $recipe->image;
-            if ($request->hasFile('image')) {
+            
+            // Handle image removal
+            if ($request->input('remove_image') == '1') {
+                $this->deleteImageIfUploaded($recipe->image);
+                $imagePath = null;
+            }
+            // Handle new file upload
+            elseif ($request->hasFile('image')) {
                 $this->deleteImageIfUploaded($recipe->image);
                 $imagePath = $request->file('image')->store('recipes', 'public');
+            }
+            // Handle new URL
+            elseif ($request->filled('image_url')) {
+                $this->deleteImageIfUploaded($recipe->image);
+                $imagePath = $request->input('image_url');
             }
 
             $recipe->update([
