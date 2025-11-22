@@ -5,6 +5,8 @@
  * @author RecyShare Team
  */
 
+import { DEFAULT_RECIPE_IMAGE } from './constants.js';
+
 document.addEventListener("DOMContentLoaded", () => {
     // Get references to all form elements
     const imageInput = document.getElementById("imageInput");
@@ -186,7 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 imagePreview.textContent = 'Tap or click to add photo';
                 currentImageSrc = null;
                 if (previewImage) {
-                    previewImage.src = '/assets/food/no-image.jpg';
+                    previewImage.src = DEFAULT_RECIPE_IMAGE;
                 }
             };
             img.onload = () => {
@@ -214,7 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
         removeImageInput.value = '1';
         currentImageSrc = null;
         if (previewImage) {
-            previewImage.src = '/assets/food/no-image.jpg';
+            previewImage.src = DEFAULT_RECIPE_IMAGE;
         }
         removeImageBtn.style.display = 'none';
     });
@@ -377,7 +379,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
             const url = isEditMode ? `/recipes/${recipeId}` : '/recipes';
-            const method = isEditMode ? 'POST' : 'POST'; // Laravel expects POST with _method field for PUT
+            // Laravel expects POST for both create and update; use _method field for PUT (method spoofing)
+            const method = 'POST';
 
             const response = await fetch(url, {
                 method: method,

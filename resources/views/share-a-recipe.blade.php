@@ -34,7 +34,11 @@
                                     $previewRecipe->cook_time = $editMode && $recipe ? $recipe->cook_time : 0;
                                     $previewRecipe->servings = $editMode && $recipe ? $recipe->servings : null;
                                     // Ensure categories is always an array
-                                    $previewRecipe->categories = $editMode && $recipe && $recipe->categories ? (is_array($recipe->categories) ? $recipe->categories : []) : [];
+                                    if ($editMode && $recipe && $recipe->categories) {
+                                        $previewRecipe->categories = is_array($recipe->categories) ? $recipe->categories : [];
+                                    } else {
+                                        $previewRecipe->categories = [];
+                                    }
                                     // Mark as not existing in DB to prevent save attempts
                                     $previewRecipe->exists = false;
                                 @endphp

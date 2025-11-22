@@ -5,6 +5,7 @@
  */
 
 import { setupRecipeCardActions } from './recipe-card.js';
+import { DEFAULT_RECIPE_IMAGE } from './constants.js';
 
 /**
  * Fetch recipes from server and render them
@@ -81,7 +82,7 @@ function createRecipeCard(recipe) {
     card.dataset.recipeId = recipe.id;
     
     // Determine image path
-    let imgPath = '/assets/food/no-image.jpg';
+    let imgPath = DEFAULT_RECIPE_IMAGE;
     if (recipe.image) {
         if (recipe.image.startsWith('assets/') || recipe.image.startsWith('http')) {
             imgPath = recipe.image.startsWith('http') ? recipe.image : `/${recipe.image}`;

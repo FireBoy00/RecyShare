@@ -134,9 +134,12 @@ class RecipeController extends Controller
                 'redirect_url' => route('recipes.show', $recipe->id)
             ]);
         } catch (\Exception $e) {
+            \Log::error("Error creating recipe", [
+                'exception' => $e,
+            ]);
             return response()->json([
                 'success' => false,
-                'message' => 'Error creating recipe: ' . $e->getMessage()
+                'message' => 'An error occurred while creating the recipe. Please try again later.'
             ], 500);
         }
     }
@@ -244,7 +247,8 @@ class RecipeController extends Controller
 
             return response()->json(['success' => true, 'message' => 'Recipe deleted', 'recipe_id' => $recipeId]);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Error deleting recipe: ' . $e->getMessage()], 500);
+            \Log::error("Error deleting recipe (ID: {$recipeId}): " . $e->getMessage(), ['exception' => $e]);
+            return response()->json(['success' => false, 'message' => 'An error occurred while deleting the recipe. Please try again later.'], 500);
         }
     }
 
@@ -316,9 +320,10 @@ class RecipeController extends Controller
                 'redirect_url' => route('recipes.show', $recipe->id)
             ]);
         } catch (\Exception $e) {
+            \Log::error("Error updating recipe (ID: {$recipe->id}): " . $e->getMessage(), ['exception' => $e]);
             return response()->json([
                 'success' => false,
-                'message' => 'Error updating recipe: ' . $e->getMessage()
+                'message' => 'An error occurred while updating the recipe. Please try again later.'
             ], 500);
         }
     }

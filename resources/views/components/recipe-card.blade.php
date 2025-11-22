@@ -22,7 +22,7 @@
                     $imgPath = asset('storage/' . $recipe->image);
                 }
             } else {
-                $imgPath = asset('assets/food/no-image.jpg');
+                $imgPath = asset(config('app.default_recipe_image'));
             }
         @endphp
         <img src="{{ $imgPath }}" alt="{{ $recipe->title }}" class="recipe-image">
