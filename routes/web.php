@@ -48,4 +48,10 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 //Profile
+Route::get('/profile', function () {
+    if (auth()->check()) {
+        return redirect()->route('profile', ['user' => auth()->user()->username]);
+    }
+    return redirect()->route('login');
+})->name('profile.redirect');
 Route::get('/profile/{user:username}', [ProfileController::class, 'show'])->name('profile');

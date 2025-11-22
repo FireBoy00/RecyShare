@@ -23,10 +23,18 @@
         @endphp
         <img src="{{ $imgPath }}" alt="{{ $recipe->title }}" class="recipe-image">
         <div class="recipe-overlay">
-            <span class="recipe-time">
-                <span class="material-symbols-outlined">schedule</span>
-                @formatTime(($recipe->prep_time ?? 0) + ($recipe->cook_time ?? 0))
-            </span>
+            <div class="recipe-badges">
+                <span class="recipe-time">
+                    <span class="material-symbols-outlined">schedule</span>
+                    @formatTime(($recipe->prep_time ?? 0) + ($recipe->cook_time ?? 0))
+                </span>
+                @if($recipe->servings)
+                    <span class="recipe-servings">
+                        <span class="material-symbols-outlined">restaurant</span>
+                        {{ $recipe->servings }} servings
+                    </span>
+                @endif
+            </div>
             @auth
                 @php
                     $isFavorited = $recipe->favorites()->where('user_id', auth()->id())->exists();
@@ -41,7 +49,7 @@
     </div>
     <div class="recipe-content">
         <h3 class="recipe-title">{{ $recipe->title }}</h3>
-        <p class="recipe-description">
+        <p class="recipe-description" title="{{ $recipe->description ?? 'A delicious recipe waiting for you to try!' }}">
             {{ $recipe->description ?? 'A delicious recipe waiting for you to try!' }}
         </p>
         @if($recipe->categories && is_array($recipe->categories) && count($recipe->categories) > 0)

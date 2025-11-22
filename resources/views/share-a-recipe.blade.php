@@ -12,7 +12,7 @@
 
     <body>
         <header>
-            <x-navbar currentPage="recipes" />
+            <x-navbar currentPage="share-recipe" />
         </header>
 
         <main class="container">

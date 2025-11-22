@@ -367,6 +367,16 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+.recipe-card-preview .recipe-title {
+    color: #54b856 !important;
+    text-align: center !important;
+}
+
+.recipe-card-preview .recipe-image {
+    height: 250px;
+    object-fit: cover;
+}
+
 /* ========================================
    SUBMIT BUTTON
    Create recipe button styling

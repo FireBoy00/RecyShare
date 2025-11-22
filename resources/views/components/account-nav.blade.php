@@ -24,6 +24,10 @@
                     <span class="material-symbols-outlined">restaurant</span>
                     Shared Recipes
                 </a>
+                <a href="{{ route('settings.index') }}#favorites">
+                    <span class="material-symbols-outlined">favorite</span>
+                    Favorites
+                </a>
                 <a href="{{ route('recipes.create') }}">
                     <span class="material-symbols-outlined">add_circle</span>
                     Share a Recipe

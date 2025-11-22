@@ -24,6 +24,26 @@
     color: rgb(0, 0, 0);
 }
 
+.recipes-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    padding: 20px 40px;
+    align-items: stretch;
+}
+
+.recipes-list .recipe-card {
+    height: 100%;
+}
+
+.no-recipes {
+    text-align: center;
+    color: #666;
+    font-size: 1.1rem;
+    padding: 40px;
+    grid-column: 1 / -1;
+}
+
 
 .user_circle{
     margin-top: 50px;
