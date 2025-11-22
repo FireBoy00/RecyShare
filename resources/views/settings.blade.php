@@ -115,76 +115,32 @@
                     </div>
 
                     <div id="shared" class="panel tab-panel hidden">
-                            <div class="cards-grid">
-                                @foreach($userRecipes as $recipe)
-                                    <div class="card-wrapper">
-                                        <div class="card">
-                                            @php
-                                                if ($recipe->image) {
-                                                    if (str_starts_with($recipe->image, 'assets/') || str_starts_with($recipe->image, 'http')) {
-                                                        $img = asset($recipe->image);
-                                                    } else {
-                                                        $img = asset('storage/' . $recipe->image);
-                                                    }
-                                                } else {
-                                                    $img = asset('assets/food/no-image.jpg');
-                                                }
-                                            @endphp
-                                            <img src="{{ $img }}" alt="{{ $recipe->title }}" class="card-image">
-                                                <span class="recipe-time-badge">
-                                                    <span class="material-symbols-outlined">schedule</span>
-                                                        @formatTime((($recipe->prep_time ?? 0) + ($recipe->cook_time ?? 0)))
-                                                </span>
-                                            <div class="card-content">
-                                                <h3 class="card-title">{{ $recipe->title }}</h3>
-                                                <p class="card-description">{{ substr($recipe->description ?? 'No description', 0, 80) }}...</p>
-                                            </div>
-                                        </div>
-                                        <div class="card-actions">
-                                            <a href="{{ route('recipes.show', $recipe->id) }}" class="view-btn" title="View">View</a>
-                                            <a href="{{ route('recipes.create') }}?edit={{ $recipe->id }}" class="edit-btn" title="Edit">Edit</a>
-                                            <button class="delete-recipe-btn" data-recipe-id="{{ $recipe->id }}" type="button" title="Delete">Delete</button>
-                                        </div>
+                        <div class="recipes-list">
+                            @foreach($userRecipes as $recipe)
+                                <div class="recipe-card-container">
+                                    <x-recipe-card :recipe="$recipe" />
+                                    <div class="card-actions">
+                                        <a href="{{ route('recipes.show', $recipe->id) }}" class="action-btn view-btn" title="View">View</a>
+                                        <a href="{{ route('recipes.create') }}?edit={{ $recipe->id }}" class="action-btn edit-btn" title="Edit">Edit</a>
+                                        <button class="action-btn delete-recipe-btn" data-recipe-id="{{ $recipe->id }}" type="button" title="Delete">Delete</button>
                                     </div>
-                                @endforeach
-                            </div>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
 
                     <div id="favorites" class="panel tab-panel hidden">
                         @if($userFavorites->count() > 0)
-                            <div class="cards-grid">
+                            <div class="recipes-list">
                                 @foreach($userFavorites as $favorite)
                                     @php
                                         $recipe = $favorite->recipe;
                                     @endphp
-                                    <div class="card-wrapper">
-                                        <div class="card">
-                                            <div style="position: relative;">
-                                                @php
-                                                    if ($recipe->image) {
-                                                        if (str_starts_with($recipe->image, 'assets/') || str_starts_with($recipe->image, 'http')) {
-                                                            $favImg = asset($recipe->image);
-                                                        } else {
-                                                            $favImg = asset('storage/' . $recipe->image);
-                                                        }
-                                                    } else {
-                                                        $favImg = asset('assets/food/no-image.jpg');
-                                                    }
-                                                @endphp
-                                                <img src="{{ $favImg }}" alt="{{ $recipe->title }}" class="card-image">
-                                                <span class="recipe-time-badge">
-                                                    <span class="material-symbols-outlined">schedule</span>
-                                                        @formatTime((($recipe->prep_time ?? 0) + ($recipe->cook_time ?? 0)))
-                                                </span>
-                                            </div>
-                                            <div class="card-content">
-                                                <h3 class="card-title">{{ $recipe->title }}</h3>
-                                                <p class="card-description">{{ substr($recipe->description ?? 'No description', 0, 80) }}...</p>
-                                            </div>
-                                        </div>
-                                            <div class="card-actions">
-                                            <a href="{{ route('recipes.show', $recipe->id) }}" class="view-btn" type="button" title="View">View</a>
-                                            <button class="remove-btn" data-recipe-id="{{ $recipe->id }}" type="button" title="Remove from favorites">Remove</button>
+                                    <div class="recipe-card-container">
+                                        <x-recipe-card :recipe="$recipe" />
+                                        <div class="card-actions">
+                                            <a href="{{ route('recipes.show', $recipe->id) }}" class="action-btn view-btn" type="button" title="View">View</a>
+                                            <button class="action-btn remove-btn" data-recipe-id="{{ $recipe->id }}" type="button" title="Remove from favorites">Remove</button>
                                         </div>
                                     </div>
                                 @endforeach
