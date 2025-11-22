@@ -48,4 +48,4 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 //Profile
-Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile');
+Route::get('/profile/{user:username}', [ProfileController::class, 'show'])->name('profile');
