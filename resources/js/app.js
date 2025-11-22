@@ -50,24 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
      * Handle category scrolling with mouse wheel
-     * Also manage scroll shadow indicator
      */
     const handleCategoryScroll = () => {
         const categoryContainers = document.querySelectorAll('.recipe-categories');
         
         categoryContainers.forEach(container => {
-            // Check if content is scrollable
-            const checkScrollable = () => {
-                if (container.scrollWidth > container.clientWidth) {
-                    container.classList.add('has-scroll');
-                } else {
-                    container.classList.remove('has-scroll');
-                }
-            };
-
-            checkScrollable();
-            window.addEventListener('resize', checkScrollable);
-
             // Enable horizontal scroll with mouse wheel
             container.addEventListener('wheel', (e) => {
                 if (e.deltaY !== 0) {

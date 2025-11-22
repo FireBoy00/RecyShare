@@ -70,6 +70,7 @@
 
 .recipe-time,
 .recipe-servings {
+    width: fit-content;
     background: rgba(255, 255, 255, 0.95);
     color: #333;
     padding: 5px 10px;
@@ -168,23 +169,6 @@
 
 .recipe-categories::-webkit-scrollbar {
     display: none;
-}
-
-.recipe-categories::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 30px;
-    background: linear-gradient(to left, rgba(0,0,0,0.1), transparent);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.recipe-categories.has-scroll::after {
-    opacity: 1;
 }
 
 .category-tag-small {
