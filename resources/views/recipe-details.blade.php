@@ -16,7 +16,19 @@
     <main id="recipeDetailContainer">
         <section class="recipe-hero">
             <div class="hero-image-container">
-                <img src="{{ $recipe->image ? asset($recipe->image) : asset('assets/food/no-image-no-text.jpg') }}" alt="{{ $recipe->title }}" class="recipe-image" id="recipeImage">
+                                                @php
+                                    $imgPath = null;
+                                    if ($recipe->image) {
+                                        if (str_starts_with($recipe->image, 'assets/') || str_starts_with($recipe->image, 'http')) {
+                                            $imgPath = asset($recipe->image);
+                                        } else {
+                                            $imgPath = asset('storage/' . $recipe->image);
+                                        }
+                                    } else {
+                                        $imgPath = asset(config('app.default_recipe_image'));
+                                    }
+                                @endphp
+                                <img src="{{ $imgPath }}" alt="{{ $recipe->title }}" class="recipe-image">
                 <div class="action-buttons">
                     @auth
                         <form id="favoriteForm" class="favorite-form">
@@ -59,22 +71,19 @@
         </section>
         <section class="recipe-meta-container">
             <div class="author-info">
-                <a href="{{ route('profile', $recipe->user) }}" class="author-info">
-                @if($recipe->user && $recipe->user->profile_image)
-                    <img src="{{ asset($recipe->user->profile_image) }}" alt="{{ $recipe->user->display_name }}" class="author-avatar">
-                @else
-                    <div class="author-avatar author-avatar-placeholder">
-                        <span class="material-symbols-outlined">account_circle</span>
+                <a href="{{ route('profile', $recipe->user) }}" class="author-link">
+                    @if($recipe->user && $recipe->user->profile_image)
+                        <img src="{{ asset($recipe->user->profile_image) }}" alt="{{ $recipe->user->display_name }}" class="author-avatar">
+                    @else
+                        <div class="author-avatar author-avatar-placeholder">
+                            <span class="material-symbols-outlined">account_circle</span>
+                        </div>
+                    @endif
+                    <div class="author-text">
+                        <p class="author-display-name">{{ $recipe->user->display_name ?? 'Unknown User' }} <span class="author-handle">{{ '@' . ($recipe->user->username ?? 'unknown') }}</span></p>
+                        <p class="recipe-count">{{ $recipe->user->recipes->count() ?? 0 }} recipes</p>
                     </div>
-                @endif
                 </a>
-                <div class="author-text">
-                    <a href="{{ route('profile', $recipe->user) }}">
-                    <p class="author-handle">{{ '@' . ($recipe->user->username ?? 'unknown') }}</p>
-                    <p class="author-display-name">{{ $recipe->user->display_name ?? 'Unknown User' }}</p>
-                    <p class="recipe-count">{{ $recipe->user->recipes->count() ?? 0 }} recipes</p>
-                    </a>
-                </div>
             </div>
             <div class="meta-details">
                 <div class="meta-item">

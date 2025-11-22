@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @vite(['resources/css/settings.css', 'resources/js/settings.js'])
@@ -114,30 +115,29 @@
                     </div>
 
                     <div id="shared" class="panel tab-panel hidden">
-                        <div class="cards-grid">
-                            @for ($i = 0; $i < 8; $i++)
-                                <div class="card-wrapper">
-                                    <div class="card"></div>
-                                    <div class="card-actions">
-                                        <button class="remove-btn" type="button">Remove</button>
-                                        <button class="edit-btn" type="button" title="Edit">Edit</button>
-                                    </div>
-                                </div>
-                            @endfor
+                        <div class="recipes-list">
+                            @foreach($userRecipes as $recipe)
+                                <x-recipe-card :recipe="$recipe" />
+                            @endforeach
                         </div>
                     </div>
 
                     <div id="favorites" class="panel tab-panel hidden">
-                        <div class="cards-grid">
-                            @for ($i = 0; $i < 8; $i++)
-                                <div class="card-wrapper">
-                                    <div class="card"></div>
-                                    <div class="card-actions">
-                                        <button class="remove-btn" type="button">Remove</button>
-                                    </div>
-                                </div>
-                            @endfor
-                        </div>
+                        @if($userFavorites->count() > 0)
+                            <div class="recipes-list">
+                                @foreach($userFavorites as $favorite)
+                                    @php
+                                        $recipe = $favorite->recipe;
+                                    @endphp
+                                    <x-recipe-card :recipe="$recipe" />
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="empty-state">
+                                <p>You haven't favorited any recipes yet.</p>
+                                <a href="{{ route('recipes.index') }}" class="btn-primary">Browse Recipes</a>
+                            </div>
+                        @endif
                     </div>
                 </section>
             </div>

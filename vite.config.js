@@ -9,23 +9,25 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/js/bootstrap.js',
+                'resources/js/constants.js',
                 
-                // Login
-                'resources/css/login.css',
+                // Components
+                'resources/css/recipe-card.css',
+                'resources/js/recipe-card.js',
 
-                // Signup
+                // Authentication
+                'resources/css/login.css',
                 'resources/css/signup.css',
 
                 // Home
                 'resources/css/home.css',
-                'resources/js/recipes.js',
-
-                // Settings
-                'resources/css/settings.css',
-                'resources/js/settings.js',
 
                 // About
                 'resources/css/about.css',
+
+                // Recipes listing
+                'resources/css/recipes.css',
+                'resources/js/recipes.js',
 
                 // Recipe detail
                 'resources/css/recipe-detail.css',
@@ -35,11 +37,13 @@ export default defineConfig({
                 'resources/css/share-a-recipe.css',
                 'resources/js/share-a-recipe.js',
 
-                // Recipes listing
-                'resources/css/recipes.css',
-
                 // User profile
                 'resources/css/profile.css',
+                'resources/js/profile.js',
+
+                // Settings
+                'resources/css/settings.css',
+                'resources/js/settings.js',
             ],
             refresh: true,
         }),

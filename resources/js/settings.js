@@ -5,6 +5,7 @@
  * @author RecyShare Team
  */
 import '../css/settings.css';
+import { setupRecipeCardActions } from './recipe-card.js';
 
 // DOM ready: initialize overlay, sidebar, tab navigation and card actions
 document.addEventListener('DOMContentLoaded', () => {
@@ -121,6 +122,41 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize current panel from the URL hash
     handleHash();
 
+    // Setup recipe card actions (favorites, delete, sync)
+    setupRecipeCardActions(document, {
+        favorite: {
+            onSuccess: (recipeId, isFavorited, btn) => {
+                // If we're in the favorites tab and item was unfavorited, remove it from list
+                const currentHash = (location.hash || '#profile').replace('#', '');
+                if (currentHash === 'favorites' && !isFavorited) {
+                    const card = btn.closest('.recipe-card');
+                    if (card) {
+                        card.remove();
+
+                        // Check if there are any favorites left
+                        const recipesList = document.querySelector('#favorites .recipes-list');
+                        const remainingCards = recipesList ? recipesList.querySelectorAll('.recipe-card').length : 0;
+
+                        // If no more favorites, show empty state
+                        if (remainingCards === 0 && recipesList) {
+                            recipesList.remove();
+                            const favoritesPanel = document.querySelector('#favorites');
+                            if (favoritesPanel) {
+                                const emptyState = document.createElement('div');
+                                emptyState.className = 'empty-state';
+                                emptyState.innerHTML = `
+                                    <p>You haven't favorited any recipes yet.</p>
+                                    <a href="/recipes" class="btn-primary">Browse Recipes</a>
+                                `;
+                                favoritesPanel.appendChild(emptyState);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    });
+
     // Auto-hide ALL messages (success and error) after 5 seconds
     function autoHideMessages() {
         document.querySelectorAll('.form-message-success, .form-message-error').forEach(msg => {
@@ -164,16 +200,4 @@ document.addEventListener('DOMContentLoaded', () => {
         // Re-run auto-hide after tab restoration
         autoHideMessages();
     }
-
-    // Client-side handler for Remove buttons (temporary UI behavior)
-    document.addEventListener('click', (e) => {
-        const btn = e.target.closest && e.target.closest('.remove-btn');
-        if (!btn) return;
-        const wrapper = btn.closest('.card-wrapper');
-        if (!wrapper) return;
-        // simple confirm
-        if (confirm('Remove this recipe from the list?')) {
-            wrapper.remove();
-        }
-    });
 });

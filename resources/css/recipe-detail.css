@@ -87,13 +87,26 @@ main {
 .author-info {
     display: flex;
     align-items: center;
+}
+
+.author-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.author-link:hover .author-display-name {
+    text-decoration: underline;
+}
+
+.author-link:hover .author-handle {
     text-decoration: none;
 }
 
-.author-text a{
+.author-text {
     display: flex;
     flex-direction: column;
-    text-decoration: none;
 }
 
 .author-avatar {
@@ -125,10 +138,10 @@ main {
 }
 
 .author-handle {
-    font-weight: bold;
+    font-weight: 500;
     color: #666;
-    font-size: 0.9em;
-    margin-bottom: 2px;
+    font-size: 0.85em;
+    margin-left: 8px;
 }
 
 .author-display-name {
@@ -136,11 +149,15 @@ main {
     color: #000000;
     font-size: 1em;
     margin-bottom: 3px;
+    display: flex;
+    align-items: baseline;
+    gap: 0;
 }
 
 .recipe-count {
     font-size: 0.9em;
-    color: #000000;
+    color: #666;
+    margin: 0;
 }
 
 .meta-details {

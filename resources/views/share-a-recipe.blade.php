@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @vite(['resources/css/share-a-recipe.css', 'resources/js/share-a-recipe.js'])
         <title>Share a Recipe – RecyShare</title>
@@ -10,61 +11,130 @@
 
     <body>
         <header>
-            <x-navbar currentPage="recipes" />
+            <x-navbar currentPage="share-recipe" />
         </header>
 
         <main class="container">
             <section class="form-section">
-                <h1 class="page-title">Share a Recipe</h1>
+                <h1 class="page-title">{{ $editMode ? 'Edit Recipe' : 'Share a Recipe' }}</h1>
 
-                <form id="recipeForm" class="recipe-form">
-                    <div class="form-top">
-                        <div class="image-upload">
-                            <label for="imageInput" class="image-label">
-                                <div id="imagePreview" class="image-preview">Tap or click to add photo</div>
-                                <input type="file" id="imageInput" accept="image/*" hidden />
-                            </label>
-                        </div>
-
-                        <div class="text-inputs">
-                            <input type="text" id="recipeName" placeholder="Recipe Name" required />
-                            <input type="text" id="category" placeholder="Category" />
-                            
-                            <div class="time-inputs">
-                                <input type="number" placeholder="Prep Time (min)">
-                                <input type="number" placeholder="Cook Time (min)">
-                                <input type="number" placeholder="Servings">
+                <div class="form-preview-wrapper">
+                    <div class="preview-sidebar">
+                        <div class="preview-sticky">
+                            <h3>Recipe Preview</h3>
+                            <div id="recipePreviewContainer">
+                                @php
+                                    // Create a new Recipe instance for preview
+                                    $previewRecipe = new \App\Models\Recipe();
+                                    $previewRecipe->id = $editMode && $recipe ? $recipe->id : 0;
+                                    $previewRecipe->title = $editMode && $recipe ? $recipe->title : 'Recipe Name';
+                                    $previewRecipe->description = $editMode && $recipe ? $recipe->description : 'A delicious recipe waiting for you to try!';
+                                    $previewRecipe->image = $editMode && $recipe ? $recipe->image : null;
+                                    $previewRecipe->prep_time = $editMode && $recipe ? $recipe->prep_time : 0;
+                                    $previewRecipe->cook_time = $editMode && $recipe ? $recipe->cook_time : 0;
+                                    $previewRecipe->servings = $editMode && $recipe ? $recipe->servings : null;
+                                    // Ensure categories is always an array
+                                    if ($editMode && $recipe && $recipe->categories) {
+                                        $previewRecipe->categories = is_array($recipe->categories) ? $recipe->categories : [];
+                                    } else {
+                                        $previewRecipe->categories = [];
+                                    }
+                                    // Mark as not existing in DB to prevent save attempts
+                                    $previewRecipe->exists = false;
+                                @endphp
+                                <x-recipe-card :recipe="$previewRecipe" isPreview="true" />
                             </div>
                         </div>
                     </div>
 
-                    <div class="form-bottom">
-                        <div class="ingredients-section">
-                            <h3>Ingredients</h3>
-                            <ul id="ingredientsList"></ul>
-                            <div class="input-add">
-                                <input type="text" id="ingredientInput" placeholder="Add ingredient..." />
-                                <button type="button" id="addIngredientBtn">+</button>
+                    <form id="recipeForm" class="recipe-form" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-top">
+                            <div class="image-upload">
+                                <label for="imageInput" class="image-label">
+                                    @if($editMode && $recipe && $recipe->image)
+                                        @php
+                                            $imgPath = null;
+                                            if (str_starts_with($recipe->image, 'assets/') || str_starts_with($recipe->image, 'http')) {
+                                                $imgPath = asset($recipe->image);
+                                            } else {
+                                                $imgPath = asset('storage/' . $recipe->image);
+                                            }
+                                        @endphp
+                                        <div id="imagePreview" class="image-preview">
+                                            <img src="{{ $imgPath }}" alt="Current recipe image">
+                                        </div>
+                                    @else
+                                        <div id="imagePreview" class="image-preview">Tap or click to add photo</div>
+                                    @endif
+                                    <input type="file" id="imageInput" name="image" accept="image/*" hidden />
+                                    <input type="hidden" id="imageUrl" name="image_url" value="" />
+                                    <input type="hidden" id="removeImage" name="remove_image" value="0" />
+                                </label>
+                                <div class="image-controls">
+                                    <button type="button" id="addUrlBtn" class="image-control-btn">Add URL</button>
+                                    <button type="button" id="removeImageBtn" class="image-control-btn remove" style="display: none;">Remove Image</button>
+                                </div>
+                            </div>
+
+                            <div class="text-inputs">
+                                <input type="text" id="recipeName" name="title" placeholder="Recipe Name" value="{{ $editMode && $recipe ? $recipe->title : '' }}" required />
+                                <input type="text" id="category" name="categories" placeholder="Category" value="{{ $editMode && $recipe && $recipe->categories ? implode(', ', $recipe->categories) : '' }}" />
+                                
+                                <div class="time-inputs">
+                                    <input type="number" name="prep_time" placeholder="Prep Time (min)" value="{{ $editMode && $recipe ? $recipe->prep_time : '' }}">
+                                    <input type="number" name="cook_time" placeholder="Cook Time (min)" value="{{ $editMode && $recipe ? $recipe->cook_time : '' }}">
+                                    <input type="number" name="servings" placeholder="Servings" value="{{ $editMode && $recipe ? $recipe->servings : '' }}">
+                                </div>
                             </div>
                         </div>
 
-                        <div class="steps-section">
-                            <h3>Steps</h3>
-                            <ol id="stepsList"></ol>
-                            <div class="input-add">
-                                <input type="text" id="stepInput" placeholder="Add step..." />
-                                <button type="button" id="addStepBtn">+</button>
+                        <div class="form-bottom">
+                            <div class="ingredients-section">
+                                <h3>Ingredients</h3>
+                                <ul id="ingredientsList">
+                                    @if($editMode && $recipe && $recipe->ingredients)
+                                        @foreach($recipe->ingredients as $ingredient)
+                                            <li>
+                                                <span>{{ $ingredient }}</span>
+                                                <button type="button" class="material-symbols-outlined" aria-label="Remove ingredient">close</button>
+                                            </li>
+                                        @endforeach
+                                    @endif
+                                </ul>
+                                <div class="input-add">
+                                    <input type="text" id="ingredientInput" placeholder="Add ingredient..." />
+                                    <button type="button" id="addIngredientBtn">+</button>
+                                </div>
+                            </div>
+
+                            <div class="steps-section">
+                                <h3>Steps</h3>
+                                <ol id="stepsList">
+                                    @if($editMode && $recipe && $recipe->instructions)
+                                        @foreach($recipe->instructions as $instruction)
+                                            <li>
+                                                <span>{{ $instruction }}</span>
+                                                <button type="button" class="material-symbols-outlined" aria-label="Remove step">close</button>
+                                            </li>
+                                        @endforeach
+                                    @endif
+                                </ol>
+                                <div class="input-add">
+                                    <input type="text" id="stepInput" placeholder="Add step..." />
+                                    <button type="button" id="addStepBtn">+</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="description-section">
-                        <h3>Description</h3>
-                        <textarea placeholder="Describe your recipe..."></textarea>
-                    </div>
+                        <div class="description-section">
+                            <h3>Description</h3>
+                            <textarea name="description" placeholder="Describe your recipe...">{{ $editMode && $recipe ? $recipe->description : '' }}</textarea>
+                        </div>
 
-                    <button type="submit" class="submit-btn">CREATE A RECIPE</button>
-                </form>
+                        <button type="submit" class="submit-btn">{{ $editMode ? 'UPDATE RECIPE' : 'CREATE A RECIPE' }}</button>
+                    </form>
+                </div>
             </section>
         </main>
     </body>

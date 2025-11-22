@@ -19,6 +19,9 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/recipes', [RecipeController::class, 'index'])->name('recipes.index');
 Route::get('/recipe-details/{id}', [RecipeController::class, 'show'])->name('recipes.show');
 Route::get('/share-a-recipe', [RecipeController::class, 'create'])->middleware('auth')->name('recipes.create');
+Route::post('/recipes', [RecipeController::class, 'store'])->middleware('auth')->name('recipes.store');
+Route::put('/recipes/{recipe}', [RecipeController::class, 'update'])->middleware('auth')->name('recipes.update');
+Route::delete('/recipes/{recipe}', [RecipeController::class, 'destroy'])->middleware('auth')->name('recipes.destroy');
 
 // About
 Route::get('/about', [AboutController::class, 'index'])->name('about');
@@ -45,4 +48,10 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 //Profile
-Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile');
+Route::get('/profile', function () {
+    if (auth()->check()) {
+        return redirect()->route('profile', ['user' => auth()->user()->username]);
+    }
+    return redirect()->route('login');
+})->name('profile.redirect');
+Route::get('/profile/{user:username}', [ProfileController::class, 'show'])->name('profile');

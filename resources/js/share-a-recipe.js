@@ -5,10 +5,16 @@
  * @author RecyShare Team
  */
 
+import { DEFAULT_RECIPE_IMAGE } from './constants.js';
+
 document.addEventListener("DOMContentLoaded", () => {
     // Get references to all form elements
     const imageInput = document.getElementById("imageInput");
     const imagePreview = document.getElementById("imagePreview");
+    const imageUrl = document.getElementById("imageUrl");
+    const removeImageInput = document.getElementById("removeImage");
+    const addUrlBtn = document.getElementById("addUrlBtn");
+    const removeImageBtn = document.getElementById("removeImageBtn");
     const addIngredientBtn = document.getElementById("addIngredientBtn");
     const addStepBtn = document.getElementById("addStepBtn");
     const ingredientsList = document.getElementById("ingredientsList");
@@ -16,6 +22,116 @@ document.addEventListener("DOMContentLoaded", () => {
     const ingredientInput = document.getElementById("ingredientInput");
     const stepInput = document.getElementById("stepInput");
     const form = document.getElementById("recipeForm");
+
+    // Preview elements - using recipe card component selectors
+    const previewCard = document.querySelector('.recipe-card');
+    const previewImage = previewCard?.querySelector('.recipe-image');
+    const previewTitle = previewCard?.querySelector('.recipe-title');
+    const previewDescription = previewCard?.querySelector('.recipe-description');
+    const previewTime = previewCard?.querySelector('.recipe-time');
+    const previewCategories = previewCard?.querySelector('.recipe-categories');
+    const previewServingsSpan = previewCard?.querySelector('.recipe-servings');
+    const recipeName = document.getElementById("recipeName");
+    const categoryInput = document.getElementById("category");
+    const descriptionInput = document.querySelector('textarea[name="description"]');
+    const prepTimeInput = document.querySelector('input[name="prep_time"]');
+    const cookTimeInput = document.querySelector('input[name="cook_time"]');
+    const servingsInput = document.querySelector('input[name="servings"]');
+
+    let currentImageSrc = null;
+
+    /**
+     * Update preview card in real-time
+     */
+    const updatePreview = () => {
+        if (!previewCard) return;
+
+        // Update title
+        if (previewTitle) {
+            previewTitle.textContent = recipeName.value.trim() || 'Recipe Name';
+        }
+
+        // Update description
+        if (previewDescription) {
+            const desc = descriptionInput.value.trim() || 'A delicious recipe waiting for you to try!';
+            previewDescription.textContent = desc;
+            previewDescription.setAttribute('title', desc);
+        }
+
+        // Update time - clear and rebuild the entire time badge
+        if (previewTime) {
+            const prepTime = parseInt(prepTimeInput.value) || 0;
+            const cookTime = parseInt(cookTimeInput.value) || 0;
+            const totalTime = prepTime + cookTime;
+            const hours = Math.floor(totalTime / 60);
+            const minutes = totalTime % 60;
+            let timeStr = '';
+            if (hours > 0) {
+                timeStr += `${hours}h`;
+                if (minutes > 0) {
+                    timeStr += ` ${minutes}m`;
+                }
+            } else {
+                timeStr += `${minutes}m`;
+            }
+            
+            // Clear and rebuild
+            previewTime.innerHTML = '<span class="material-symbols-outlined">schedule</span>' + timeStr;
+        }
+
+        // Update servings
+        if (previewServingsSpan) {
+            const servings = parseInt(servingsInput.value) || 0;
+            previewServingsSpan.innerHTML = '<span class="material-symbols-outlined">restaurant</span>' + servings;
+            previewServingsSpan.style.display = 'flex';
+        }
+
+        // Update categories
+        if (previewCategories) {
+            const categoryValue = categoryInput.value.trim();
+            const categories = categoryValue ? categoryValue.split(',').map(c => c.trim()).filter(c => c) : [];
+            previewCategories.innerHTML = '';
+            categories.forEach(cat => {
+                const tag = document.createElement('span');
+                tag.className = 'category-tag-small';
+                tag.textContent = cat;
+                previewCategories.appendChild(tag);
+            });
+        }
+
+        // Update image if there's a current source
+        if (currentImageSrc && previewImage) {
+            previewImage.src = currentImageSrc;
+        }
+    };
+
+    // Attach event listeners for real-time preview updates
+    recipeName.addEventListener('input', updatePreview);
+    descriptionInput.addEventListener('input', updatePreview);
+    prepTimeInput.addEventListener('input', updatePreview);
+    cookTimeInput.addEventListener('input', updatePreview);
+    servingsInput.addEventListener('input', updatePreview);
+    categoryInput.addEventListener('input', updatePreview);
+
+    // Initialize preview if in edit mode
+    updatePreview();
+
+    /**
+     * Attach remove button listeners to list items
+     */
+    const attachRemoveListeners = (list) => {
+        const removeButtons = list.querySelectorAll('button[aria-label*="Remove"]');
+        removeButtons.forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                btn.closest('li').remove();
+            });
+        });
+    };
+
+    // Attach listeners to pre-populated items (in edit mode)
+    attachRemoveListeners(ingredientsList);
+    attachRemoveListeners(stepsList);
 
     /**
      * Handle image file selection and preview
@@ -38,10 +154,81 @@ document.addEventListener("DOMContentLoaded", () => {
                 img.src = ev.target.result;
                 img.alt = 'Recipe Image';
                 imagePreview.appendChild(img);
+                currentImageSrc = ev.target.result;
+                if (previewImage) {
+                    previewImage.src = currentImageSrc;
+                }
+                removeImageBtn.style.display = 'inline-block';
+                removeImageInput.value = '0';
+                imageUrl.value = '';
             };
             reader.readAsDataURL(file);
         }
     });
+
+    /**
+     * Add image from URL
+     */
+    addUrlBtn.addEventListener('click', () => {
+        const url = prompt('Enter image URL:');
+        if (url && url.trim()) {
+            const trimmedUrl = url.trim();
+            // Basic URL validation
+            if (!trimmedUrl.startsWith('http://') && !trimmedUrl.startsWith('https://')) {
+                alert('Please enter a valid URL starting with http:// or https://');
+                return;
+            }
+            // Update preview
+            imagePreview.textContent = '';
+            const img = document.createElement('img');
+            img.src = trimmedUrl;
+            img.alt = 'Recipe Image';
+            img.onerror = () => {
+                alert('Failed to load image from URL');
+                imagePreview.textContent = 'Tap or click to add photo';
+                currentImageSrc = null;
+                if (previewImage) {
+                    previewImage.src = DEFAULT_RECIPE_IMAGE;
+                }
+            };
+            img.onload = () => {
+                imagePreview.textContent = '';
+                imagePreview.appendChild(img);
+                currentImageSrc = trimmedUrl;
+                if (previewImage) {
+                    previewImage.src = currentImageSrc;
+                }
+                removeImageBtn.style.display = 'inline-block';
+                imageUrl.value = trimmedUrl;
+                imageInput.value = '';
+                removeImageInput.value = '0';
+            };
+        }
+    });
+
+    /**
+     * Remove current image
+     */
+    removeImageBtn.addEventListener('click', () => {
+        imagePreview.textContent = 'Tap or click to add photo';
+        imageInput.value = '';
+        imageUrl.value = '';
+        removeImageInput.value = '1';
+        currentImageSrc = null;
+        if (previewImage) {
+            previewImage.src = DEFAULT_RECIPE_IMAGE;
+        }
+        removeImageBtn.style.display = 'none';
+    });
+
+    // Show remove button if image exists in edit mode
+    if (imagePreview.querySelector('img')) {
+        removeImageBtn.style.display = 'inline-block';
+        currentImageSrc = imagePreview.querySelector('img').src;
+        if (previewImage) {
+            previewImage.src = currentImageSrc;
+        }
+    }
 
     /**
      * Add ingredient to the list
@@ -123,32 +310,105 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /**
      * Handle form submission
-     * Currently logs data to console - will be connected to backend API later
-     * Note: textContent is used to extract values, which is XSS-safe
+     * Sends recipe data to backend API with image upload
+     * Handles both create (POST) and edit (PUT) modes
      */
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        // Collect all form data safely
-        const data = {
-            recipeName: document.getElementById("recipeName").value.trim(),
-            category: document.getElementById("category").value.trim(),
-            prepTime: document.getElementById("prepTime").value,
-            cookTime: document.getElementById("cookTime").value,
-            servings: document.getElementById("servings").value,
-            // Extract text from list items (remove button text will be included, needs backend cleanup)
-            ingredients: Array.from(ingredientsList.querySelectorAll("li")).map(li => {
-                // Get only the text from the span, not the button
-                return li.querySelector('span').textContent.trim();
-            }),
-            steps: Array.from(stepsList.querySelectorAll("li")).map(li => {
-                // Get only the text from the span, not the button
-                return li.querySelector('span').textContent.trim();
-            })
-        };
+        // Get CSRF token from meta tag
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        // TODO: Send data to backend API endpoint
-        console.log("Recipe data:", data);
-        alert("Recipe logged to console!");
+        // Check if this is edit mode (recipe ID in URL params)
+        const params = new URLSearchParams(window.location.search);
+        const recipeId = params.get('edit');
+        const isEditMode = !!recipeId;
+
+        // Create FormData object for file upload
+        const formData = new FormData();
+
+        // Add text fields - convert to integers
+        formData.append('title', document.getElementById("recipeName").value.trim());
+        formData.append('description', document.querySelector('textarea[name="description"]').value.trim());
+        formData.append('prep_time', parseInt(document.querySelector('input[name="prep_time"]').value) || 0);
+        formData.append('cook_time', parseInt(document.querySelector('input[name="cook_time"]').value) || 0);
+        formData.append('servings', parseInt(document.querySelector('input[name="servings"]').value) || 1);
+
+        // Add image if selected
+        if (imageInput.files.length > 0) {
+            formData.append('image', imageInput.files[0]);
+        } else if (imageUrl.value.trim()) {
+            formData.append('image_url', imageUrl.value.trim());
+        }
+
+        // Add remove image flag
+        formData.append('remove_image', removeImageInput.value);
+
+        // Extract ingredients from list items
+        const ingredients = Array.from(ingredientsList.querySelectorAll("li")).map(li => {
+            return li.querySelector('span').textContent.trim();
+        });
+        ingredients.forEach((ing, idx) => {
+            formData.append(`ingredients[${idx}]`, ing);
+        });
+
+        // Extract instructions from list items
+        const instructions = Array.from(stepsList.querySelectorAll("li")).map(li => {
+            return li.querySelector('span').textContent.trim();
+        });
+        instructions.forEach((step, idx) => {
+            formData.append(`instructions[${idx}]`, step);
+        });
+
+        // Extract categories (from comma-separated input)
+        const categoryInput = document.getElementById("category").value.trim();
+        const categories = categoryInput ? categoryInput.split(',').map(c => c.trim()) : [];
+        categories.forEach((cat, idx) => {
+            formData.append(`categories[${idx}]`, cat);
+        });
+
+        // For PUT requests, need to add _method field for Laravel method spoofing
+        if (isEditMode) {
+            formData.append('_method', 'PUT');
+        }
+
+        // Disable submit button during request
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.textContent = isEditMode ? 'Updating...' : 'Creating...';
+
+        try {
+            const url = isEditMode ? `/recipes/${recipeId}` : '/recipes';
+            // Laravel expects POST for both create and update; use _method field for PUT (method spoofing)
+            const method = 'POST';
+
+            const response = await fetch(url, {
+                method: method,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json'
+                },
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                const message = isEditMode ? 'Recipe updated successfully!' : 'Recipe created successfully!';
+                alert(message);
+                // Redirect to recipe detail
+                window.location.href = data.redirect_url || '/recipes';
+            } else {
+                alert('Error: ' + (data.message || 'Unknown error occurred'));
+                console.error('Error details:', data);
+                submitBtn.disabled = false;
+                submitBtn.textContent = isEditMode ? 'UPDATE RECIPE' : 'CREATE A RECIPE';
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error: ' + error.message);
+            submitBtn.disabled = false;
+            submitBtn.textContent = isEditMode ? 'UPDATE RECIPE' : 'CREATE A RECIPE';
+        }
     });
 });

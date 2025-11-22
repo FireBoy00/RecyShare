@@ -10,6 +10,7 @@
    ======================================== */
 .recipes-container h1 {
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .recipes-container {
@@ -18,170 +19,16 @@
 
 /* Recipe cards grid layout */
 .recipes-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: stretch;
 }
 
-/* ========================================
-   RECIPE CARD
-   Individual recipe card with image and details
-   ======================================== */
-.recipe-card {
-    position: relative;
-    background-color: hsl(0, 0%, 95%);
-    max-width: 350px;
-    width: 100%;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: 0.2s;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Diagonal shadow effect on hover */
-.recipe-card:hover {
-    box-shadow:
-        -10px 10px 0 0 rgba(0, 0, 0, 0.2),
-        10px -10px 0 0 rgba(0, 0, 0, 0.2);
-}
-
-/* Recipe image wrapper with overlay */
-.recipe-image-wrapper {
-    position: relative;
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
-}
-
-.recipe-card .recipe-image {
-    width: 100%;
+.recipes-list .recipe-card {
     height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-/* Zoom effect on hover */
-.recipe-card:hover .recipe-image {
-    transform: scale(1.1);
-}
-
-/* Overlay for time and favorite */
-.recipe-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 10px;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent);
-}
-
-.recipe-time {
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.9em;
-    font-weight: 500;
-}
-
-.recipe-time .material-symbols-outlined {
-    font-size: 18px;
-}
-
-.recipe-favorite-btn {
-    background: rgba(255, 255, 255, 0.9);
-    border: none;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.recipe-favorite-btn:hover {
-    background: white;
-    transform: scale(1.1);
-}
-
-.recipe-favorite-btn .material-symbols-outlined {
-    font-size: 20px;
-    color: #666;
-    transition: color 0.3s ease;
-}
-
-.recipe-favorite-btn.favorited .material-symbols-outlined {
-    color: #ff4b4b;
-    font-variation-settings: 'FILL' 1;
-}
-
-/* Recipe content area */
-.recipe-content {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-/* Recipe title */
-.recipe-card .recipe-title {
-    font-size: 1.35em;
-    margin: 0 0 10px 0;
-    text-align: left;
-    color: #000;
-}
-
-/* Recipe description text */
-.recipe-card .recipe-description {
-    font-size: 0.95em;
-    color: #555;
-    margin-bottom: 12px;
-    text-align: left;
-    line-height: 1.4;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-/* Category tags */
-.recipe-categories {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 12px;
-}
-
-.category-tag-small {
-    display: inline-block;
-    background-color: #e0e0e0;
-    color: #000000;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 0.75em;
-    font-weight: 600;
-}
-
-/* View recipe button */
-.recipe-card .btn {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: auto;
 }
 
 /* Mobile: single column */

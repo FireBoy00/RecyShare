@@ -123,4 +123,15 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Application Constants
+    |--------------------------------------------------------------------------
+    |
+    | Application-wide constants used across views and components.
+    |
+    */
+
+    'default_recipe_image' => 'assets/food/no-image.jpg',
+
 ];
