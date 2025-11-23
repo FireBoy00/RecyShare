@@ -66,7 +66,7 @@ class RecipeController extends Controller
             $recipeId = $request->query('edit');
             $recipe = Recipe::find($recipeId);
 
-            if ($recipe && $recipe->user_id === Auth::auth()->id()) {
+            if ($recipe && $recipe->user_id === Auth::id()) {
                 $editMode = true;
             } else {
                 return redirect()->route('recipes.create')->with('error', 'Recipe not found or unauthorized');
@@ -84,7 +84,7 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        if (!Auth::auth()->check()) {
+        if (!Auth::check()) {
             return response()->json([
                 'success' => false,
                 'message' => 'You must be logged in to share a recipe.'
@@ -117,7 +117,7 @@ class RecipeController extends Controller
             }
 
             $recipe = Recipe::create([
-                'user_id' => Auth::auth()->id(),
+                'user_id' => Auth::id(),
                 'title' => $validated['title'],
                 'description' => $validated['description'] ?? '',
                 'image' => $imagePath,
@@ -158,8 +158,8 @@ class RecipeController extends Controller
         $comments = $recipe->comments()->with('user')->latest()->get();
         $isFavorited = false;
 
-        if (Auth::auth()->check()) {
-            $isFavorited = $recipe->favorites()->where('user_id', Auth::auth()->id())->exists();
+        if (Auth::check()) {
+            $isFavorited = $recipe->favorites()->where('user_id', Auth::id())->exists();
         }
 
         return view('recipe-details', compact('recipe', 'comments', 'isFavorited'));
@@ -167,7 +167,7 @@ class RecipeController extends Controller
 
     public function addComment(Request $request, Recipe $recipe)
     {
-        if (!Auth::auth()->check()) {
+        if (!Auth::check()) {
             return response()->json([
                 'success' => false,
                 'message' => 'You must be logged in to comment.'
@@ -180,7 +180,7 @@ class RecipeController extends Controller
 
         $comment = Comment::create([
             'recipe_id' => $recipe->id,
-            'user_id' => Auth::auth()->id(),
+            'user_id' => Auth::id(),
             'content' => $request->comment
         ]);
 
@@ -199,14 +199,14 @@ class RecipeController extends Controller
 
     public function toggleFavorite(Recipe $recipe)
     {
-        if (!Auth::auth()->check()) {
+        if (!Auth::check()) {
             return response()->json([
                 'success' => false,
                 'message' => 'You must be logged in to favorite recipes.'
             ], 401);
         }
 
-        $userId = Auth::auth()->id();
+        $userId = Auth::id();
 
         $favorite = Favorite::where('recipe_id', $recipe->id)
             ->where('user_id', $userId)
@@ -234,11 +234,11 @@ class RecipeController extends Controller
      */
     public function destroy(Recipe $recipe)
     {
-        if (!Auth::auth()->check()) {
+        if (!Auth::check()) {
             return response()->json(['success' => false, 'message' => 'Not authenticated'], 401);
         }
 
-        if ($recipe->user_id !== Auth::auth()->id()) {
+        if ($recipe->user_id !== Auth::id()) {
             return response()->json(['success' => false, 'message' => 'Forbidden'], 403);
         }
 
@@ -259,11 +259,11 @@ class RecipeController extends Controller
      */
     public function update(Request $request, Recipe $recipe)
     {
-        if (!Auth::auth()->check()) {
+        if (!Auth::check()) {
             return response()->json(['success' => false, 'message' => 'Not authenticated'], 401);
         }
 
-        if ($recipe->user_id !== Auth::auth()->id()) {
+        if ($recipe->user_id !== Auth::id()) {
             return response()->json(['success' => false, 'message' => 'Forbidden'], 403);
         }
 
