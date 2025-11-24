@@ -1,70 +1,87 @@
 function genRecipes(count = 5) {
     const recipeTemp = document.getElementById('recipeTemplate');
     const recipesList = document.getElementById('recipesList');
-    // Get the route injected by Blade
     const recipeDetailsRoute = window.recipeDetailsRoute || '/recipe-details';
-    // Clear existing recipes before generating new ones
+
     recipesList.innerHTML = '';
 
     for (let i = 0; i < count; i++) {
-        var newRecipe = recipeTemp.content.cloneNode(true);
+        const newRecipe = recipeTemp.content.cloneNode(true);
         const name = genRecipeName();
         const description = genRecipeDescription();
         const recipeLinkElement = newRecipe.querySelector('#recipeLink');
+
         if (i === 0) {
-            // Card 1: Monte Cristo Sandwich (Explicitly set content and link)
-            newRecipe.querySelector('#recipeImage img').src = '../assets/food/Monte-Cristo-Sandwich-1664x834-1.jpg';
+            // Card 1: Monte Cristo Sandwich
+            newRecipe.querySelector('#recipeImage img').src =
+                '../assets/food/Monte-Cristo-Sandwich-1664x834-1.jpg';
             newRecipe.querySelector('#recipeTitle').textContent = "Monte Cristo Sandwich";
-            newRecipe.querySelector('#recipeDescription').textContent = "A delightful sweet and savory breakfast or brunch treat.";
+            newRecipe.querySelector('#recipeDescription').textContent =
+                "A delightful sweet and savory breakfast or brunch treat.";
         } else {
-            // Card 2 onwards: Dynamic Placeholders
-            newRecipe.querySelector('#recipeImage img').src = `https://placehold.co/250x160/025b3f/2ec68a/?text=${name}\n- ${i + 1} -`;
+            // Card 2 onwards: dynamic placeholder images
+            newRecipe.querySelector('#recipeImage img').src =
+                `https://placehold.co/600x400/025b3f/2ec68a/?text=${name}\n- ${i + 1} -`;
             newRecipe.querySelector('#recipeTitle').textContent = name;
             newRecipe.querySelector('#recipeDescription').textContent = description;
         }
-        // Use the route injected from Blade
+
         recipeLinkElement.href = recipeDetailsRoute + "?recipe=" + (i + 1);
         recipesList.appendChild(newRecipe);
     }
 }
 
-// The search and other functions remain the same as they are functional.
+// Search: hide/show cards based on input value
 function search(args = "") {
     const filter = args.toLowerCase();
-    const recipesContainer = document.querySelector('.recipes-container');
     const recipesList = document.getElementById('recipesList');
     const recipes = recipesList.querySelectorAll('.recipe-card');
-    
-    var recipesFound = 0;
+
     recipes.forEach(recipe => {
         const title = recipe.querySelector('#recipeTitle');
         const description = recipe.querySelector('#recipeDescription');
         const txtValue = `${title?.textContent ?? ''} ${description?.textContent ?? ''}`;
-        if (txtValue.toLowerCase().indexOf(filter) > -1) { // We used indexOf instead of includes for broader compatibility
+        if (txtValue.toLowerCase().indexOf(filter) > -1) {
             recipe.style.display = "";
-            recipesFound++;
         } else {
             recipe.style.display = "none";
         }
-    })
-
-    if (recipesFound === 0) {
-        recipesContainer.querySelector('h1').textContent = `No recipes found for "${args}"`;
-        return;
-    }
-    if (args.trim() !== "") {
-        recipesContainer.querySelector('h1').textContent = `Found ${recipesFound} recipes for "${args}"`;
-        return;
-    }
-    recipesContainer.querySelector('h1').textContent = `We have ${recipes.length} recipes`;
+    });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    genRecipes(10); // Generate 10 sample recipes
-    document.getElementById('searchBar').addEventListener('input', function() {
-        search(this.value);
-    });
-    search(); // Initial search to set the count
+    genRecipes(10);
+
+    const searchInput = document.getElementById('searchBar');
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            search(this.value);
+        });
+    }
+
+    const filtersToggle = document.getElementById('filtersToggle');
+    const filtersPanel = document.getElementById('recipesFilters');
+    if (filtersToggle && filtersPanel) {
+        filtersToggle.addEventListener('click', function () {
+            const isHidden = filtersPanel.hasAttribute('hidden');
+            if (isHidden) {
+                filtersPanel.removeAttribute('hidden');
+            } else {
+                filtersPanel.setAttribute('hidden', '');
+            }
+        });
+    }
+
+    const viewToggleBtn = document.getElementById('viewToggle');
+    const recipesList = document.getElementById('recipesList');
+    if (viewToggleBtn && recipesList) {
+        viewToggleBtn.addEventListener('click', function () {
+            recipesList.classList.toggle('list-view');
+        });
+    }
+
+    // Initial filter (no text)
+    search();
 });
 
 function genRecipeName() {
