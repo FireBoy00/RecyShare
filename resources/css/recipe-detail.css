@@ -661,14 +661,12 @@ main {
 
 .stars {
     display: inline-flex;
-    gap: 6px;
     align-items: center;
 }
 
 .star-btn {
     background: transparent;
     border: none;
-    padding: 6px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -685,8 +683,7 @@ main {
     pointer-events: none;
 }
 
-.star-btn:hover .star,
-.star-btn:focus .star {
+.star-btn.hover .star {
     color: #f5b301;
     transform: scale(1.1);
 }

@@ -67,7 +67,7 @@
                             <div class="stars" role="radiogroup" aria-label="Rate this recipe">
                                 @for ($i = 1; $i <= 5; $i++)
                                     <button class="star-btn" data-value="{{ $i }}" type="button" title="{{ $i }} star">
-                                        <span class="star">&#9733;</span>
+                                        <span class="material-symbols-outlined star">award_meal</span>
                                     </button>
                                 @endfor
                             </div>
