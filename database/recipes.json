@@ -1,0 +1,949 @@
+[
+  {
+    "user_id" : "olaFasola",
+    "title": "Grilled Asian Chicken",
+    "description":" This juicy and tender Grilled Asian Chicken recipe is smothered in a sweet and spicy Asian marinade. It’s the perfect High protein Summer meal!",
+    "image": "assets/food/chicken.jpg",
+    "prep_time": 30,
+    "cook_time": 15,
+    "servings": 4,
+    "ingredients": [
+        "1/4 cup soy sauce",
+        "2 tablespoons honey",
+        "4 teaspoons sesame oil",
+        "2 cloves gralic (crushed)",
+        "3 slices fresh ginger root",
+        "4 skinless, boneless chicken breast halves"],
+    "instructions": [
+        "Gather all ingredients",
+        "Combine soy sauce, honey, sesame oil, garlic, and ginger in a small microwave-safe bowl; heat in the microwave on medium power for 1 minute, then stir. Heat again for 30 seconds, watching closely to prevent boiling. ",                "Place chicken breasts in a shallow dish. Pour soy sauce mixture over top and set aside to marinate for 15 minutes ",
+        "Preheat an outdoor grill for medium-high heat and lightly oil the grate. Meanwhile, remove chicken from marinade; transfer marinade into a small saucepan and bring to a boil. Reduce heat to low and simmer until thick, about 1 minute. Set aside for basting.",
+        "Cook chicken on the preheated grill, basting frequently with reserved marinade, until golden brown on all sides and chicken is no longer pink in the center, about 6 to 8 minutes per side. An instant-read meat thermometer inserted into the thickest piece should read at least 160 degrees F (70 degrees C). "
+    ],
+    "categories": ["Breakfast", "Brunch", "Quick & Easy"]
+  },
+  {
+    "user_id" : "olaFasola",
+    "title": "Tuscan Chicken Soup",
+    "description": null,
+    "image": "assets/food/tuscan.webp",
+    "prep_time": 10,
+    "cook_time": 20,
+    "servings": 2,
+    "ingredients": [
+        "1 ½ teaspoons olive oil",
+        "1/2 small onion, diced ",
+        "2 garlic cloves, minced ",
+        "1 tablespoon tomato paste",
+        "2 (8.25 ounce) containers chicken bone broth",
+        "3/4 teaspoon Tuscan seasoning",
+        "1 skinless, boneless chicken breast, cut into 1-inch pieces",
+        "1 handful roughly chopped spinach",
+        "2 tablespoons sun dried tomatoes",
+        "1/2 cup high protein pasta",
+        "2 tablespoons finely grated Parmesan cheese",
+        "1/4 cup heavy cream "
+        ],
+    "instructions": [
+       "Gather all ingredients",
+        "Add oil to a saucepan over medium heat. Once oil is hot, add onion, and sauté until translucent, about 5 minutes.",
+        "Add garlic; saute until fragrant; about 1 minute.",
+        "Stir in tomato paste until well combined.",
+        "Add chicken bone broth, Tuscan seasoning, chicken pieces, sun-dried tomatoes, and torn spinach; stir to combine",
+        "Add pasta; simmer until pasta is tender with a bite, about 10 minutes.",
+        "Sprinkle in Parmesan; stir to combine.",
+        "Stir in heavy cream. Serve immediately."
+    ],
+    "categories": ["Soups", "Healthy", "Dinner"]
+  },
+  {
+    "user_id" : "olaFasola",
+    "title": "Old-Fashioned Potato Salad",
+    "description": "This potato salad recipe is for the traditional creamy type of potato salad, with eggs, celery, and relish. It's perfect for making ahead to let the flavors develop",
+    "image": "assets/food/potato.webp",
+    "prep_time": 45,
+    "cook_time": 15,
+    "servings": 8,
+    "ingredients": [
+        "5 medium potatoes",
+        "3 large eggs",
+        "1 cup chopped celery",
+        "½ cup chopped onion",
+        "½ cup sweet pickle relish",
+        "¼ cup mayonnaise",
+        "1 tablespoon prepared mustard",
+        "¼ teaspoon garlic salt",
+        "¼ teaspoon celery salt",
+        "ground black pepper to taste"
+    ],
+    "instructions": [
+       "Gather all ingredients",
+        "Bring a large pot of salted water to a boil. Add potatoes and cook until tender but still firm, about 15 minutes. ",
+        "Drain, cool, peel, and chop potatoes",
+        "While potatoes cook, place eggs in a saucepan and cover with cold water. Bring water to a boil; cover, remove from heat, and let eggs stand in hot water for 10 to 12 minutes.",
+        "Remove eggs from hot water; cool, peel, and chop into chunks",
+        "Combine potatoes, eggs, celery, onion, relish, mayonnaise, mustard, garlic salt, celery salt, and pepper in a large bowl. Mix together until well combined. ",
+        "Chill potato salad in the refrigerator before serving for best flavor results. Enjoy!"
+    ],
+    "categories": ["Vegetarian", "Healthy", "Salads", "Side Dish"]
+  },
+  {
+    "user_id" : "olaFasola",
+    "title": "Cobb Salad",
+    "description": "This Cobb salad has some of my favorite ingredients: chicken, egg, tomatoes, blue cheese, and avocado.",
+    "image": "assets/food/cobb.webp",
+    "prep_time": 20,
+    "cook_time": 10,
+    "servings": 6,
+    "ingredients": [
+        "6 slices bacon",
+        "3 large eggs",
+        "1 head iceberg lettuce, shredded",
+        "3 cups chopped, cooked chicken meat",
+        "2 ripe tomatoes, seeded and chopped",
+        "¾ cup blue cheese, crumbled ",
+        "3 green onions, chopped ",
+        "1 avocado - peeled, pitted and diced",
+        "1 (8 ounce) bottle Ranch-style salad dressing"
+        ],
+    "instructions": [
+        "Place eggs in a saucepan and cover completely with cold water; bring to a boil, then cover and remove from heat. Let eggs sit for 10 to 12 minutes, then cool, peel and chop",
+        "While the eggs are cooking, place bacon in a large, deep skillet. Cook over medium-high heat until evenly brown, 7 to 10 minutes. Drain, crumble, and set aside",
+        "Divide shredded lettuce among individual plates. Arrange rows of bacon, eggs, chicken, tomatoes, blue cheese, green onions, and avocado on top.",
+        "Drizzle with dressing and enjoy!"
+    ],
+    "categories": ["Quick & Easy", "Healthy", "Salads", "Side Dish"]
+  },
+  {
+    "user_id" : "olaFasola",
+    "title": "Blueberry Lemonade Martini",
+    "description": "This blueberry lemonade martini is sweet, tart, cool, and refreshingly delicious. The flavors say summer, but the color might make you think holidays.",
+    "image": "assets/food/martini.webp",
+    "prep_time": 5,
+    "cook_time": 5,
+    "servings": 1,
+    "ingredients": [
+        "2 fluid ounces lemon infused vodka ",
+        "2 fluid ounces blueberry lemonade ",
+        "1/2 fluid ounce agave syrup or simple syrup",
+        "1 teaspoon freshly squeezed lime juice",
+        "1 wedge plus 1 slice lemon or lime, divided, for garnish",
+        "chili lime seasoning, such as Tajin® (optional)"
+        ],
+    "instructions": [
+       "Add vodka, blueberry lemonade, agave syrup, and lime juice to a cocktail shaker. ",
+        "Fill the cocktail shaker with ice and shake until the outside is frosted, about 30 seconds.",
+        "Sprinkle Tajin seasoning on a plate, rub the rim of your favorite glass with a lemon or lime wedge, and dip the glass in seasoning to coat the rim. Strain the cocktail into the glass"
+    ],
+    "categories": ["Drink & Cocktail", "Quick & Easy"]
+  },
+  {
+    "user_id" : "gabite",
+    "title": "Monte Cristo Sandwich",
+    "description": "A delightful sweet and savory breakfast or brunch treat that combines ham, turkey, and cheese in a perfectly golden fried sandwich.",
+    "image": "assets/food/Monte-Cristo-Sandwich-1664x834-1.jpg",
+    "prep_time": 30,
+    "cook_time": 30,
+    "servings": 4,
+    "ingredients": [
+        "8 slices bread (challah)",
+        "4 tsp honey dijon mustard",
+        "8 slices swiss cheese",
+        "8 slices turkey",
+        "8 slices ham",
+        "3 eggs",
+        "2 tbsp flour",
+        "1 tbsp melted butter",
+        "Salt & pepper",
+        "2 tbsp milk",
+        "Powdered sugar",
+        "Raspberry preserves"
+        ],
+    "instructions": [
+       "Heat oven to 425°F.",
+        "Butter a baking sheet.",
+        "Spread mustard on bread slices.",
+        "Layer cheese, ham, turkey, cheese.",
+        "Whisk eggs, flour, butter, salt, pepper.",
+        "Blend in milk.",
+        "Dip sandwiches in egg mix.",
+        "Bake 8-10 min each side until golden.",
+        "Dust with powdered sugar & serve with preserves."
+    ],
+    "categories": ["French", "Breakfast", "Brunch", "Comfort Food"]
+  },
+  {
+    "user_id" : "gabite",
+    "title": "Traditional lasagna",
+    "description": "With five kinds of cheese it is by far THE BEST lasagna I've ever tasted!",
+    "image": "assets/food/lasagna.webp",
+    "prep_time": 30,
+    "cook_time": 120,
+    "servings": 12,
+    "ingredients": [
+        "1lb ground beef",
+        "3⁄4lb bulk pork sausage  bulk pork sausage",
+        "3(8 ounce) cans tomato sauce ",
+        "2(6 ounce) cans tomato paste",
+        "2garlic cloves, minced",
+        "2teaspoons sugar",
+        "1teaspoon italian seasoning",
+        "1teaspoon salt",
+        "1⁄2teaspoon pepper",
+        "3eggs ",
+        "3tablespoons minced fresh parsley",
+        "3cups small curd cottage cheese ",
+        "1(8 ounce) carton ricotta cheese ",
+        "1⁄2cup grated parmesan cheese ",
+        "9lasagna noodles, cooked and drained ",
+        "6slices provolone cheese ",
+        "3cups shredded mozzarella cheese, divided (12 oz.)"
+        ],
+    "instructions": [
+       "In a skillet, cook beef and sausage over medium heat until no longer pink; drain.",
+        "Add the next seven ingredients. ",
+        "Simmer, uncovered, for 1 hour, stirring occasionally.",
+        "In a bowl, combine the eggs, parsley, cottage cheese, ricotta and parmesan.",
+        "Spread 1 cup of meat sauce in an ungreased 13x9x2-inch baking dish.",
+        "Layer with 3 noodles, provolone cheese, 2 cups of cottage cheese mixture, 1 cup of mozzarella, three noodles, 2 cups of meat sauce, remaining cottage cheese mixture and 1 cup of mozzarella.",
+        "Top with remaining noodles, meat sauce and mozzarella (dish will be full).",
+        "Cover and bake at 375°F for 50 minutes.",
+        "Uncover; bake 20 minutes longer.",
+        "Let stand 15 minutes before cutting."
+    ],
+    "categories": ["Dinner", "Lunch"]
+  },
+  {
+    "user_id" : "gabite",
+    "title": "Vegan Bacon",
+    "description": "If you were to use this in a BLT sandwich and replaced the bacon with it, you would never know the difference! My kids are bacon lovers, but now they prefer this. It doesn't look quite like bacon but it tastes the same.",
+    "image": "assets/food/bacon.webp",
+    "prep_time": null,
+    "cook_time": 25,
+    "servings": 4,
+    "ingredients": [
+       "1lb firm tofu, cut into strips shaped like bacon",
+        "2 tablespoons nutritional yeast",
+        "2tablespoons soya sauce",
+        "1teaspoon liquid smoke",
+        "1tablespoon oil, something neutral, not olive oil"
+        ],
+    "instructions": [
+       "In a skillet, cook beef and sausage over medium heat until no longer pink; drain. ",
+        "Add the next seven ingredients. ",
+        "Simmer, uncovered, for 1 hour, stirring occasionally",
+        "In a bowl, combine the eggs, parsley, cottage cheese, ricotta and parmesan. ",
+        "Spread 1 cup of meat sauce in an ungreased 13x9x2-inch baking dish. ",
+        "Layer with 3 noodles, provolone cheese, 2 cups of cottage cheese mixture, 1 cup of mozzarella, three noodles, 2 cups of meat sauce, remaining cottage cheese mixture and 1 cup of mozzarella. ",
+        "Top with remaining noodles, meat sauce and mozzarella (dish will be full). ",
+        "Cover and bake at 375°F for 50 minutes. ",
+        "Uncover; bake 20 minutes longer. ",
+        "Let stand 15 minutes before cutting."
+    ],
+    "categories": ["Vegetarian", "Vegan"]
+  },
+  {
+    "user_id" : "gabite",
+    "title": "Simple Chicken and Sausage Paella",
+    "description": "This is it, my first recipe. I've been making this 'Paella' for years. It's my husband's favourite. It tastes so good, everyone is always surprised when they hear it was cooked in the Microwave",
+    "image": "assets/food/paella.webp",
+    "prep_time": null,
+    "cook_time": 45,
+    "servings": 6,
+    "ingredients": [
+       "1⁄2lb hot Italian sausage, cut into 1/2 inch cubes",
+        "1onion, chopped ",
+        "1green bell pepper, chopped ",
+        "2garlic cloves, minced",
+        "1cup long-grain rice ",
+        "14ounces canned tomatoes, chopped (homemade is better) ",
+        "1cup chicken stock",
+        "1⁄2teaspoon ground turmeric ",
+        "1⁄4teaspoon cayenne pepper (we love spicy foods)",
+        "1lb boneless skinless chicken breast, remove all visible fat and cut into 1 inch cubes ",
+        "salt and pepper ",
+        "1green onion, chopped diagonally"
+        ],
+    "instructions": [
+       "Using a 12 cup microwaveable dish, combine chopped sausages, onions, green pepper and garlic. Microwave uncovered at a High setting for approximately 4 to 6 minutes or until vegetables are soft. Stir halfway.",
+        "Add long-grain rice, chopped tomatoes, chicken stock, turmeric and cayenne pepper. Stir and cover. Microwave at a High setting for approximately 8 to 10 minutes until boiling. Stir and cover. Microwave at a Medium setting for another 5 minutes",
+        "Add chicken. Season with salt and pepper. Stir and cover. Microwave at a Medium setting for approximately 7 to 9 minutes or until the chicken is no longer pink inside and most of the liquid has been absorbed",
+        "Let stand covered for another 5 minutes. ",
+        "Serve with chopped green onions."
+    ],
+    "categories": ["Microwave", "Lunch"]
+  },
+  {
+    "user_id" : "gabite",
+    "title": "Air Fryer Truffle Fries",
+    "description": "Crispy and golden fries with a fraction of the fat and calories. Truffle salt adds an elegant finishing touch - look for it in specialty grocery stores or online",
+    "image": "assets/food/fries.webp",
+    "prep_time": null,
+    "cook_time": 35,
+    "servings": 4,
+    "ingredients": [
+       "1 1⁄4lbs yukon gold potatoes ",
+        "1tablespoon olive oil ",
+        "1⁄4teaspoon kosher salt",
+        "3⁄4teaspoon truffle salt"
+        ],
+    "instructions": [
+       "Scrub potatoes and pat dry. Cut into evenly-sized fries and place in a bowl.",
+        "Add olive oil and kosher salt and toss to coat. ",
+        "Place fries in the air fryer basket and cook at 350-degrees F for 15 to 18 minutes, pausing half way through to shake the basket. Cook until golden and crispy.",
+        "Remove fries from the basket and season immediately with truffle salt, serve hot. "
+    ],
+    "categories": ["Air Fryer", "Quick & Easy", "Appetizers & Snack"]
+  },
+  {
+    "user_id" : "skibiBake",
+    "title": "Chocolate Chip Cookies",
+    "description": "This is without a doubt your new go-to chocolate chip cookie recipe and for so many reasons!",
+    "image": "assets/food/cookies.jpg",
+    "prep_time": 20,
+    "cook_time": 12,
+    "servings": 8,
+    "ingredients": [
+       "125 g unsalted butter",
+        "100 g light brown sugar",
+        "75 g white granulated sugar",
+        "1 medium egg",
+        "1 tsp vanilla (optional!)",
+        "300 g plain flour", 
+        "1 + 1/2 tsp baking powder", 
+        "1/2 tsp bicarbonate of soda",
+        "1/2 tsp sea salt", 
+        "125 g dark chocolate chips", 
+        "100 g of walnuts"  
+        ],
+    "instructions": [
+       "Add your butter and sugars to a bowl and beat until creamy - I use my stand mixer with the beater attachment",
+        "Add in your egg and beat again. If using vanilla, add it in now ",
+        "Add in the plain flour, baking powder, bicarbonate of soda, and salt and beat until a cookie dough is formed ",
+        "Add in your dark chocolate chips, walnuts and beat till they are distributed well",
+        "Weigh your cookies out into eight cookie dough balls - they are about 120g each",
+        "Once they are rolled into balls, put your cookie dough in the freezer for at least 30 minutes, or in the fridge for an hour or so",
+        "Whilst the cookie dough is chilling, preheat your oven to 180C Fan, or 200C regular! If your oven runs hot, go for 160C-170c.",
+        "Take your cookies out of the freezer/fridge and put them onto a lined baking tray. I put four cookies per tray",
+        "Bake the cookies in the oven for 12-14 minutes. I do not personally flatten the cookies, as they flatten enough during baking - however, if you like flat cookies, flatten them a bit before baking.",
+        "Once baked, leave them to cool on the tray for at least 30 minutes, as they will continue to bake whilst cooling ",
+        "ENJOY! "
+    ],
+    "categories": ["Appetizers & Snack", "Dessert", "Baking"]
+  },
+  {
+    "user_id" : "skibiBake",
+    "title": "Apple Pie From Scratch",
+    "description": "No need to worry about mushy apples or a soggy pie crust because this apple pie bakes to perfection every single time",
+    "image": "assets/food/pie.jpg",
+    "prep_time": 15,
+    "cook_time": 60,
+    "servings": 8,
+    "ingredients": [
+       "2 ½ cups flour(315 g)", 
+        "1 teaspoon salt",
+        "1 ½ sticks butter, 1 1/2 sticks, cold, cubed", 
+        "8 tablespoons ice water, or as needed",
+        "2 ½ lb granny smith apple(1 kg), cored, sliced, peeled", 
+        "¾ cup sugar(150 g)",
+        "2 tablespoons flour",
+        "½ teaspoon salt",
+        "1 teaspoon cinnamon", 
+        "¼ teaspoon nutmeg",
+        "½ lemon",
+        "1 egg, beaten",
+        "1 tablespoon sugar" 
+        ],
+    "instructions": [
+        "In a medium-sized bowl, add the flour and salt. Mix with fork until combined. ",
+        "Add in cubed butter and break up into flour with a fork. Mixture will still have lumps about the size of small peas.",
+        "Gradually add the ice water and continue to mix until the dough starts to come together. You may not need all of the water, but if the dough is too dry then add more. The dough should not be very tacky or sticky.",
+        "Work the dough together with your hands and turn out onto a surface. Work into a ball and cover with cling wrap. Refrigerate.",
+        "Peel the apples, then core and slice",
+        "In a bowl, add the sliced apples, sugar, flour, salt, cinnamon, nutmeg, and juice from the lemon. ",
+        "Mix until combined and all apples are coated. Refrigerate",
+        "Preheat the oven to 375°F (200°C).",
+        "On a floured surface, cut the pie dough in half and roll out both halves until round and about ⅛-inch (3 mm) thick.",
+        "Roll the dough around the rolling pin and unroll onto a pie dish making sure the dough reaches all edges. Trim extra if necessary. ",
+        "Pour in apple filling mixture and pat down.",
+        "Roll the other half of the dough on top. ",
+        "Trim the extra dough from the edges and pinch the edges to create a crimp. Make sure edges are sealed together",
+        "Brush the pie with the beaten egg and sprinkle with the sugar. ",
+        "Cut four slits in the top of the pie to create a vent",
+        "Bake pie for 50-60 minutes or until the crust is golden brown and no greyish or undercooked pastry remains. ",
+        "Allow it to cool completely before slicing",
+        "Enjoy! "
+    ],
+    "categories": ["Dessert", "Baking"]
+  },
+  {
+    "user_id" : "skibiBake",
+    "title": "Banana Bread",
+    "description": "Put those ripe bananas to use in this moist, delicious banana bread",
+    "image": "assets/food/bread.webp",
+    "prep_time": 15,
+    "cook_time": 60,
+    "servings": 12,
+    "ingredients": [
+        "2 cups all-purpose flour", 
+        "1 teaspoon baking soda",
+        "¼ teaspoon salt ",
+        "¾ cup brown sugar ",
+        "½ cup butter ",
+        "2 large eggs, beaten", 
+        "2 ⅓ cups mashed overripe bananas" 
+        ],
+    "instructions": [
+        "Gather all ingredients. Preheat the oven to 350 degrees F (175 degrees C). Lightly grease a 9x5-inch loaf pan.", 
+        "Pour batter into the prepared loaf pan.", 
+        "Bake in the preheated oven until a toothpick inserted into the center comes out clean, about 60 minutes.",
+        "Let bread cool in pan for 10 minutes, then turn out onto a wire rack to cool completely.",
+        "Enjoy! "
+    ],
+    "categories": ["Dessert", "Baking", "Appetizers & Snack"]
+  },
+  {
+    "user_id" : "skibiBake",
+    "title": "Easy Spagetti Bolognese",
+    "description": "Everyone needs a basic spaghetti bolognese recipe that still tastes great, no matter how simple.",
+    "image": "assets/food/spaghetti.jpg",
+    "prep_time": 30,
+    "cook_time": 90,
+    "servings": 4,
+    "ingredients": [
+        "2 tbsp olive oil",
+        "400g/14oz beef mince", 
+        "1 onion, diced ",
+        "2 garlic cloves, chopped",
+        "100g/3½oz carrot, grated ",
+        "2 x 400g tins chopped tomatoes", 
+        "400ml/14fl oz stock (made from stock cube. Ideally beef, but any will do)", 
+        "400g/14oz dried spaghetti", 
+        "salt and pepper"
+        ],
+    "instructions": [
+        "Heat a large saucepan over medium heat. Add a tablespoon of olive oil and once hot add the minced beef and a pinch of salt and pepper. Cook the mince until well browned over a medium-high heat (be careful not to burn the mince. It just needs to be a dark brown colour). Once browned, transfer the mince to a bowl and set aside.",
+        "Add another tablespoon of oil to the saucepan you browned the mince in and turn the heat to medium. Add the onions and a pinch of salt and fry gently for 5-6 minutes, or until softened and translucent. Add the garlic and cook for another 2 minutes. Add the grated carrot then pour the mince and any juices in the bowl back into the saucepan.",
+        "Add the tomatoes to the pan and stir well to mix. Pour in the stock, bring to a simmer and then reduce the temperature to simmer gently for 45 minutes, or until the sauce is thick and rich. Taste and adjust the seasoning as necessary.", 
+        "When ready to cook the spaghetti, heat a large saucepan of water and add a pinch of salt. Cook according to the packet instructions. Once the spaghetti is cooked through, drain and add to the pan with the Bolognese sauce. Mix well and serve."
+    ],
+    "categories": ["Dinner", "Lunch"]
+  },
+  {
+    "user_id" : "skibiBake",
+    "title": "Bryndza dumplings with bacon",
+    "description": " Bryndzové halušky is a way into the heart of many people in Slovakia. The whole process is very easy, quick, and soooo simple. Would you like to try it?",
+    "image": "assets/food/bryndza.jpg",
+    "prep_time": 35,
+    "cook_time": 45,
+    "servings": 6,
+    "ingredients": [
+        "150 g Bacon ",
+        "500 g potatoes", 
+        "250 g plain flour", 
+        "1 egg", 
+        "Salt (Belbake)", 
+        "200 g bryndza (Slovak sheep cheese)", 
+        "200 g sour cream"
+        ],
+    "instructions": [
+        "Prepare the bacon - Cut the bacon into small cubes and fry it in a pot until crispy", 
+        "Make the dough - Peel, wash, and finely grate the potatoes. Add flour and the egg, then mix thoroughly until you get a thick batter.", 
+        "Cook the dumplings - Bring a large pot of salted water to a boil. Using a dumpling strainer and scraper, press the batter through into the boiling water. Stir well to prevent the dumplings from sticking together.", 
+        "Boil until done - Cook the dumplings until they rise to the surface (about 3 minutes). Drain them in a strainer.",
+        "Mix with bryndza and sour cream -In a large bowl, mix the bryndza cheese with sour cream. Add the cooked dumplings and gently combine.", 
+        "Serve dumplings topped with crispy bacon.", 
+        "Enjoy!" 
+    ],
+    "categories": ["Dinner", "Lunch"]
+  },
+  {
+    "user_id" : "elly",
+    "title": "Garlic Butter Shrimp Scampi",
+    "description": "Garlic Butter Shrimp Scampi can be enjoyed as an appetizer/light meal OR for dinner with your favourite pasta of choice!",
+    "image": "assets/food/shrimp.jpg",
+    "prep_time": 10,
+    "cook_time": 10,
+    "servings": 2,
+    "ingredients": [
+        "1 lb large shrimp, peeled and deveined", 
+        "4 Tbsp unsalted butter", 
+        "4 cloves garlic, minced", 
+        "1/4 cup dry white wine (or chicken broth)", 
+        "1 Tbsp lemon juice", 
+        "1/4 tsp red pepper flakes (optional)", 
+        "2 Tbsp fresh parsley, chopped", 
+        "Salt and black pepper to taste", 
+        "Served over pasta or with crusty bread (optional)" 
+        ],
+    "instructions": [
+        "Prep Shrimp: Pat the shrimp dry and season with salt and pepper.", 
+        "Sauté Garlic: Melt butter in a large skillet over medium heat. Add garlic and red pepper flakes (if using) and cook for 1 minute until fragrant.", 
+        "Add Wine/Broth: Pour in the white wine (or broth) and lemon juice. Bring to a simmer and cook for 2 minutes.",
+        "Cook Shrimp: Add the seasoned shrimp to the skillet. Cook for about 1-2 minutes per side, until pink and opaque. Do not overcook.", 
+        "Finish: Stir in the fresh parsley. Serve immediately over linguine or with bread for dipping."
+    ],
+    "categories": ["Dinner", "Seafood"]
+  },
+  {
+    "user_id" : "elly",
+    "title": "Simple Tomato Bruschetta",
+    "description": "This bruschetta recipe is hands down my favorite recipe to make in the summer when tomatoes are at their best and it comes together in minutes!",
+    "image": "assets/food/Bruschetta.jpg",
+    "prep_time": 15,
+    "cook_time": 5,
+    "servings": 4,
+    "ingredients": [
+        "1 baguette, sliced into 1/2-inch pieces", 
+        "2 Tbsp olive oil (for bread)", 
+        "2 cups diced ripe tomatoes", 
+        "2 cloves garlic, minced", 
+        "1/4 cup fresh basil, chopped", 
+        "2 Tbsp balsamic glaze (optional, for drizzling)", 
+        "1 Tbsp extra virgin olive oil (for topping)", 
+        "Salt and pepper to taste"
+        ],
+    "instructions": [
+        "Toast Bread: Preheat oven to $350C. Brush baguette slices with 2 Tbsp olive oil and toast on a baking sheet for 5-7 minutes until lightly golden. ",
+        "Prepare Topping: In a bowl, combine the diced tomatoes, minced garlic, chopped basil, 1 Tbsp extra virgin olive oil, salt, and pepper.", 
+        "Assemble: Spoon the tomato mixture generously onto each toasted bread slice.", 
+        "Serve: Drizzle with balsamic glaze, if desired, and serve immediately."
+    ],
+    "categories": ["Appetizers & Snack", "Quick & Easy", "Vegetarian"]
+  },
+  {
+    "user_id" : "elly",
+    "title": "One-Pan Lemon Herb Roasted Chicken & Veggies",
+    "description": "So easy and delicious, and if you're in need of a simple, low maintenance meal this time of year, give this recipe a go!",
+    "image": "assets/food/herbChicken.jpg",
+    "prep_time": 15,
+    "cook_time": 40,
+    "servings": 4,
+    "ingredients": [
+        "4 boneless, skinless chicken breasts or thighs", 
+        "1 lb baby potatoes, halved", 
+        "2 cups chopped broccoli florets", 
+        "1/2 cup chopped carrots", 
+        "3 Tbsp olive oil", 
+        "1 tsp dried Italian herbs (or a mix of rosemary, thyme, oregano)", 
+        "1/2 tsp salt, 1/4 tsp pepper ",
+        "1 lemon, thinly sliced" 
+        ],
+    "instructions": [
+        "Preheat & Prep: Preheat oven to 200C. Lightly oil a large sheet pan. ",
+        "Toss: In a large bowl, toss the potatoes, broccoli, and carrots with 2 Tbsp of olive oil, half of the herbs, salt, and pepper. Spread the vegetables onto the sheet pan.", 
+        "Season Chicken: Place the chicken on the same pan. Rub the remaining 1 Tbsp of olive oil and the rest of the herbs, salt, and pepper onto the chicken. Place lemon slices over the chicken.", 
+        "Roast: Bake for 35-40 minutes, or until the chicken is cooked through (internal temperature of 74C and the vegetables are tender."
+    ],
+    "categories": ["Dinner"]
+  },
+  {
+  "user_id": "elly",
+  "title": "Easy Three-Ingredient Pancakes",
+  "description": "Not like any pancake you’ve ever tasted.",
+  "image": "assets/food/pancakes.webp",
+  "prep_time": 5,
+  "cook_time": 10,
+  "servings": 2,
+  "ingredients": [
+    "1 medium ripe banana",
+    "2 eggs",
+    "1/4 tsp vanilla extract (optional)",
+    "Butter or oil for the pan",
+    "Toppings like maple syrup and berries (optional)"
+  ],
+  "instructions": [
+    "Mash: In a bowl, mash the banana until smooth.",
+    "Mix: Whisk in the eggs and vanilla extract until combined.",
+    "Cook: Heat a non-stick skillet over medium heat and grease lightly.",
+    "Pour: Pour 1/4 cup of batter per pancake and cook 2–3 minutes per side.",
+    "Serve: Serve immediately with your favorite toppings."
+  ],
+  "categories": ["Breakfast"]
+},
+{
+  "user_id": "elly",
+  "title": "Chocolate Avocado Mousse",
+  "description": "If you’ve never tried avocado chocolate mousse before, this healthy recipe will take you completely by surprise!",
+  "image": "assets/food/avokado.jpg",
+  "prep_time": 10,
+  "cook_time": 0,
+  "servings": 4,
+  "ingredients": [
+    "2 ripe avocados, pitted and peeled",
+    "1/2 cup unsweetened cocoa powder",
+    "1/4 cup maple syrup (or other sweetener)",
+    "1/4 cup milk (dairy or non-dairy, adjust as needed)",
+    "1 tsp vanilla extract",
+    "Pinch of salt"
+  ],
+  "instructions": [
+    "Combine: Add avocados, cocoa powder, maple syrup, milk, vanilla, and salt to a blender or food processor.",
+    "Blend: Blend until completely smooth and creamy. Add milk if needed to adjust thickness.",
+    "Taste: Taste and adjust sweetness if desired.",
+    "Chill & Serve: Spoon into serving dishes and chill for at least 30 minutes. Garnish before serving."
+  ],
+  "categories": ["Dessert"]
+},
+{
+  "user_id": "remy",
+  "title": "Sheet-Pan Baked Feta With Broccoli, Cherry Tomatoes & Herbs",
+  "description": "Golden feta melts into caramelized tomatoes and broccoli for an effortless, fresh and comforting dish.",
+  "image": "assets/food/feta.webp",
+  "prep_time": 30,
+  "cook_time": 20,
+  "servings": 4,
+  "ingredients": [
+    "1 medium head of broccoli, cut into small florets",
+    "250 g cherry tomatoes, halved",
+    "1 small red onion, sliced into wedges",
+    "1 lemon, half thinly sliced, half for serving",
+    "2 tablespoons extra-virgin olive oil",
+    "1 teaspoon dried oregano",
+    "1/2 teaspoon smoked paprika",
+    "1/4 teaspoon chili flakes (optional)",
+    "Salt and black pepper, to taste",
+    "200 g feta cheese, cut into thick slices or chunks",
+    "2 tablespoons fresh parsley or mint, chopped",
+    "Cooked couscous or quinoa, for serving"
+  ],
+  "instructions": [
+    "Preheat oven to 200°C and line a baking tray with parchment paper.",
+    "Spread broccoli, tomatoes, onion, and lemon slices on the tray. Drizzle with olive oil and season with oregano, smoked paprika, chili flakes, salt, and pepper. Toss to coat.",
+    "Arrange the feta among the vegetables.",
+    "Roast for 20–25 minutes, stirring halfway, until broccoli edges are crisp, tomatoes burst, and feta softens and browns.",
+    "Remove from oven. Squeeze the remaining lemon over the tray and sprinkle with fresh herbs.",
+    "Serve warm over couscous or quinoa. Finish with a drizzle of olive oil if desired."
+  ],
+  "categories": [
+    "Dinner",
+    "Vegetarian",
+    "Healthy",
+    "Quick & Easy",
+    "Lunch",
+    "Side Dish",
+    "Meal Preparation"
+  ]
+},
+{
+  "user_id": "remy",
+  "title": "Chili-Lime Cucumber Salad with Fresh Herbs",
+  "description": "Cool, crisp, refreshing cucumber salad with herbs and a tangy chili-lime dressing.",
+  "image": "assets/food/cucumber.webp",
+  "prep_time": 15,
+  "cook_time": 0,
+  "servings": 4,
+  "ingredients": [
+    "2 large English cucumbers or 5–6 Persian cucumbers, thinly sliced",
+    "1/2 small red onion, thinly sliced",
+    "1 lime, juiced",
+    "2 tablespoons rice vinegar or white wine vinegar",
+    "1 teaspoon honey or maple syrup",
+    "1/2 teaspoon chili flakes",
+    "2 tablespoons fresh cilantro or mint, finely chopped",
+    "1 tablespoon toasted sesame oil",
+    "Salt and black pepper, to taste",
+    "1 teaspoon sesame seeds or crushed peanuts (optional)"
+  ],
+  "instructions": [
+    "Peel cucumbers in stripes (optional) and slice thinly. Salt lightly and let drain 10 minutes, then pat dry.",
+    "Whisk lime juice, vinegar, honey, chili flakes, sesame oil, salt and pepper in a bowl.",
+    "Add cucumbers and red onion, tossing gently to coat. Rest 5–10 minutes.",
+    "Top with herbs and sesame seeds or peanuts before serving."
+  ],
+  "categories": [
+    "Salads",
+    "Vegetarian",
+    "Healthy",
+    "Quick & Easy",
+    "Side Dish",
+    "Lunch",
+    "Vegan"
+  ]
+},
+{
+  "user_id": "remy",
+  "title": "Asparagus and Herb Goat Cheese Puff Tart",
+  "description": "A golden, flaky tart topped with creamy goat cheese and tender asparagus — elegant and simple.",
+  "image": "assets/food/tarts.jpg",
+  "prep_time": 30,
+  "cook_time": 30,
+  "servings": 6,
+  "ingredients": [
+    "120 g soft goat cheese, at room temperature",
+    "1 large egg, lightly beaten",
+    "1 garlic clove, minced",
+    "1 tablespoon fresh herbs (tarragon, parsley, chives), chopped",
+    "1/2 tablespoon lemon zest",
+    "1/2 teaspoon sea salt",
+    "Pinch of nutmeg",
+    "200 ml crème fraîche or thick sour cream",
+    "Flour for dusting",
+    "1 sheet puff pastry, thawed",
+    "200–250 g thin asparagus, trimmed",
+    "1 tablespoon olive oil",
+    "2 tablespoons grated Parmesan",
+    "Black pepper",
+    "Chili flakes (optional)",
+    "Shaved Parmesan and extra herbs for serving"
+  ],
+  "instructions": [
+    "Preheat oven to 220°C. Mix goat cheese, egg, garlic, herbs, lemon zest, salt, and nutmeg. Stir in crème fraîche.",
+    "Roll puff pastry to a 3 mm rectangle. Transfer to a tray and score a 1 cm border.",
+    "Spread the cheese mixture inside the border. Arrange asparagus on top, brush with olive oil, and sprinkle with salt and Parmesan.",
+    "Bake 25–30 minutes until pastry is golden. Cool slightly, then top with pepper, chili flakes, shaved Parmesan, and herbs."
+  ],
+  "categories": [
+    "Baking",
+    "Vegetarian",
+    "Dinner",
+    "Breakfast & Brunch",
+    "Appetizers & Snack",
+    "Lunch"
+  ]
+},
+{
+  "user_id": "remy",
+  "title": "Blueberry Lemon Oatmeal",
+  "description": "Bright, creamy oatmeal with bursting blueberries and fresh lemon zest — cozy yet refreshing.",
+  "image": "assets/food/oat.jpg",
+  "prep_time": 5,
+  "cook_time": 10,
+  "servings": 2,
+  "ingredients": [
+    "315 ml water",
+    "A pinch of salt (optional)",
+    "1/4 teaspoon ground cinnamon",
+    "2 teaspoons honey or maple syrup",
+    "60 g rolled oats",
+    "50 g fresh or frozen blueberries",
+    "1/2 teaspoon lemon zest",
+    "120 ml milk of choice"
+  ],
+  "instructions": [
+    "Bring water to a boil. Stir in salt, cinnamon, honey, and oats. Simmer 5 minutes.",
+    "Add blueberries, lemon zest, and milk. Cook 4–5 minutes until creamy.",
+    "Remove from heat and let stand 2–3 minutes before serving."
+  ],
+  "categories": [
+    "Breakfast & Brunch",
+    "Healthy",
+    "Quick & Easy",
+    "Vegetarian",
+    "Microwave"
+  ]
+},
+{
+  "user_id": "remy",
+  "title": "Strawberry Mint Smoothie",
+  "description": "Bright and cooling smoothie blending strawberries, mint, honey, and lime for a refreshing boost.",
+  "image": "assets/food/strawberry.webp",
+  "prep_time": 5,
+  "cook_time": 0,
+  "servings": 2,
+  "ingredients": [
+    "180 g fresh or frozen strawberries, hulled",
+    "240 ml milk (dairy or plant-based)",
+    "1–2 teaspoons honey or maple syrup",
+    "4–5 fresh mint leaves",
+    "1/2 teaspoon vanilla extract (optional)",
+    "Juice of 1/2 lime (optional)",
+    "2–3 ice cubes"
+  ],
+  "instructions": [
+    "Add strawberries, milk, honey, mint, vanilla, lime juice, and ice to a blender.",
+    "Blend on high until smooth and frothy.",
+    "Taste and adjust sweetness or mint, then serve immediately."
+  ],
+  "categories": [
+    "Drink & Cocktail",
+    "Breakfast & Brunch",
+    "Healthy",
+    "Quick & Easy",
+    "Vegetarian",
+    "Vegan"
+  ]
+},
+{
+  "user_id": "remy",
+  "title": "Zucchini, Tomato & Bean Tacos with Fresh Lime Crema",
+  "description": "Vibrant vegetarian tacos filled with zucchini, tomatoes, beans, cilantro and a zesty lime crema.",
+  "image": "assets/food/tacos.jpg",
+  "prep_time": 15,
+  "cook_time": 15,
+  "servings": 6,
+  "ingredients": [
+    "30 ml olive oil",
+    "1 small red onion, finely chopped",
+    "2 garlic cloves, minced",
+    "2 medium zucchini or yellow squash, diced",
+    "2 medium tomatoes, chopped",
+    "1 small jalapeño or chili pepper, minced (optional)",
+    "250 g cooked black or pinto beans, rinsed",
+    "15 g fresh cilantro, chopped",
+    "Salt and black pepper, to taste",
+    "12 small corn or flour tortillas",
+    "75 g crumbled feta or queso fresco",
+    "Lime wedges, for serving",
+    "120 g Greek yogurt or sour cream (for crema)",
+    "15 ml lime juice",
+    "Pinch of salt"
+  ],
+  "instructions": [
+    "Heat olive oil in a skillet over medium heat. Cook onion 5 minutes, then add garlic and chili.",
+    "Add zucchini and tomatoes. Season and cook 8–10 minutes until tender.",
+    "Stir in beans and cilantro. Cook 2–3 minutes and adjust seasoning.",
+    "Warm tortillas, fill with the mixture, top with feta, and drizzle with lime crema. Serve with lime wedges."
+  ],
+  "categories": [
+    "Dinner",
+    "Vegetarian",
+    "Healthy",
+    "Quick & Easy",
+    "Lunch",
+    "Meal Prep"
+  ]
+},
+{
+  "user_id": "jamal",
+  "title": "Korean Gochujang Honey Chicken Rice Bowl",
+  "description": "This Gochujang Chicken Rice Bowl is quick, easy and really customisable. The rice is the perfect base for the slightly sweet and spicy chicken and crisp vegetables.",
+  "image": "assets/food/rice.jpg",
+  "prep_time": 10,
+  "cook_time": 25,
+  "servings": 2,
+  "ingredients": [
+    "500g chicken thighs, diced",
+    "2 tbsp gochujang",
+    "1 tbsp honey",
+    "1 tbsp soy sauce",
+    "2 cloves garlic, minced",
+    "1 tsp sesame oil",
+    "1 tbsp vegetable oil",
+    "1 cup jasmine rice",
+    "1 cup cucumber, sliced",
+    "1 carrot, julienned",
+    "1 fried egg per bowl",
+    "Sesame seeds and scallions for garnish"
+  ],
+  "instructions": [
+    "Cook Rice: Cook jasmine rice according to package instructions.",
+    "Marinate Chicken: Mix gochujang, honey, soy sauce, garlic, and sesame oil; add chicken and marinate 15 minutes.",
+    "Cook Chicken: Heat oil and cook marinated chicken until browned and cooked through.",
+    "Assemble: Add rice to bowls, top with chicken, cucumber, carrot, fried egg, sesame seeds, and scallions."
+  ],
+  "categories": ["Dinner", "Korean Fusion"]
+},
+{
+  "user_id": "jamal",
+  "title": "Mediterranean Chickpea Spinach Stew",
+  "description": "This Mediterranean Spinach Stew turns frozen spinach into a meal with simple but powerful flavors and ingredients. With chickpeas, spinach, tomatoes, and vermicelli this vegan spinach chickpea stew is delicious and satisfying, you won’t miss the meat!",
+  "image": "assets/food/stew.jpg",
+  "prep_time": 10,
+  "cook_time": 20,
+  "servings": 4,
+  "ingredients": [
+    "2 cans chickpeas, drained",
+    "3 cups fresh spinach",
+    "1 onion, chopped",
+    "2 cloves garlic, minced",
+    "1 can crushed tomatoes (400g)",
+    "1 tsp cumin",
+    "1 tsp smoked paprika",
+    "Salt and pepper to taste",
+    "2 tbsp olive oil",
+    "Lemon wedges for serving"
+  ],
+  "instructions": [
+    "Sauté Aromatics: Heat olive oil; sauté onion and garlic until translucent.",
+    "Add Spices: Add cumin and paprika; cook until fragrant.",
+    "Simmer: Add crushed tomatoes and chickpeas; simmer 10–15 minutes.",
+    "Finish: Add spinach until wilted; season and serve with lemon."
+  ],
+  "categories": ["Dinner", "Middle Eastern", "Vegan"]
+},
+{
+  "user_id": "jamal",
+  "title": "Japanese Miso Butter Pasta",
+  "description": "Miso butter pasta proves that sometimes the simplest pasta dishes are the most delicious! Ideal for a busy weeknight, this vegan dinner pairs spaghetti and meaty shiitakes with an irresistible sweet and savory sauce",
+  "image": "assets/food/Miso.jpg",
+  "prep_time": 5,
+  "cook_time": 15,
+  "servings": 2,
+  "ingredients": [
+    "250g spaghetti",
+    "2 tbsp unsalted butter",
+    "1 tbsp white miso paste",
+    "1 garlic clove, minced",
+    "1 tsp soy sauce",
+    "1 tbsp reserved pasta water",
+    "1 tsp sesame oil",
+    "1 green onion, sliced",
+    "Nori strips or sesame seeds for topping"
+  ],
+  "instructions": [
+    "Cook Pasta: Cook spaghetti until al dente; reserve pasta water.",
+    "Make Sauce: Melt butter, add garlic, cook 1 minute.",
+    "Whisk: Stir in miso and soy sauce; add pasta water to loosen.",
+    "Toss: Add spaghetti, coat in sauce, drizzle sesame oil.",
+    "Serve: Garnish with green onion and nori."
+  ],
+  "categories": ["Dinner", "Japanese–Italian Fusion"]
+},
+{
+  "user_id": "jamal",
+  "title": "Caribbean Coconut Lime Shrimp",
+  "description": null,
+  "image": "assets/food/lime.jpg",
+  "prep_time": 10,
+  "cook_time": 15,
+  "servings": 3,
+  "ingredients": [
+    "400g shrimp, peeled and deveined",
+    "1 can coconut milk",
+    "1 lime (zest and juice)",
+    "1 tsp chili flakes",
+    "2 cloves garlic, minced",
+    "1 small onion, finely chopped",
+    "2 tbsp olive oil",
+    "Fresh coriander for garnish",
+    "Salt to taste"
+  ],
+  "instructions": [
+    "Sauté: Heat oil; sauté onion and garlic until fragrant.",
+    "Sear Shrimp: Add shrimp and cook until pink; remove and set aside.",
+    "Make Sauce: Add coconut milk, lime zest, chili flakes; simmer 5 minutes.",
+    "Combine: Return shrimp, add lime juice, cook 2 more minutes.",
+    "Serve: Garnish with coriander; serve with rice or quinoa."
+  ],
+  "categories": ["Dinner", "Seafood", "Caribbean"]
+},
+{
+  "user_id": "jamal",
+  "title": "Nordic Cardamom Pear Tart",
+  "description": null,
+  "image": "assets/food/tart.webp",
+  "prep_time": 15,
+  "cook_time": 25,
+  "servings": 6,
+  "ingredients": [
+    "1 sheet puff pastry, thawed",
+    "2 ripe pears, thinly sliced",
+    "2 tbsp brown sugar",
+    "1 tsp ground cardamom",
+    "1 tbsp melted butter",
+    "1 tbsp honey",
+    "Crushed almonds for topping"
+  ],
+  "instructions": [
+    "Prep Pastry: Preheat oven to 200°C. Place pastry on parchment; brush with butter.",
+    "Arrange: Add pear slices, leaving a small border.",
+    "Season: Sprinkle brown sugar and cardamom.",
+    "Bake: Bake 20–25 minutes until golden and pears tender.",
+    "Finish: Drizzle honey and top with crushed almonds."
+  ],
+  "categories": ["Dessert", "Scandinavian Pastry"]
+}
+
+
+]
