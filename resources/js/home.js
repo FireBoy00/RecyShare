@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (!usersContainer || !prevBtn || !nextBtn) return;
 
-    const scrollAmount = 300;
+    const scrollAmount = 460; // Scroll by 2 users (2 * 180px + 2 * 50px gap)
 
     prevBtn.addEventListener('click', () => {
         usersContainer.scrollBy({

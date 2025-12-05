@@ -112,7 +112,7 @@ main {
 
 .users-container {
     display: flex;
-    justify-content: space-around;
+    gap: 50px;
     overflow-x: auto;
     scroll-behavior: smooth;
     padding: 40px 20px;
@@ -131,8 +131,8 @@ main {
     gap: 12px;
     text-decoration: none;
     color: var(--color-text);
-    flex: 1;
-    max-width: 200px;
+    min-width: 180px;
+    flex-shrink: 0;
     transition: transform 0.3s ease;
 }
 

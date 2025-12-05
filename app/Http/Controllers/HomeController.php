@@ -17,10 +17,10 @@ class HomeController extends Controller
             ->take(6)
             ->get();
 
-        // Get 4 random users who have recipes
+        // Get 10 random users who have recipes
         $randomUsers = User::has('recipes')
             ->inRandomOrder()
-            ->take(4)
+            ->take(10)
             ->get();
 
         return view('home', compact('recentRecipes', 'randomUsers'));
