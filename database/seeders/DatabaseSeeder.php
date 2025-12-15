@@ -98,7 +98,7 @@ class DatabaseSeeder extends Seeder
             if (isset($userMap[$recipe['user_id']])) {
                 $recipe['user_id'] = $userMap[$recipe['user_id']];
             } else {
-                throw new Exception("Nieznany user_id w JSON: " . $recipe['user_id']);
+                throw new Exception("Unknown user_id in JSON: " . $recipe['user_id']);
             }
 
 
