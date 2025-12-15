@@ -39,9 +39,11 @@ class RecipeController extends Controller
                   ->orWhere('description', 'like', '%' . $searchTerm . '%');
             });
         }
+
         
         $recipes = $query->get();
-        $recipes = $query->paginate(11);
+        $recipes = $query->paginate();
+        
         
         // Return JSON for AJAX requests
         if ($request->wantsJson() || $request->ajax()) {

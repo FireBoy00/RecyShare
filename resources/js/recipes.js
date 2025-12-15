@@ -55,10 +55,10 @@ async function fetchAndRenderRecipes(query = "") {
         }
         
         // Update header
-        if (query.trim() !== "") {
-            recipesContainer.querySelector('h1').textContent = `Showing ${{last}-{first}} of ${count} recipes for "${query}"`;
+        if (query && query.trim() !== "") {
+            recipesContainer.querySelector('h1').textContent = `Showing ${last-first+1} of ${count} recipes for "${query}"`;
         } else {
-            recipesContainer.querySelector('h1').textContent = `Showing ${{last}-{first}} recipes out of ${count}`;
+            recipesContainer.querySelector('h1').textContent = `Showing ${last-first+1} recipes out of ${count}`;
         }
         
         // Render recipe cards
