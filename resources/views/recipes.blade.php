@@ -12,12 +12,16 @@
     <body>
         <header>
             <x-navbar currentPage="recipes" />
-            <div class="recipes-container">
-                <h1>We have {{ $recipes->count() }} recipes</h1>
+            <div class="recipes-container">   
+                <h1>Showing {{ $recipes->lastItem() - $recipes->firstItem()}} out of {{$recipes->total()}} recipes</h1>
                 <div class="recipes-list" id="recipesList">
                     @foreach($recipes as $recipe)
                         <x-recipe-card :recipe="$recipe" />
                     @endforeach
+                    
+                </div>
+                <div class="pagination-container">
+                    {{ $recipes->links('pagination::default') }}
                 </div>
             </div>
         </header>

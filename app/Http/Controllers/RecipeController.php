@@ -41,13 +41,16 @@ class RecipeController extends Controller
         }
         
         $recipes = $query->get();
+        $recipes = $query->paginate(11);
         
         // Return JSON for AJAX requests
         if ($request->wantsJson() || $request->ajax()) {
             return response()->json([
                 'success' => true,
                 'recipes' => $recipes,
-                'count' => $recipes->count()
+                'count' => $recipes->total(),
+                'first' => $recipes_>firstItem(),
+                'last' => $recipes->lastItem(),
             ]);
         }
         

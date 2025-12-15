@@ -40,6 +40,8 @@ async function fetchAndRenderRecipes(query = "") {
         const data = await response.json();
         const recipes = data.recipes;
         const count = data.count;
+        const first = data.first;
+        const last = data.last;
         
         // Clear current recipes
         recipesList.innerHTML = '';
@@ -54,9 +56,9 @@ async function fetchAndRenderRecipes(query = "") {
         
         // Update header
         if (query.trim() !== "") {
-            recipesContainer.querySelector('h1').textContent = `Found ${count} recipes for "${query}"`;
+            recipesContainer.querySelector('h1').textContent = `Showing ${{last}-{first}} of ${count} recipes for "${query}"`;
         } else {
-            recipesContainer.querySelector('h1').textContent = `We have ${count} recipes`;
+            recipesContainer.querySelector('h1').textContent = `Showing ${{last}-{first}} recipes out of ${count}`;
         }
         
         // Render recipe cards
@@ -180,7 +182,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 500);
         });
     }
-    
     // Setup recipe card actions (favorites, delete, sync)
     setupRecipeCardActions(document, {
         onDeleted: (recipeId) => {
@@ -191,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const countEl = recipesContainer.querySelector('h1');
                 if (countEl && recipesList) {
                     const visible = Array.from(recipesList.querySelectorAll('.recipe-card')).filter(c => c.style.display !== 'none').length;
-                    countEl.textContent = `We have ${visible} recipes`;
+                    countEl.textContent = `Showing ${visible} recipes`;
                 }
             }
         }
