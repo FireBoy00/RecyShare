@@ -40,7 +40,7 @@ class RecipeController extends Controller
             });
         }
 
-        $recipes = $query->paginate();
+        $recipes = $query->paginate()->withQueryString();
                 
         // Return JSON for AJAX requests
         if ($request->wantsJson() || $request->ajax()) {
