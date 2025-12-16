@@ -66,7 +66,7 @@ async function fetchAndRenderRecipes(query = "") {
             const card = createRecipeCard(recipe);
             recipesList.appendChild(card);
         });
-        
+
     } catch (error) {
         console.error('Error fetching recipes:', error);
         recipesContainer.querySelector('h1').textContent = 'Error loading recipes';
