@@ -46,6 +46,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'Gabite',
             'display_name' => 'Gabija Netavoreikalas',
             'email' => 'gabite@example.com',
+            'profile_image' => 'assets/developers/Gabija.jpg',
             'bio' => 'Kitchen veteran. My mom taught me everything... then I perfected it. 😉 Go and check those recipes!',
         ]);
 
