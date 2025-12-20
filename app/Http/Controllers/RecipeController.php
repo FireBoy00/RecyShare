@@ -29,7 +29,7 @@ class RecipeController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Recipe::with('user')->latest();
+        $query = Recipe::with('user');
         
         // Handle search parameter from URL
         if ($request->has('search') && $request->search) {
@@ -40,18 +40,14 @@ class RecipeController extends Controller
             });
         }
 
-        $recipes = $query->paginate()->withQueryString();
+        $recipes = $query
+            ->orderByDesc('created_at')
+            ->paginate()
+            ->withQueryString();
                 
         // Return JSON for AJAX requests
         if ($request->wantsJson() || $request->ajax()) {
-            return response()->json([
-                'success' => true,
-                'recipes' => $recipes->items(),
-                'count' => $recipes->total(),
-                'first' => $recipes->firstItem(),
-                'last' => $recipes->lastItem(),
-                
-            ]);
+            return response()->json($recipes);
         }
         
         return view('recipes', compact('recipes'));
@@ -333,3 +329,4 @@ class RecipeController extends Controller
         }
     }
 }
+ 

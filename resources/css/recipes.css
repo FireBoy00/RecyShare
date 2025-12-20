@@ -31,6 +31,9 @@
     height: 100%;
 }
 
+/* ========================================
+   Pagination
+   ======================================== */
 .pagination-container {
     display: flex;
     justify-content: center;
@@ -38,7 +41,7 @@
 
 }
 
-.pagination {
+.pagination-container ul {
     display: flex;
     list-style: none;
 }
@@ -46,22 +49,29 @@
 .pagination li a,
 .pagination li span{
   display: block;
+  align-items: center;
   padding: 8px 12px;
   text-decoration: none;
   border: 1px solid gray;
-  color: black;
+  color: #4CAF50;
   margin: 0 4px;
+  font-weight: bold;
   border-radius: 5px; 
 }
 
-.pagination li.active span {
+.pagination-container li.active span,
+.pagination-container li.active a {
     background-color: #4CAF50;
     color: white;
     border-color: #4CAF50;
 }
 
-.pagination li a:hover:not(.active) {
+.pagination-container li a:hover:not(.active) {
   background-color: lightgray;
+}
+
+.pagination-container nav div:first-child {
+    display: none !important;
 }
 
 /* Mobile: single column */

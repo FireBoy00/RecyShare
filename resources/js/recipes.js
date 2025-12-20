@@ -11,7 +11,7 @@ import { DEFAULT_RECIPE_IMAGE } from "./constants.js";
  * Fetch recipes from server and render them
  * @param {string} query - Search query string
  */
-async function fetchAndRenderRecipes(query = "") {
+async function fetchAndRenderRecipes(query = "", page = 1) {
     const recipesContainer = document.querySelector(".recipes-container");
     const recipesList = document.getElementById("recipesList");
 
@@ -22,9 +22,12 @@ async function fetchAndRenderRecipes(query = "") {
         recipesContainer.querySelector("h1").textContent = "Searching...";
 
         // Fetch recipes from server
-        const url = query
-            ? `/recipes?search=${encodeURIComponent(query)}`
-            : "/recipes";
+        const url = new URL("/recipes", window.location.origin);
+
+        if(query && query.trim() !== ""){
+            url.searchParams.set("search", query);
+        }
+        url.searchParams.set("page", page);
 
         const response = await fetch(url, {
             headers: {
@@ -38,10 +41,11 @@ async function fetchAndRenderRecipes(query = "") {
         }
 
         const data = await response.json();
-        const recipes = data.recipes;
-        const count = data.count;
-        const first = data.first;
-        const last = data.last;
+
+        const recipes = Array.isArray(data.data) ? data.data : [];
+        const count = data.total ?? 0;
+        const currentPage = data.current_page ?? 1;
+        const lastPage = data.last_page ?? 1;
         
         // Clear current recipes
         recipesList.innerHTML = "";
@@ -51,14 +55,8 @@ async function fetchAndRenderRecipes(query = "") {
             recipesContainer.querySelector("h1").textContent = query
                 ? `No recipes found for "${query}"`
                 : "No recipes available";
+            renderPagination(1, 1, query);
             return;
-        }
-
-        // Update header
-        if (query && query.trim() !== "") {
-            recipesContainer.querySelector('h1').textContent = `Showing ${last-first+1} of ${count} recipes for "${query}"`;
-        } else {
-            recipesContainer.querySelector('h1').textContent = `Showing ${last-first+1} recipes out of ${count}`;
         }
 
         // Render recipe cards
@@ -67,13 +65,87 @@ async function fetchAndRenderRecipes(query = "") {
             recipesList.appendChild(card);
         });
 
+        const visible = recipes.length;
+
+        // Update header
+        if (query && query.trim() !== "") {
+            recipesContainer.querySelector('h1').textContent = `Showing ${visible} of ${count} recipes for "${query}"`;
+        } else {
+            recipesContainer.querySelector('h1').textContent = `Showing ${visible} recipes out of ${count}`;
+        }        
+
         // Re-setup recipe card actions for the newly created cards
         setupRecipeCardActions(recipesList);
+        renderPagination(currentPage, lastPage, query);
     } catch (error) {
         console.error("Error fetching recipes:", error);
         recipesContainer.querySelector("h1").textContent =
             "Error loading recipes";
     }
+}
+
+function renderPagination(current, last, query){
+    const container = document.querySelector(".pagination-container");
+    if(!container) return;
+
+    container.innerHTML="";
+
+    if(last <= 1) return;
+
+    const nav = document.createElement("ul");
+    nav.className = "pagination";
+
+    //
+    if(current > 1){
+        nav.appendChild(createPaginationItem("‹", current -1, query));
+    }
+
+    for(let page = 1; page <= last;page++){
+        nav.appendChild(createPaginationItem(page, page, query, page ===current));
+    }
+
+
+    if(current < last){
+        nav.appendChild(createPaginationItem("›", current +1, query));
+    }
+    
+    container.appendChild(nav);
+
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const paginationContainer = document.querySelector('.pagination-container');
+
+    if(paginationContainer) {
+        paginationContainer.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A' || e.target.closest('a')) {
+                window.scrollTo({ top: 0, behavior: 'smooth'});
+            }
+        })
+    }
+})
+
+function createPaginationItem(label, page, query, isActive = false) {
+    const li = document.createElement("li");
+    if (isActive) li.className = "active";
+
+    const link = document.createElement("a");
+    link.href = "#";
+    link.textContent = label;
+
+    if (isActive) {
+        const span = document.createElement("span");
+        span.textContent = label;
+        li.appendChild(span);
+    } else {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            fetchAndRenderRecipes(query, page);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        li.appendChild(link);
+    }
+    return li;
 }
 
 /**
