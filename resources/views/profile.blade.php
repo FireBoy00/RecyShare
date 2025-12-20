@@ -30,7 +30,7 @@
                 </article>
                 <div class="user-details">
                     <h2 class="username">{{ '@' . $user->username }}</h2>
-                    <p>{{ $recipes->count() }} Recipes</p>
+                    <p>{{ $recipes->total() }} Recipes</p>
                 </div>
             </div>
             <section class="hero-bio">
@@ -46,6 +46,9 @@
                 @empty
                     <p class="no-recipes">This user has not shared any recipes yet.</p>
                 @endforelse
+            </div>
+            <div class="pagination-container">
+                {{ $recipes->links() }}
             </div>
         </section>
         </main>

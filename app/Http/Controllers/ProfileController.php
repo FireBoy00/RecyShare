@@ -9,9 +9,10 @@ class ProfileController extends Controller
 {
     public function show(User $user)
     {
+        $recipes = $user->recipes()->paginate();
         return view('profile', [
             'user' => $user,
-            'recipes' => $user->recipes
+            'recipes' => $recipes
         ]);
     }
 }
