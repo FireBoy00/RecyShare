@@ -45,7 +45,7 @@
                 <h2>Meet our Developers!</h2>
                 <div class="developer-row">
                     <article class="developer">
-                        <img src="{{ asset('assets/developers/Gabija.jpg') }}" alt="Adrian">
+                        <img src="{{ asset('assets/developers/Adrian.png') }}" alt="Adrian">
                         <p>Adrian</p>
                     </article>
                     <article class="developer">
@@ -53,19 +53,19 @@
                         <p>Gabija</p>
                     </article>
                     <article class="developer">
-                        <img src="{{ asset('assets/developers/Gabija.jpg') }}" alt="Aleksandra">
+                        <img src="{{ asset('assets/developers/ola.png') }}" alt="Aleksandra">
                         <p>Aleksandra</p>
                     </article>
                     <article class="developer">
-                        <img src="{{ asset('assets/developers/Gabija.jpg') }}" alt="Dorina">
+                        <img src="{{ asset('assets/developers/Dodo.jpg') }}" alt="Dorina">
                         <p>Dorina</p>
                     </article>
                     <article class="developer">
-                        <img src="{{ asset('assets/developers/Gabija.jpg') }}" alt="Jakub">
+                        <img src="{{ asset('assets/developers/Jakub_mini.png') }}" alt="Jakub">
                         <p>Jakub</p>
                     </article>
                     <article class="developer">
-                        <img src="{{ asset('assets/developers/Gabija.jpg') }}" alt="Tomass">
+                        <img src="{{ asset('assets/developers/Tomass (2).png') }}" alt="Tomass">
                         <p>Tomass</p>
                     </article>
                 </div>
