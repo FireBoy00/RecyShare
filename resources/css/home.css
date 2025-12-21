@@ -50,3 +50,199 @@ body {
     background-color: var(--color-light);
     scale: 1.05;
 }
+
+/* ========================================
+   MAIN CONTENT SECTIONS
+   ======================================== */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ========================================
+   RECENTLY SHARED RECIPES SECTION
+   ======================================== */
+.recently-shared {
+    margin: 60px 0;
+}
+
+.recently-shared h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: var(--color-text);
+}
+
+.recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.no-content {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #666;
+    padding: 40px;
+}
+
+/* ========================================
+   FIND USERS SECTION
+   ======================================== */
+.find-users {
+    margin: 60px 0 80px;
+    width: 100%;
+}
+
+.find-users h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: var(--color-text);
+}
+
+.users-carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.users-container {
+    display: flex;
+    gap: 50px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 40px 20px;
+    scrollbar-width: none; /* Firefox */
+    flex: 1;
+}
+
+.users-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
+.user-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--color-text);
+    min-width: 180px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.user-item:hover {
+    transform: translateY(-5px);
+}
+
+.user-avatar-circle {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 5px solid var(--color-dark-green);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    transition: border-color 0.3s ease;
+}
+
+.user-item:hover .user-avatar-circle {
+    border-color: var(--color-light);
+}
+
+.user-avatar-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e0e0e0;
+}
+
+.user-avatar-placeholder .material-symbols-outlined {
+    font-size: 80px;
+    color: #999;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 110px;
+    padding: 8px 16px;
+    background-color: white;
+    border: 2px solid var(--color-text);
+    border-radius: 20px;
+}
+
+.carousel-btn {
+    background-color: white;
+    border: 2px solid var(--color-dark-green);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.carousel-btn:hover {
+    background-color: var(--color-dark-green);
+    color: white;
+}
+
+.carousel-btn .material-symbols-outlined {
+    font-size: 24px;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .recently-shared h2,
+    .find-users h2 {
+        font-size: 1.5rem;
+    }
+    
+    .recipes-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .user-avatar-circle {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .user-item {
+        min-width: 120px;
+    }
+    
+    .carousel-btn {
+        width: 35px;
+        height: 35px;
+    }
+}
