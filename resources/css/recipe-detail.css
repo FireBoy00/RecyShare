@@ -694,7 +694,7 @@ main {
 
 .login-to-rate {
     font-size: 0.95rem;
-    color: #666;
+    color: black;
 }
 
 @media (max-width: 640px) {
