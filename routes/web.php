@@ -59,3 +59,6 @@ Route::get('/profile', function () {
     return redirect()->route('login');
 })->name('profile.redirect');
 Route::get('/profile/{user:username}', [ProfileController::class, 'show'])->name('profile');
+//Categories
+Route::get('/categories/{category}', [\App\Http\Controllers\CategoryController::class, 'show'])
+    ->name('categories.show');

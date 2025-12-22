@@ -26,18 +26,18 @@
                 <a href="{{ route('recipes.index') }}">Recipes</a>
             </li>
             <li class="dropdown">
-                <span class="dropbtn">Categories</span>
-                <div class="dropdown-content">
-                    <div class="dropdown-content-box">
-                        <a href="#">Breakfast</a>
-                        <a href="#">Lunch</a>
-                        <a href="#">Dinner</a>
-                        <a href="#">Dessert</a>
-                        <a href="#">Vegan</a>
-                        <a href="#">Gluten-Free</a>
-                    </div>
-                </div>
-            </li>
+    <span class="dropbtn">Categories</span>
+    <div class="dropdown-content">
+        <div class="dropdown-content-box">
+            @foreach($categories as $cat)
+                <a href="{{ route('categories.show', $cat) }}">
+                    {{ ucfirst($cat) }}
+                </a>
+            @endforeach
+        </div>
+    </div>
+</li>
+
         </ul>
         <div class="search-bar">
             <span class="material-symbols-outlined icon">search</span>

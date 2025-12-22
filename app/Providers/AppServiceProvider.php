@@ -33,5 +33,17 @@ class AppServiceProvider extends ServiceProvider
                 }
             ?>";
         });
-    }
+
+
+
+            $categories = \DB::table('recipes')
+        ->select('categories')
+        ->get()
+        ->flatMap(fn($r) => json_decode($r->categories, true))
+        ->unique()
+        ->values();
+
+    view()->share('categories', $categories);
 }
+    }
+
