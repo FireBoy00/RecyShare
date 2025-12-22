@@ -46,6 +46,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'Gabite',
             'display_name' => 'Gabija Netavoreikalas',
             'email' => 'gabite@example.com',
+            'profile_image' => 'assets/developers/Gabija.jpg',
             'bio' => 'Kitchen veteran. My mom taught me everything... then I perfected it. 😉 Go and check those recipes!',
         ]);
 
@@ -98,7 +99,7 @@ class DatabaseSeeder extends Seeder
             if (isset($userMap[$recipe['user_id']])) {
                 $recipe['user_id'] = $userMap[$recipe['user_id']];
             } else {
-                throw new Exception("Nieznany user_id w JSON: " . $recipe['user_id']);
+                throw new Exception("Unknown user_id in JSON: " . $recipe['user_id']);
             }
 
 

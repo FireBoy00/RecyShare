@@ -6,6 +6,7 @@ use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RatingController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,9 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 //Comment and Favorites
 Route::post('/recipes/{recipe}/comment', [RecipeController::class, 'addComment'])->name('recipes.comment');
 Route::post('/recipes/{recipe}/toggle-favorite', [RecipeController::class, 'toggleFavorite'])->name('recipes.toggleFavorite');
+
+// Ratings
+Route::post('/recipes/{recipe}/rating', [RatingController::class, 'store'])->middleware('auth')->name('recipes.rating.store');
 
 //Comment and Favorites
 Route::post('/recipes/{recipe}/comment', [RecipeController::class, 'addComment'])->name('recipes.comment');

@@ -6,6 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @vite(['resources/css/recipe-detail.css', 'resources/js/recipe-detail.js'])
+    @vite('resources/js/recipe-rating.js')
     <title>{{ $recipe->title }} | RecyShare</title>
 </head>
 <body>
@@ -54,6 +55,27 @@
                         </form>
                     @endauth
                 </div>
+                <div class="rating-area">
+                    @php
+                        $displayAverage = $recipe->average_rating ?? $recipe->ratings()->avg('rating');
+                        $displayCount = $recipe->ratings()->count();
+                    @endphp
+                    <div id="rating-widget" data-recipe-id="{{ $recipe->id }}" data-user-rating="{{ auth()->check() ? optional(auth()->user()->ratings()->where('recipe_id', $recipe->id)->first())->rating ?? 0 : 0 }}">
+                        <div class="average-rating">{{ number_format($displayAverage ?? 0, 2) }} / 5 ({{ $displayCount }})</div>
+
+                        @auth
+                            <div class="stars" role="radiogroup" aria-label="Rate this recipe">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <button class="star-btn" data-value="{{ $i }}" type="button" title="{{ $i }} star">
+                                        <span class="material-symbols-outlined star">award_meal</span>
+                                    </button>
+                                @endfor
+                            </div>
+                        @else
+                            <div class="login-to-rate">Please <a href="{{ route('login') }}">log in</a> to rate this recipe.</div>
+                        @endauth
+                    </div>
+                </div>
                 <div id="sharePopup" class="share-popup">
                     <p>Copy link to share:</p>
                     <div class="share-link-container">
@@ -85,6 +107,7 @@
                     </div>
                 </a>
             </div>
+            
             <div class="meta-details">
                 <div class="meta-item">
                     <span class="material-symbols-outlined icon">schedule</span>
@@ -188,5 +211,6 @@
             </div>
         </section>
     </main>
+    
 </body>
 </html>
