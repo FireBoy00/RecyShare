@@ -9,7 +9,7 @@ use App\Models\Favorite;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
 
 class RecipeController extends Controller
 {
@@ -30,26 +30,35 @@ class RecipeController extends Controller
     public function index(Request $request)
     {
         $query = Recipe::with('user');
-        
+
         // Handle search parameter from URL
-        if ($request->has('search') && $request->search) {
+        if ($request->filled('search')) {
             $searchTerm = $request->search;
-            $query->where(function($q) use ($searchTerm) {
+            $query->where(function ($q) use ($searchTerm) {
                 $q->where('title', 'like', '%' . $searchTerm . '%')
                   ->orWhere('description', 'like', '%' . $searchTerm . '%');
             });
+        }
+
+        // ✅ INDIVIDUAL EXTENSION:
+        // Filter by maximum total cooking time (prep_time + cook_time)
+        if ($request->filled('max_time') && is_numeric($request->max_time)) {
+            $query->whereRaw(
+                '(COALESCE(prep_time, 0) + COALESCE(cook_time, 0)) <= ?',
+                [(int) $request->max_time]
+            );
         }
 
         $recipes = $query
             ->orderByDesc('created_at')
             ->paginate()
             ->withQueryString();
-                
+
         // Return JSON for AJAX requests
         if ($request->wantsJson() || $request->ajax()) {
             return response()->json($recipes);
         }
-        
+
         return view('recipes', compact('recipes'));
     }
 
@@ -68,18 +77,16 @@ class RecipeController extends Controller
             if ($recipe && $recipe->user_id === Auth::id()) {
                 $editMode = true;
             } else {
-                return redirect()->route('recipes.create')->with('error', 'Recipe not found or unauthorized');
+                return redirect()->route('recipes.create')
+                    ->with('error', 'Recipe not found or unauthorized');
             }
         }
-        
+
         return view('share-a-recipe', compact('recipe', 'editMode'));
     }
 
     /**
      * Store a newly created recipe in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -109,6 +116,7 @@ class RecipeController extends Controller
 
         try {
             $imagePath = null;
+
             if ($request->hasFile('image')) {
                 $imagePath = $request->file('image')->store('recipes', 'public');
             } elseif ($request->filled('image_url')) {
@@ -135,31 +143,25 @@ class RecipeController extends Controller
                 'redirect_url' => route('recipes.show', $recipe->id)
             ]);
         } catch (\Exception $e) {
-            Log::error("Error creating recipe", [
-                'exception' => $e,
-            ]);
+            Log::error('Error creating recipe', ['exception' => $e]);
+
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred while creating the recipe. Please try again later.'
+                'message' => 'An error occurred while creating the recipe.'
             ], 500);
         }
     }
 
     /**
      * Display the specified recipe.
-     *
-     * @param int $id
-     * @return \Illuminate\View\View
      */
     public function show($id)
     {
         $recipe = Recipe::with('user')->findOrFail($id);
         $comments = $recipe->comments()->with('user')->latest()->get();
-        $isFavorited = false;
-
-        if (Auth::check()) {
-            $isFavorited = $recipe->favorites()->where('user_id', Auth::id())->exists();
-        }
+        $isFavorited = Auth::check()
+            ? $recipe->favorites()->where('user_id', Auth::id())->exists()
+            : false;
 
         return view('recipe-details', compact('recipe', 'comments', 'isFavorited'));
     }
@@ -167,10 +169,7 @@ class RecipeController extends Controller
     public function addComment(Request $request, Recipe $recipe)
     {
         if (!Auth::check()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'You must be logged in to comment.'
-            ], 401);
+            return response()->json(['success' => false, 'message' => 'You must be logged in to comment.'], 401);
         }
 
         $request->validate([
@@ -190,7 +189,9 @@ class RecipeController extends Controller
                 'content' => $comment->content,
                 'author_name' => $comment->user->display_name,
                 'username' => $comment->user->username,
-                'profile_image' => $comment->user->profile_image ? asset($comment->user->profile_image) : null,
+                'profile_image' => $comment->user->profile_image
+                    ? asset($comment->user->profile_image)
+                    : null,
                 'created_at' => $comment->created_at->format('Y-m-d H:i:s'),
             ]
         ]);
@@ -199,25 +200,21 @@ class RecipeController extends Controller
     public function toggleFavorite(Recipe $recipe)
     {
         if (!Auth::check()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'You must be logged in to favorite recipes.'
-            ], 401);
+            return response()->json(['success' => false, 'message' => 'Not authenticated'], 401);
         }
 
-        $userId = Auth::id();
-
         $favorite = Favorite::where('recipe_id', $recipe->id)
-            ->where('user_id', $userId)
+            ->where('user_id', Auth::id())
             ->first();
+
+        $isFavorited = false;
 
         if ($favorite) {
             $favorite->delete();
-            $isFavorited = false;
         } else {
             Favorite::create([
                 'recipe_id' => $recipe->id,
-                'user_id' => $userId
+                'user_id' => Auth::id()
             ]);
             $isFavorited = true;
         }
@@ -241,15 +238,18 @@ class RecipeController extends Controller
             return response()->json(['success' => false, 'message' => 'Forbidden'], 403);
         }
 
-        $recipeId = $recipe->id;
         try {
             $this->deleteImageIfUploaded($recipe->image);
             $recipe->delete();
 
-            return response()->json(['success' => true, 'message' => 'Recipe deleted', 'recipe_id' => $recipeId]);
+            return response()->json(['success' => true, 'message' => 'Recipe deleted']);
         } catch (\Exception $e) {
-            Log::error("Error deleting recipe (ID: {$recipeId}): " . $e->getMessage(), ['exception' => $e]);
-            return response()->json(['success' => false, 'message' => 'An error occurred while deleting the recipe. Please try again later.'], 500);
+            Log::error('Error deleting recipe', ['exception' => $e]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while deleting the recipe.'
+            ], 500);
         }
     }
 
@@ -276,28 +276,20 @@ class RecipeController extends Controller
             'cook_time' => 'nullable|integer|min:0',
             'servings' => 'nullable|integer|min:1',
             'ingredients' => 'nullable|array',
-            'ingredients.*' => 'string|max:500',
             'instructions' => 'nullable|array',
-            'instructions.*' => 'string|max:1000',
             'categories' => 'nullable|array',
-            'categories.*' => 'string|max:100',
         ]);
 
         try {
             $imagePath = $recipe->image;
-            
-            // Handle image removal
+
             if ($request->input('remove_image') == '1') {
                 $this->deleteImageIfUploaded($recipe->image);
                 $imagePath = null;
-            }
-            // Handle new file upload
-            elseif ($request->hasFile('image')) {
+            } elseif ($request->hasFile('image')) {
                 $this->deleteImageIfUploaded($recipe->image);
                 $imagePath = $request->file('image')->store('recipes', 'public');
-            }
-            // Handle new URL
-            elseif ($request->filled('image_url')) {
+            } elseif ($request->filled('image_url')) {
                 $this->deleteImageIfUploaded($recipe->image);
                 $imagePath = $request->input('image_url');
             }
@@ -321,12 +313,12 @@ class RecipeController extends Controller
                 'redirect_url' => route('recipes.show', $recipe->id)
             ]);
         } catch (\Exception $e) {
-            Log::error("Error updating recipe (ID: {$recipe->id}): " . $e->getMessage(), ['exception' => $e]);
+            Log::error('Error updating recipe', ['exception' => $e]);
+
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred while updating the recipe. Please try again later.'
+                'message' => 'An error occurred while updating the recipe.'
             ], 500);
         }
     }
 }
- 
