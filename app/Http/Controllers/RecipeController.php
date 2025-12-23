@@ -36,11 +36,10 @@ class RecipeController extends Controller
             $searchTerm = $request->search;
             $query->where(function ($q) use ($searchTerm) {
                 $q->where('title', 'like', '%' . $searchTerm . '%')
-                  ->orWhere('description', 'like', '%' . $searchTerm . '%');
+                ->orWhere('description', 'like', '%' . $searchTerm . '%');
             });
         }
 
-        // ✅ INDIVIDUAL EXTENSION:
         // Filter by maximum total cooking time (prep_time + cook_time)
         if ($request->filled('max_time') && is_numeric($request->max_time)) {
             $query->whereRaw(
@@ -49,12 +48,25 @@ class RecipeController extends Controller
             );
         }
 
+        // Filter by minimum servings
         if ($request->filled('servings') && is_numeric($request->servings)) {
             $query->where('servings', '>=', (int) $request->servings);
         }
 
+        // Sorting
+        $sort = $request->get('sort', 'newest');
+
+        if ($sort === 'fastest') {
+            $query->orderByRaw(
+                '(COALESCE(prep_time, 0) + COALESCE(cook_time, 0)) ASC'
+            );
+        } else {
+            // Default sorting: newest recipes first
+            $query->orderByDesc('created_at');
+        }
+
+        // Pagination
         $recipes = $query
-            ->orderByDesc('created_at')
             ->paginate()
             ->withQueryString();
 

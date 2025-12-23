@@ -52,9 +52,23 @@
                 </select>
             </label>
 
+            {{-- Sorting --}}
+            <label>
+                Sort by:
+                <select name="sort" onchange="this.form.submit()">
+                    <option value="newest" @selected(request('sort', 'newest') === 'newest')>
+                        Newest
+                    </option>
+                    <option value="fastest" @selected(request('sort') === 'fastest')>
+                        Fastest
+                    </option>
+                </select>
+            </label>
+
+
             {{-- Clear filters (no layout shift) --}}
             <span style="min-width: 110px;">
-                @if(request('max_time') || request('servings'))
+                @if(request('max_time') || request('servings') || request('sort'))
                     <a href="{{ route('recipes.index') }}" style="font-size: 0.9rem;">
                         Clear filters
                     </a>
