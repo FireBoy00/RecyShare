@@ -95,7 +95,6 @@ function renderPagination(current, last, query){
     const nav = document.createElement("ul");
     nav.className = "pagination";
 
-    //
     if(current > 1){
         nav.appendChild(createPaginationItem("‹", current -1, query));
     }
