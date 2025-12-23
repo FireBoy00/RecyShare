@@ -18,8 +18,8 @@
     <x-navbar currentPage="recipes" />
 
     <div class="recipes-container">
-        <h1>
-            Showing {{ $recipes->count() }} out of {{ $recipes->total() }} recipes
+       <h1>
+            Showing {{ $recipes->count() }} of {{ $recipes->total() }} matching recipes
         </h1>
 
         {{-- FILTER UI (INDIVIDUAL EXTENSION) --}}
