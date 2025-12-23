@@ -14,61 +14,73 @@
 </head>
 
 <body>
-    <header>
-        <x-navbar currentPage="recipes" />
+<header>
+    <x-navbar currentPage="recipes" />
 
-        <div class="recipes-container">
-            <h1>
-                Showing {{ $recipes->count() }} out of {{ $recipes->total() }} recipes
-            </h1>
+    <div class="recipes-container">
+        <h1>
+            Showing {{ $recipes->count() }} out of {{ $recipes->total() }} recipes
+        </h1>
 
-            {{--FILTER UI (INDIVIDUAL EXTENSION) --}}
-            <form method="GET"
-                action="{{ route('recipes.index') }}"
-                style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+        {{-- FILTER UI (INDIVIDUAL EXTENSION) --}}
+        <form method="GET"
+              action="{{ route('recipes.index') }}"
+              class="recipes-filters"
+              style="display: flex; align-items: center; gap: 16px; margin-bottom: 32px;">
 
-                <label for="max_time">Max total time:</label>
-
-                <select name="max_time"
-                        id="max_time"
-                        onchange="this.form.submit()">
+            {{-- Max total time --}}
+            <label>
+                Max total time:
+                <select name="max_time" onchange="this.form.submit()">
                     <option value="">Any</option>
-                    <option value="15" {{ request('max_time') == '15' ? 'selected' : '' }}>≤ 15 min</option>
-                    <option value="30" {{ request('max_time') == '30' ? 'selected' : '' }}>≤ 30 min</option>
-                    <option value="45" {{ request('max_time') == '45' ? 'selected' : '' }}>≤ 45 min</option>
-                    <option value="60" {{ request('max_time') == '60' ? 'selected' : '' }}>≤ 60 min</option>
+                    <option value="15" @selected(request('max_time') == 15)>≤ 15 min</option>
+                    <option value="30" @selected(request('max_time') == 30)>≤ 30 min</option>
+                    <option value="45" @selected(request('max_time') == 45)>≤ 45 min</option>
+                    <option value="60" @selected(request('max_time') == 60)>≤ 60 min</option>
                 </select>
+            </label>
 
-                {{-- reserved space: link appears without layout shift --}}
-                <span style="min-width: 90px;">
-                    @if(request('max_time'))
-                        <a href="{{ route('recipes.index') }}" style="font-size: 0.9rem;">
-                            Clear filter
-                        </a>
-                    @endif
-                </span>
+            {{-- Minimum servings --}}
+            <label>
+                Servings:
+                <select name="servings" onchange="this.form.submit()">
+                    <option value="">Any</option>
+                    <option value="1" @selected(request('servings') == 1)>1+</option>
+                    <option value="2" @selected(request('servings') == 2)>2+</option>
+                    <option value="4" @selected(request('servings') == 4)>4+</option>
+                    <option value="6" @selected(request('servings') == 6)>6+</option>
+                </select>
+            </label>
 
-            </form>
-
-            {{-- RECIPES LIST --}}
-            <div class="recipes-list" id="recipesList">
-                @if($recipes->count())
-                    @foreach ($recipes as $recipe)
-                        <x-recipe-card :recipe="$recipe" />
-                    @endforeach
-                @else
-                    <div class="empty-state">
-                        <p>No recipes match your filters.</p>
-                        <a href="{{ route('recipes.index') }}">Clear filter</a>
-                    </div>
+            {{-- Clear filters (no layout shift) --}}
+            <span style="min-width: 110px;">
+                @if(request('max_time') || request('servings'))
+                    <a href="{{ route('recipes.index') }}" style="font-size: 0.9rem;">
+                        Clear filters
+                    </a>
                 @endif
-            </div>
+            </span>
+        </form>
 
-            <div class="pagination-container">
-                {{ $recipes->links() }}
-            </div>
+        {{-- RECIPES LIST --}}
+        <div class="recipes-list" id="recipesList">
+            @if($recipes->count())
+                @foreach ($recipes as $recipe)
+                    <x-recipe-card :recipe="$recipe" />
+                @endforeach
+            @else
+                <div class="empty-state">
+                    <p>No recipes match your filters.</p>
+                    <a href="{{ route('recipes.index') }}">Clear filters</a>
+                </div>
+            @endif
         </div>
-    </header>
+
+        <div class="pagination-container">
+            {{ $recipes->links() }}
+        </div>
+    </div>
+</header>
 </body>
 
 </html>

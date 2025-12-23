@@ -49,6 +49,10 @@ class RecipeController extends Controller
             );
         }
 
+        if ($request->filled('servings') && is_numeric($request->servings)) {
+            $query->where('servings', '>=', (int) $request->servings);
+        }
+
         $recipes = $query
             ->orderByDesc('created_at')
             ->paginate()
