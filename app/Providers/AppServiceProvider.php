@@ -36,5 +36,17 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Paginator::useBootstrapFive();
+    
+
+
+            $categories = \DB::table('recipes')
+        ->select('categories')
+        ->get()
+        ->flatMap(fn($r) => json_decode($r->categories, true))
+        ->unique()
+        ->values();
+
+        view()->share('categories', $categories);
     }
 }
+

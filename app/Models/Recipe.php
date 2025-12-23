@@ -20,12 +20,15 @@ class Recipe extends Model
         'ingredients',
         'instructions',
         'categories',
+        'average_rating',
+        'ratings_count',
     ];
 
     protected $casts = [
         'ingredients' => 'array',
         'instructions' => 'array',
         'categories' => 'array',
+        'average_rating' => 'float',
     ];
 
     // Relation to user
@@ -44,5 +47,11 @@ class Recipe extends Model
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
+    }
+
+    // Ratings relation
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
     }
 }
